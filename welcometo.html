@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <style>
+        td {
+            text-align: center;
+            padding: 0px 5px 0px 5px;
+            border: 1px solid #444444;
+        }
+        
+        body {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 22px;
+        }
+        
+        table {
+            width: 100%
+        }
+    </style>
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+    <!--모바일페이지크기조절메타태그-->
+    <title>Welcome to...</title>
+    <script>
+        var remainTotalCards = 81
+        var remainNumbers = new Array()
+        remainNumbers[1] = 3
+        remainNumbers[2] = 3
+        remainNumbers[3] = 4
+        remainNumbers[4] = 5
+        remainNumbers[5] = 6
+        remainNumbers[6] = 7
+        remainNumbers[7] = 8
+        remainNumbers[8] = 9
+        remainNumbers[9] = 8
+        remainNumbers[10] = 7
+        remainNumbers[11] = 6
+        remainNumbers[12] = 5
+        remainNumbers[13] = 4
+        remainNumbers[14] = 3
+        remainNumbers[15] = 3
+
+        remainPark = 18
+        remainEstate = 18
+        remainFance = 18
+        remainPool = 9
+        remainBiz = 9
+        remainAgency = 9
+
+        var curCards = new Array()
+        var prevCards = new Array()
+        curCards[0] = curCards[1] = curCards[2] = -1
+
+
+        var cardArr = new Array()
+        cardArr[0] = "park,1"
+        cardArr[1] = "park,2"
+        cardArr[2] = "park,4"
+        cardArr[3] = "park,5"
+        cardArr[4] = "park,5"
+        cardArr[5] = "park,6"
+        cardArr[6] = "park,7"
+        cardArr[7] = "park,7"
+        cardArr[8] = "park,8"
+        cardArr[9] = "park,8"
+        cardArr[10] = "park,9"
+        cardArr[11] = "park,9"
+        cardArr[12] = "park,10"
+        cardArr[13] = "park,11"
+        cardArr[14] = "park,11"
+        cardArr[15] = "park,12"
+        cardArr[16] = "park,14"
+        cardArr[17] = "park,15"
+        cardArr[18] = "estate,1"
+        cardArr[19] = "estate,2"
+        cardArr[20] = "estate,4"
+        cardArr[21] = "estate,5"
+        cardArr[22] = "estate,5"
+        cardArr[23] = "estate,6"
+        cardArr[24] = "estate,7"
+        cardArr[25] = "estate,7"
+        cardArr[26] = "estate,8"
+        cardArr[27] = "estate,8"
+        cardArr[28] = "estate,9"
+        cardArr[29] = "estate,9"
+        cardArr[30] = "estate,10"
+        cardArr[31] = "estate,11"
+        cardArr[32] = "estate,11"
+        cardArr[33] = "estate,12"
+        cardArr[34] = "estate,14"
+        cardArr[35] = "estate,15"
+        cardArr[36] = "fance,1"
+        cardArr[37] = "fance,2"
+        cardArr[38] = "fance,3"
+        cardArr[39] = "fance,5"
+        cardArr[40] = "fance,5"
+        cardArr[41] = "fance,6"
+        cardArr[42] = "fance,6"
+        cardArr[43] = "fance,7"
+        cardArr[44] = "fance,8"
+        cardArr[45] = "fance,8"
+        cardArr[46] = "fance,9"
+        cardArr[47] = "fance,10"
+        cardArr[48] = "fance,10"
+        cardArr[49] = "fance,11"
+        cardArr[50] = "fance,11"
+        cardArr[51] = "fance,13"
+        cardArr[52] = "fance,14"
+        cardArr[53] = "fance,15"
+        cardArr[54] = "pool,3"
+        cardArr[55] = "pool,4"
+        cardArr[56] = "pool,6"
+        cardArr[57] = "pool,7"
+        cardArr[58] = "pool,8"
+        cardArr[59] = "pool,9"
+        cardArr[60] = "pool,10"
+        cardArr[61] = "pool,12"
+        cardArr[62] = "pool,13"
+        cardArr[63] = "biz,3"
+        cardArr[64] = "biz,4"
+        cardArr[65] = "biz,6"
+        cardArr[66] = "biz,7"
+        cardArr[67] = "biz,8"
+        cardArr[68] = "biz,9"
+        cardArr[69] = "biz,10"
+        cardArr[70] = "biz,12"
+        cardArr[71] = "biz,13"
+        cardArr[72] = "agency,3"
+        cardArr[73] = "agency,4"
+        cardArr[74] = "agency,6"
+        cardArr[75] = "agency,7"
+        cardArr[76] = "agency,8"
+        cardArr[77] = "agency,9"
+        cardArr[78] = "agency,10"
+        cardArr[79] = "agency,12"
+        cardArr[80] = "agency,13"
+
+        var checked = new Array()
+        for (let index = 0; index < cardArr.length; index++) {
+            checked[index] = false
+        }
+    </script>
+</head>
+
+<body>
+    <div id="remainInfor">
+        <h1 id="h1_remain_infor">
+            <img src="park.png"><span id="span_remain_park"></span><span>&nbsp</span>
+            <img src="estate.png"><span id="span_remain_estate"></span><span>&nbsp</span>
+            <img src="fance.png"><span id="span_remain_fance"></span><span>&nbsp</span>
+            <img src="pool.png"><span id="span_remain_pool"></span><span>&nbsp</span>
+            <img src="agency.png"><span id="span_remain_agency"></span><span>&nbsp</span>
+            <img src="biz.png"><span id="span_remain_biz"></span>
+            </br>
+            <table>
+                <tr>
+                    <td>number</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>13</td>
+                    <td>14</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>remain</td>
+                    <td id="td1"></td>
+                    <td id="td2"></td>
+                    <td id="td3"></td>
+                    <td id="td4"></td>
+                    <td id="td5"></td>
+                    <td id="td6"></td>
+                    <td id="td7"></td>
+                    <td id="td8"></td>
+                    <td id="td9"></td>
+                    <td id="td10"></td>
+                    <td id="td11"></td>
+                    <td id="td12"></td>
+                    <td id="td13"></td>
+                    <td id="td14"></td>
+                    <td id="td15"></td>
+                </tr>
+            </table>
+            </br>
+            City Plans </br>
+            <img src="city_plan_1"><span>&nbsp&nbsp</span>
+            <img src="city_plan_2"><span>&nbsp&nbsp</span>
+            <img src="city_plan_3">
+        </h1>
+    </div>
+    <div id="cards"><input type="button" value=" Draw Cards " style="font-size:200%;     background-color: #000;
+		font-family: 'Nanum Pen Script';
+        color:#fff;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 5px;
+        cursor: pointer;" onClick="drawCards()" /></br>
+        <h1>Current Cards</br>
+            <img id="cur_img_0"><span id="cur_val_0"></span><span>&nbsp&nbsp</span>
+            <img id="cur_img_1"><span id="cur_val_1"></span><span>&nbsp&nbsp</span>
+            <img id="cur_img_2"><span id="cur_val_2"></span>
+        </h1>
+        <h1>Next Cards</br>
+            <img id="next_img_0"><span>&nbsp&nbsp</span>
+            <img id="next_img_1"><span>&nbsp&nbsp</span>
+            <img id="next_img_2">
+        </h1>
+    </div>
+</body>
+<script>
+    updateRemain()
+
+    function updateRemain() {
+        document.getElementById("span_remain_park").innerHTML = ":" + remainPark + " "
+        document.getElementById("span_remain_estate").innerHTML = ":" + remainEstate + "  "
+        document.getElementById("span_remain_fance").innerHTML = ":" + remainFance + "  "
+        document.getElementById("span_remain_pool").innerHTML = ":" + remainPool + "  "
+        document.getElementById("span_remain_agency").innerHTML = ":" + remainAgency + "  "
+        document.getElementById("span_remain_biz").innerHTML = ":" + remainBiz + "  "
+        for (let index = 1; index <= 15; index++) {
+            document.getElementById("td" + index).innerHTML = remainNumbers[index]
+        }
+    }
+
+    function drawCards() {
+        if (remainTotalCards < 3) {
+            alert("No cards are remain")
+            return
+        }
+        for (let index = 0; index < 3; index++) {
+            prevCards[index] = curCards[index]
+
+        }
+        if (prevCards[0] == -1) {
+            for (let index = 0; index < 3; index++) {
+                remainTotalCards--
+                var pickIdx = Math.floor(Math.random() * cardArr.length)
+                while (checked[pickIdx] == true) {
+                    pickIdx = Math.floor(Math.random() * cardArr.length)
+                }
+                prevCards[index] = pickIdx
+                checked[pickIdx] = true
+                var splitArr = cardArr[pickIdx].split(",")
+                switch (splitArr[0]) {
+                    case "park":
+                        remainPark--
+                        break;
+                    case "estate":
+                        remainEstate--
+                        break;
+                    case "fance":
+                        remainFance--
+                        break;
+                    case "pool":
+                        remainPool--
+                        break;
+                    case "biz":
+                        remainBiz--
+                        break;
+                    case "agency":
+                        remainAgency--
+                        break;
+                    default:
+                        break;
+                }
+
+                remainNumbers[Number(splitArr[1])]--
+            }
+        }
+
+        for (let index = 0; index < 3; index++) {
+            remainTotalCards--
+            var pickIdx = Math.floor(Math.random() * cardArr.length)
+            while (checked[pickIdx] == true) {
+                pickIdx = Math.floor(Math.random() * cardArr.length)
+            }
+            curCards[index] = pickIdx
+            checked[pickIdx] = true
+            var splitArr = cardArr[pickIdx].split(",")
+            switch (splitArr[0]) {
+                case "park":
+                    remainPark--
+                    break;
+                case "estate":
+                    remainEstate--
+                    break;
+                case "fance":
+                    remainFance--
+                    break;
+                case "pool":
+                    remainPool--
+                    break;
+                case "biz":
+                    remainBiz--
+                    break;
+                case "agency":
+                    remainAgency--
+                    break;
+                default:
+                    break;
+            }
+
+            remainNumbers[Number(splitArr[1])]--
+
+        }
+
+        for (let index = 0; index < 3; index++) {
+            var splitArr = cardArr[curCards[index]].split(",")
+            document.getElementById("cur_val_" + index).innerHTML = ":" + splitArr[1]
+            document.getElementById("next_img_" + index).setAttribute("src", splitArr[0] + ".png")
+
+            var splitArr2 = cardArr[prevCards[index]].split(",")
+            document.getElementById("cur_img_" + index).setAttribute("src", splitArr2[0] + ".png")
+
+
+
+        }
+
+        updateRemain()
+
+    }
+</script>
