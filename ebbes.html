@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+    <style>
+        td {
+            text-align: center;
+            padding: 0px 5px 0px 5px;
+            border: 1px solid #444444;
+        }
+        
+        .noshow {
+            display: none;
+        }
+        
+        .btn_card_red_show {
+            font-size: 100%;
+            background-color: red;
+            padding: 75px 65px;
+            text-align: center;
+            border: none;
+            border-radius: 15%;
+            display: inline-block;
+        }
+        
+        .btn_card_green_show {
+            font-size: 100%;
+            background-color: green;
+            padding: 75px 65px;
+            text-align: center;
+            border: none;
+            border-radius: 15%;
+            display: inline-block;
+        }
+        
+        .btn_card_yellow_show {
+            font-size: 100%;
+            background-color: yellow;
+            padding: 75px 65px;
+            text-align: center;
+            border: none;
+            border-radius: 15%;
+            display: inline-block;
+        }
+        
+        .btn_card_blue_show {
+            font-size: 100%;
+            background-color: blue;
+            padding: 75px 65px;
+            text-align: center;
+            border: none;
+            border-radius: 15%;
+            display: inline-block;
+        }
+        
+        .btn_card_purple_show {
+            font-size: 100%;
+            background-color: purple;
+            padding: 75px 65px;
+            text-align: center;
+            border: none;
+            border-radius: 15%;
+            display: inline-block;
+        }
+        
+        .btn_color_red_show {
+            font-size: 100%;
+            background-color: red;
+            padding: 5px 25px;
+            border: none;
+            border-radius: 20%;
+            display: inline-block;
+        }
+        
+        .btn_color_green_show {
+            font-size: 100%;
+            background-color: green;
+            padding: 5px 25px;
+            border: none;
+            border-radius: 20%;
+            display: inline-block;
+        }
+        
+        .btn_color_yellow_show {
+            font-size: 100%;
+            background-color: yellow;
+            padding: 5px 25px;
+            border: none;
+            border-radius: 20%;
+            display: inline-block;
+        }
+        
+        .btn_color_blue_show {
+            font-size: 100%;
+            background-color: blue;
+            padding: 5px 25px;
+            border: none;
+            border-radius: 20%;
+            display: inline-block;
+        }
+        
+        .btn_color_purple_show {
+            font-size: 100%;
+            background-color: purple;
+            padding: 5px 25px;
+            border: none;
+            border-radius: 20%;
+            display: inline-block;
+        }
+        
+        .no_border_td {
+            text-align: center;
+            padding: 50px 5px 5px 5px;
+            border: 0px;
+        }
+        
+        body {
+            font-family: 'Aclonica';
+            font-size: 22px;
+        }
+        
+        table {
+            width: 100%
+        }
+    </style>
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+    <!--모바일페이지크기조절메타태그-->
+    <title>Ebbes</title>
+</head>
+
+<body>
+    <h1 style="text-align: center">Ebbes Color Selector</h1>
+    <table>
+        <tr>
+            <td class="no_border_td">
+                <span id="span_number_Plus"></span>
+                <input type="button" id="btn_number_Trump" value="Trump" style="font-size:100%;     background-color: #000;
+		font-family: 'Aclonica';
+        color:#fff;
+        padding: 10px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 5px;
+        cursor: pointer;" onClick="input_number('Trump')" />
+            </td>
+            <td class="no_border_td">
+                <span id="span_number_Plus"></span>
+                <input type="button" id="btn_number_Plus" value="Plus" style="font-size:100%;     background-color: #000;
+            font-family: 'Aclonica';
+            color:#fff;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            cursor: pointer;" onClick="input_number('Plus')" />
+            </td>
+            <td class="no_border_td">
+                <span id="span_number_Ebbes"></span>
+                <input type="button" id="btn_number_Ebbes" value="Ebbes" style="font-size:100%;     background-color: #000;
+                font-family: 'Aclonica';
+                color:#fff;
+                padding: 10px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                margin: 5px;
+                cursor: pointer;" onClick="input_number('Ebbes')" />
+            </td>
+            <td class="no_border_td">
+                <span id="span_number_Minus"></span>
+                <input type="button" id="btn_number_Minus" value="Minus" style="font-size:100%;     background-color: #000;
+                    font-family: 'Aclonica';
+                    color:#fff;
+                    padding: 10px 10px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 5px;
+                    cursor: pointer;" onClick="input_number('Minus')" />
+            </td>
+            <td class="no_border_td">
+                <span id="span_number_Zilch"></span>
+                <input type="button" id="btn_number_Zilch" value="Zilch" style="font-size:100%;     background-color: #000;
+                        font-family: 'Aclonica';
+                        color:#fff;
+                        padding: 10px 10px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        margin: 5px;
+                        cursor: pointer;" onClick="input_number('Zilch')" />
+            </td>
+        </tr>
+        <tr>
+            <td class="no_border_td" id="td_Trump">
+                <input type="button" id="btn_color_Trump" class="noshow" onClick="reselect_color('Trump')" />
+                <input type="button" id="btn_color_Trump_1" class="btn_color_red_show" onClick="select_color('Trump','red')" /><span id="span_Trump_br_1"></br></span>
+                <input type="button" id="btn_color_Trump_2" class="btn_color_green_show" onClick="select_color('Trump','green')" /><span id="span_Trump_br_2"></br></span>
+                <input type="button" id="btn_color_Trump_3" class="btn_color_yellow_show" onClick="select_color('Trump','yellow')" /><span id="span_Trump_br_3"></br></span>
+                <input type="button" id="btn_color_Trump_4" class="btn_color_blue_show" onClick="select_color('Trump','blue')" /><span id="span_Trump_br_4"></br></span>
+                <input type="button" id="btn_color_Trump_5" class="btn_color_purple_show" onClick="select_color('Trump','purple')" /><span id="span_Trump_br_5"></br></span>
+
+            </td>
+            <td class="no_border_td" id="td_Plus">
+                <input type="button" id="btn_color_Plus" class="noshow" onClick="reselect_color('Plus')" />
+                <input type="button" id="btn_color_Plus_1" class="btn_color_red_show" onClick="select_color('Plus','red')" /><span id="span_Plus_br_1"></br></span>
+                <input type="button" id="btn_color_Plus_2" class="btn_color_green_show" onClick="select_color('Plus','green')" /><span id="span_Plus_br_2"></br></span>
+                <input type="button" id="btn_color_Plus_3" class="btn_color_yellow_show" onClick="select_color('Plus','yellow')" /><span id="span_Plus_br_3"></br></span>
+                <input type="button" id="btn_color_Plus_4" class="btn_color_blue_show" onClick="select_color('Plus','blue')" /><span id="span_Plus_br_4"></br></span>
+                <input type="button" id="btn_color_Plus_5" class="btn_color_purple_show" onClick="select_color('Plus','purple')" /><span id="span_Plus_br_5"></br></span>
+
+            </td>
+
+            <td class="no_border_td" id="td_Ebbes">
+                <input type="button" id="btn_color_Ebbes" class="noshow" onClick="reselect_color('Ebbes')" />
+                <input type="button" id="btn_color_Ebbes_1" class="btn_color_red_show" onClick="select_color('Ebbes','red')" /><span id="span_Ebbes_br_1"></br></span>
+                <input type="button" id="btn_color_Ebbes_2" class="btn_color_green_show" onClick="select_color('Ebbes','green')" /><span id="span_Ebbes_br_2"></br></span>
+                <input type="button" id="btn_color_Ebbes_3" class="btn_color_yellow_show" onClick="select_color('Ebbes','yellow')" /><span id="span_Ebbes_br_3"></br></span>
+                <input type="button" id="btn_color_Ebbes_4" class="btn_color_blue_show" onClick="select_color('Ebbes','blue')" /><span id="span_Ebbes_br_4"></br></span>
+                <input type="button" id="btn_color_Ebbes_5" class="btn_color_purple_show" onClick="select_color('Ebbes','purple')" /><span id="span_Ebbes_br_5"></br></span>
+
+            </td>
+
+            <td class="no_border_td" id="td_Minus">
+                <input type="button" id="btn_color_Minus" class="noshow" onClick="reselect_color('Minus')" />
+                <input type="button" id="btn_color_Minus_1" class="btn_color_red_show" onClick="select_color('Minus','red')" /><span id="span_Minus_br_1"></br></span>
+                <input type="button" id="btn_color_Minus_2" class="btn_color_green_show" onClick="select_color('Minus','green')" /><span id="span_Minus_br_2"></br></span>
+                <input type="button" id="btn_color_Minus_3" class="btn_color_yellow_show" onClick="select_color('Minus','yellow')" /><span id="span_Minus_br_3"></br></span>
+                <input type="button" id="btn_color_Minus_4" class="btn_color_blue_show" onClick="select_color('Minus','blue')" /><span id="span_Minus_br_4"></br></span>
+                <input type="button" id="btn_color_Minus_5" class="btn_color_purple_show" onClick="select_color('Minus','purple')" /><span id="span_Minus_br_5"></br></span>
+
+            </td>
+
+            <td class="no_border_td" id="td_Zilch">
+                <input type="button" id="btn_color_Zilch" class="noshow" onClick="reselect_color('Zilch')" />
+                <input type="button" id="btn_color_Zilch_1" class="btn_color_red_show" onClick="select_color('Zilch','red')" /><span id="span_Zilch_br_1"></br></span>
+                <input type="button" id="btn_color_Zilch_2" class="btn_color_green_show" onClick="select_color('Zilch','green')" /><span id="span_Zilch_br_2"></br></span>
+                <input type="button" id="btn_color_Zilch_3" class="btn_color_yellow_show" onClick="select_color('Zilch','yellow')" /><span id="span_Zilch_br_3"></br></span>
+                <input type="button" id="btn_color_Zilch_4" class="btn_color_blue_show" onClick="select_color('Zilch','blue')" /><span id="span_Zilch_br_4"></br></span>
+                <input type="button" id="btn_color_Zilch_5" class="btn_color_purple_show" onClick="select_color('Zilch','purple')" /><span id="span_Zilch_br_5"></br></span>
+
+            </td>
+        </tr>
+    </table>
+</body>
+
+<script>
+    function input_number(type_name) {
+        var number = -1
+        while (number < 0 || number > 14) {
+            number = prompt("Select a number for " + type_name + " (0-14).")
+            if (number == null) {
+                return
+            }
+        }
+        document.getElementById("span_number_" + type_name).innerHTML = type_name
+        document.getElementById("btn_number_" + type_name).setAttribute("value", number)
+    }
+
+    function select_color(type_name, color) {
+        for (let index = 1; index <= 5; index++) {
+            document.getElementById("btn_color_" + type_name + "_" + index).setAttribute("style", "display:none")
+        }
+        for (let index = 1; index <= 4; index++) {
+            document.getElementById("span_" + type_name + "_br_" + index).innerHTML = ""
+        }
+        document.getElementById("btn_color_" + type_name).setAttribute("style", "display:inline-block")
+
+        document.getElementById("btn_color_" + type_name).setAttribute("class", "btn_card_" + color + "_show")
+    }
+
+    function reselect_color(type_name) {
+        for (let index = 1; index <= 5; index++) {
+            document.getElementById("btn_color_" + type_name + "_" + index).setAttribute("style", "display:inline-block")
+        }
+        for (let index = 1; index <= 4; index++) {
+            document.getElementById("span_" + type_name + "_br_" + index).innerHTML = "</br>"
+        }
+
+        document.getElementById("btn_color_" + type_name).setAttribute("style", "display:none")
+    }
+</script>
