@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 22px;
+        }
+    </style>
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+    <!--모바일페이지크기조절메타태그-->
+    <title>Set Helper</title>
+</head>
+
+<body>
+    <div id="problem">
+        <h2 id="dateH1"></h2>
+    </div><br><br>
+    <input type="button" value=" process " style="font-size:100%; 
+        background-color: #000; 
+        border: none;
+        font-family: 'Nanum Pen Script', cursive;
+        color:#fff;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px;
+        cursor: pointer;" onclick="funcProcessing()" />
+
+    <div id="main">
+
+    </div>
+
+
+</body>
+<script>
+    var foundNumbers = new Array();
+
+    readSrc()
+
+
+    function readSrc() {
+
+        var htmlValue = null;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "src.txt", false);
+        xmlhttp.send();
+        if (xmlhttp.status == 200) {
+            htmlValue = xmlhttp.responseText;
+        }
+
+        var setGameWrapper = "set-game-wrapper"
+        var flagIdx = htmlValue.indexOf(setGameWrapper)
+        var dateInfor = htmlValue.substring(htmlValue.indexOf("<h1>", flagIdx) + 4, htmlValue.indexOf("</h1>"))
+        document.getElementById("dateH1").innerHTML = dateInfor
+        var queryString = "assets/images/new/"
+        var foundStartIdx = 0;
+        var result = "";
+        for (let index = 0; index < 12; index++) {
+            foundStartIdx = htmlValue.indexOf(queryString, foundStartIdx + 1);
+            var foundEndIdx = htmlValue.indexOf(".png", foundStartIdx);
+            foundNumbers[index] = Number(htmlValue.substring(foundStartIdx + queryString.length, foundEndIdx));
+
+
+            var imgInserted = document.createElement("img")
+            imgInserted.setAttribute("src", "https://www.setgame.com/sites/all/modules/setgame_set/assets/images/new/" + foundNumbers[index] + ".png")
+            imgInserted.setAttribute("width", "22%")
+            document.getElementById("problem").appendChild(imgInserted)
+            if (index % 4 == 3) {
+                var pObj = document.createElement("span")
+                pObj.innerHTML = "<br>"
+                document.getElementById("problem").appendChild(pObj)
+
+            }
+
+        }
+
+    }
+
+
+
+    function getColor(idx) {
+        modula = idx % 9
+        if (1 <= modula && modula <= 3) {
+            return "RED"
+        }
+        if (4 <= modula && modula <= 6) {
+            return "PURPLE"
+        }
+        return "GREEN"
+
+
+    }
+
+    function getSize(idx) {
+        return idx % 3
+    }
+
+    function getShape(idx) {
+        modula = idx % 27
+        if (1 <= modula && modula <= 9) {
+            return "WAVE"
+        }
+        if (10 <= modula && modula <= 18) {
+            return "DIA"
+        }
+        return "ROUND"
+
+    }
+
+    function getFill(idx) {
+        if (idx <= 27) {
+            return "ALL"
+        }
+        if (idx <= 54) {
+            return "HALF"
+        }
+        return "EMPTY"
+    }
+
+    function getProperty(idx) {
+        return "" + idx + ":" + getColor(idx) + "," +
+            getSize(idx) + "," +
+            getFill(idx) + "," +
+            getShape(idx)
+    }
+
+    function funcProcessing() {
+
+        var count = 1
+        for (let idx1 = 0; idx1 < 12; idx1++) {
+            for (let idx2 = idx1 + 1; idx2 < 12; idx2++) {
+                for (let idx3 = idx2 + 1; idx3 < 12; idx3++) {
+                    // check color
+                    var matchColor = false;
+                    if (getColor(foundNumbers[idx1]) == getColor(foundNumbers[idx2])) {
+                        if (getColor(foundNumbers[idx2]) == getColor(foundNumbers[idx3])) {
+                            matchColor = true;
+                        }
+                    } else {
+                        if (getColor(foundNumbers[idx2]) != getColor(foundNumbers[idx3]) &&
+                            getColor(foundNumbers[idx1]) != getColor(foundNumbers[idx3])) {
+                            matchColor = true;
+                        }
+                    }
+
+                    if (matchColor == false) {
+                        continue
+                    }
+
+                    var matchSize = false;
+                    if (getSize(foundNumbers[idx1]) == getSize(foundNumbers[idx2])) {
+                        if (getSize(foundNumbers[idx2]) == getSize(foundNumbers[idx3])) {
+                            matchSize = true;
+                        }
+                    } else {
+                        if (getSize(foundNumbers[idx2]) != getSize(foundNumbers[idx3]) &&
+                            getSize(foundNumbers[idx1]) != getSize(foundNumbers[idx3])) {
+                            matchSize = true;
+                        }
+                    }
+
+                    if (matchSize == false) {
+                        continue
+                    }
+
+                    var matchFill = false;
+                    if (getFill(foundNumbers[idx1]) == getFill(foundNumbers[idx2])) {
+                        if (getFill(foundNumbers[idx2]) == getFill(foundNumbers[idx3])) {
+                            matchFill = true;
+                        }
+                    } else {
+                        if (getFill(foundNumbers[idx2]) != getFill(foundNumbers[idx3]) &&
+                            getFill(foundNumbers[idx1]) != getFill(foundNumbers[idx3])) {
+                            matchFill = true;
+                        }
+                    }
+
+                    if (matchFill == false) {
+                        continue
+                    }
+
+                    var matchShape = false;
+                    if (getShape(foundNumbers[idx1]) == getShape(foundNumbers[idx2])) {
+                        if (getShape(foundNumbers[idx2]) == getShape(foundNumbers[idx3])) {
+                            matchShape = true;
+                        }
+                    } else {
+                        if (getShape(foundNumbers[idx2]) != getShape(foundNumbers[idx3]) &&
+                            getShape(foundNumbers[idx1]) != getShape(foundNumbers[idx3])) {
+                            matchShape = true;
+                        }
+                    }
+
+                    if (matchShape == false) {
+                        continue
+                    }
+                    //alert(getProperty(foundNumbers[idx1]) + "\n" + getProperty(foundNumbers[idx2]) + "\n" + getProperty(foundNumbers[idx3]))
+                    var textInserted = document.createElement("p")
+                    var countLine = "" + count + ": "
+                    textInserted.setAttribute("id", "pMain" + count)
+                    textInserted.innerHTML = countLine
+                    document.getElementById("main").appendChild(textInserted);
+
+
+
+                    {
+                        var imgInserted = document.createElement("img")
+                        imgInserted.setAttribute("src", "https://www.setgame.com/sites/all/modules/setgame_set/assets/images/new/" + foundNumbers[idx1] + ".png")
+                        imgInserted.setAttribute("width", "30%")
+                        document.getElementById("pMain" + count).appendChild(imgInserted)
+                    } {
+                        var imgInserted = document.createElement("img")
+                        imgInserted.setAttribute("src", "https://www.setgame.com/sites/all/modules/setgame_set/assets/images/new/" + foundNumbers[idx2] + ".png")
+                        imgInserted.setAttribute("width", "30%")
+                        document.getElementById("pMain" + count).appendChild(imgInserted)
+                    } {
+                        var imgInserted = document.createElement("img")
+                        imgInserted.setAttribute("src", "https://www.setgame.com/sites/all/modules/setgame_set/assets/images/new/" + foundNumbers[idx3] + ".png")
+                        imgInserted.setAttribute("width", "30%")
+                        document.getElementById("pMain" + count).appendChild(imgInserted)
+                    }
+                    var pObj = document.createElement("span")
+                    pObj.innerHTML = "<br>"
+                    document.getElementById("pMain" + count).appendChild(pObj)
+
+                    count++
+
+                }
+            }
+        }
+    }
+</script>
+
+</html
