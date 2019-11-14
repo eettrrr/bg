@@ -1,3 +1,113 @@
+ODE -->
+
+</head>
+<body class="html not-front not-logged-in no-sidebars page-set page-set-puzzle boxed"  data-target="#header" data-spy="scroll" data-offset="100">
+
+<div class="body">
+  
+<header id="header" class="header-no-border-bottom" data-plugin-options='{"stickyEnabled": true, "stickyEnableOnBoxed": true, "stickyEnableOnMobile": true, "stickyStartAt": 245, "stickySetTop": "-220px", "stickyChangeLogo": false}'>
+<div class="header-body">
+<div class="header-container container">
+    <div class="header-row">
+        <div class="header-column">
+
+                          <table width="100%" border="0"><tr>
+                <td class="social-media-icons">
+                                                                          </td>
+                <td class="header-login">
+                                              <a class="colorbox-node" href="/user/login?width=450&height=275">Login/Register</a>
+                      
+                </td>
+              </tr><tr>
+                <td width="100%" border="0" colspan="2">
+                  <div class="header-logo" align="center">
+                    <a href="/" title="Home" rel="home" id="logo">
+                        <img alt="Home" width="" height="125" data-sticky-width="82" data-sticky-height="40" data-sticky-top="33" src="https://www.setgame.com/sites/default/files/PM_SET_TopBanner.png">
+                    </a>
+                </div>
+              </td>
+            </tr>
+
+          </table>
+                                        <div id="name-and-slogan" class="hidden">
+
+                                                                        <div id="site-name" class="hidden">
+                                <a href="/" title="Home" rel="home"><span>America's Favorite Card Games®</span></a>
+                            </div>
+                                            
+                                            <div id="site-slogan" class="hidden">
+                            Celebrating 25 Years                        </div>
+                    
+                </div> <!-- /#name-and-slogan -->
+                    </div>
+    </div>
+</div>
+<div class="header-container header-nav header-nav-bar">
+<div class="container">
+<button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main">
+    <i class="fa fa-bars"></i>
+</button>
+    
+    <table class="header-nav-main-table"><tr><td><div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1 collapse">
+    <nav>  
+<ul class="nav nav-pills" id="mainNav"><li class="tb-megamenu-item level-1 mega">
+  <a href="https://www.playmonster.com/brands/set/" class="  ">
+
+    Shop            </a>
+  </li>
+
+<li class="tb-megamenu-item level-1 mega dropdown active active-trail parent">
+  <a href="/welcome" class=" dropdown-toggle active-trail">
+
+    Play Online            </a>
+  <ul  data-class="" data-width="250" style="width: 250px;" class="tb-megamenu-submenu dropdown-menu mega-dropdown-menu nav-child">
+  <li  data-class="" data-width="12" data-hidewcol="0" id="tb-megamenu-column-1" class="tb-megamenu-column megamenu-column-single  mega-col-nav">
+  <ul  class="tb-megamenu-subnav mega-nav level-1 items-4">
+  <li class="tb-megamenu-item level-2 mega active active-trail">
+  <a href="/set/puzzle" class="  active-trail">
+
+    The Daily SET Puzzle            </a>
+  </li>
+
+<li class="tb-megamenu-item level-2 mega">
+  <a href="/quiddler/puzzle" class="  ">
+
+    The Daily QUIDDLER Puzzle            </a>
+  </li>
+
+<li class="tb-megamenu-item level-2 mega">
+  <a href="/karma/puzzle" class="  ">
+
+    The Daily KARMA Puzzle            </a>
+  </li>
+
+<li class="tb-megamenu-item level-2 mega">
+  <a href="http://www.nytimes.com/set" class="  ">
+
+    SET at The New York Times            </a>
+  </li>
+</ul>
+</li>
+</ul>
+</li>
+
+<li class="tb-megamenu-item level-1 mega">
+  <a href="/enter-weekly-winners" class="  ">
+
+    Weekly Winners            </a>
+  </li>
+</ul>
+</nav></div></td><td>        <div class="header-search hidden-xs">
+                    </div>
+    </td></tr></table>
+
+
+</div>
+</div>
+</div>
+</header>
+
+	<!-- end header --> 
 
 	<div role="main" class="main">
       <!--breadcrumbs-->
@@ -16,7 +126,7 @@
     
   <div class="content">
     <center class="set-game-wrapper">
-  <h1>Monday, November 11, 2019</h1>
+  <h1>Wednesday, November 13, 2019</h1>
   <p>If you don't see the correct date above, REFRESH your browser.
     <br> The puzzle is updated daily at 12:00 am PST.
   </p>
@@ -147,6 +257,6 @@ var eu_cookie_compliance_cookie_name = "";
 
 
 
-<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"b38b6bff97","applicationID":"18429856","transactionName":"ZVxSbUBXDUVVB0RZDFwWcVpGXwxYGxdVRARTVFVmQVMXaUQRSkoPV2ZAWFVT","queueTime":0,"applicationTime":109,"atts":"SRtRGwhNHks=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"b38b6bff97","applicationID":"18429856","transactionName":"ZVxSbUBXDUVVB0RZDFwWcVpGXwxYGxdVRARTVFVmQVMXaUQRSkoPV2ZAWFVT","queueTime":0,"applicationTime":103,"atts":"SRtRGwhNHks=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
 
 </html>
