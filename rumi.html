@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 22px;
+        }
+    </style>
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+    <!--모바일페이지크기조절메타태그-->
+    <title>루미큐브</title>
+</head>
+
+<body>
+    <div id="problem">
+        <h2 id="dateH1"></h2>
+    </div><br><br>
+    <input type="button" value=" process " style="font-size:100%; 
+        background-color: #000; 
+        border: none;
+        font-family: 'Nanum Pen Script', cursive;
+        color:#fff;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px;
+        cursor: pointer;" onclick="funcProcessing(-1, null)" />
+
+    <div id="main">
+
+    </div>
+
+
+</body>
+<script>
+    var RED = 0
+    var BLUE = 1
+    var BLACK = 2
+    var YELLOW = 3
+
+    var tables = new Array()
+    var staticJocker = new Array()
+    tables[RED] = new Array()
+    tables[BLUE] = new Array()
+    tables[BLACK] = new Array()
+    tables[YELLOW] = new Array()
+    for (let index = RED; index <= YELLOW; index++) {
+
+        for (let index2 = 1; index2 <= 13; index2++) {
+            tables[index][index2] = new Array()
+            tables[index][index2][1] = false;
+            tables[index][index2][2] = false;
+        }
+    }
+
+    for (let color = RED; color <= YELLOW; color++) {
+        var strColor = "red"
+        switch (color) {
+            case 1:
+                strColor = "blue"
+                break;
+            case 2:
+                strColor = "black"
+                break;
+            case 3:
+                strColor = "GoldenRod"
+                break;
+
+            default:
+                break;
+        }
+        for (let index = 1; index <= 13; index++) {
+
+            var button = document.createElement("input")
+            button.setAttribute("type", "button")
+            button.setAttribute("onclick", "buttonSelect(" + index + "," + color + "," + 1 + ")")
+            button.setAttribute("id", "btn_" + index + "_" + color + "_" + 1)
+            button.setAttribute("value", index)
+            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white; color:" + strColor)
+            document.getElementById("problem").appendChild(button)
+            var ws = document.createElement("span")
+            ws.innerHTML = "&nbsp&nbsp"
+            document.getElementById("problem").appendChild(ws)
+
+
+        }
+        document.getElementById("problem").appendChild(document.createElement("br"))
+        document.getElementById("problem").appendChild(document.createElement("br"))
+        for (let index = 1; index <= 13; index++) {
+
+            var button = document.createElement("input")
+            button.setAttribute("type", "button")
+            button.setAttribute("onclick", "buttonSelect(" + index + "," + color + "," + 2 + ")")
+            button.setAttribute("id", "btn_" + index + "_" + color + "_" + 2)
+            button.setAttribute("value", index)
+            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white; color:" + strColor)
+            document.getElementById("problem").appendChild(button)
+            var ws = document.createElement("span")
+            ws.innerHTML = "&nbsp&nbsp"
+            document.getElementById("problem").appendChild(ws)
+
+
+        }
+        document.getElementById("problem").appendChild(document.createElement("br"))
+        document.getElementById("problem").appendChild(document.createElement("br"))
+
+
+    }
+
+    {
+        var button = document.createElement("input")
+        button.setAttribute("type", "button")
+        button.setAttribute("onclick", "jockerSelect(" + 1 + ")")
+        button.setAttribute("id", "btn_jocker_" + 1)
+        button.setAttribute("value", "jocker")
+        button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white;")
+        document.getElementById("problem").appendChild(button)
+        var ws = document.createElement("span")
+        ws.innerHTML = "&nbsp&nbsp"
+        document.getElementById("problem").appendChild(ws)
+    }
+
+    {
+        var button = document.createElement("input")
+        button.setAttribute("type", "button")
+        button.setAttribute("onclick", "jockerSelect(" + 2 + ")")
+        button.setAttribute("id", "btn_jocker_" + 2)
+        button.setAttribute("value", "jocker")
+        button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white;")
+        document.getElementById("problem").appendChild(button)
+        var ws = document.createElement("span")
+        ws.innerHTML = "&nbsp&nbsp"
+        document.getElementById("problem").appendChild(ws)
+    }
+
+    class JHRUN {
+        constructor(_color, _startNum, _endNum) {
+            this.color = _color
+            this.startNum = _startNum
+            this.endNum = _endNum
+            this.jocker1st = -1
+            this.jocker2nd = -1
+        }
+
+        getTiles() {
+            var ret = this.endNum - this.startNum + 1;
+            if (this.jocker1st > 0) {
+                ret--
+            }
+            if (this.jocker2nd > 0) {
+                ret--
+            }
+            return ret
+        }
+        getString() {
+            var ret = "RUN:"
+            switch (this.color) {
+                case 0:
+                    ret += "red"
+                    break;
+                case 1:
+                    ret += "blue"
+                    break;
+                case 2:
+                    ret += "black"
+                    break;
+                case 3:
+                    ret += "yellow"
+                    break;
+
+                default:
+                    break;
+            }
+            ret += (" tiles:" + this.getTiles() + " " + this.startNum + "~" + this.endNum)
+            if (this.jocker1st > 0) {
+                ret += " jocker1st:" + this.jocker1st
+            }
+            if (this.jocker2dn > 0) {
+                ret += " jocker2nd:" + this.jocker2nd
+            }
+            return ret
+        }
+
+        removeTiles(tableInfo) {
+            for (let idx = this.startNum; idx <= this.endNum; idx++) {
+                if (idx != this.firstJocker && idx != this.secondJocker) {
+                    tableInfo[idx][this.color]--
+                }
+            }
+            if (this.jocker1st > 0 && this.jocker2nd > 0) {
+                return 2
+            } else if (this.jocker1st == -1 && this.jocker2dn == -1) {
+                return 0
+            } else {
+                return 1
+            }
+        }
+        restoreTiles(tableInfo) {
+            for (let idx = this.startNum; idx <= this.endNum; idx++) {
+                if (idx != this.firstJocker && idx != this.secondJocker) {
+                    tableInfo[idx][this.color]++
+                }
+            }
+        }
+
+    }
+
+    class JHSET {
+        constructor(_num, _colors) {
+            this.num = _num
+            this.colors = new Array()
+
+            for (let index = 0; index < 4; index++) {
+                if (_colors[index] == true) {
+                    this.colors[index] = true;
+                }
+
+            }
+            this.jocker = 0
+        }
+
+        getTiles() {
+            var ret = 0;
+            for (let index = 0; index < 4; index++) {
+                if (this.colors[index] == true) {
+                    ret++;
+                }
+
+            }
+            return ret;
+        }
+
+        removeTiles(tableInfo) {
+            for (let _col = RED; _col <= YELLOW; _col++) {
+                if (this.colors[_col] == true) {
+                    tableInfo[this.num][_col]--
+                }
+            }
+            return this.jocker
+        }
+
+        restoreTiles(tableInfo) {
+            for (let _col = RED; _col <= YELLOW; _col++) {
+                if (this.colors[_col] == true) {
+                    tableInfo[this.num][_col]++
+                }
+            }
+        }
+
+        getString() {
+            var ret = "SET:" + this.num + " tiles:" + this.getTiles() + " jocker:" + this.jocker + " "
+            for (let color = RED; color <= YELLOW; color++) {
+                if (this.colors[color] == true) {
+                    switch (color) {
+                        case 0:
+                            strColor = "red"
+                            break;
+                        case 1:
+                            strColor = "blue"
+                            break;
+                        case 2:
+                            strColor = "black"
+                            break;
+                        case 3:
+                            strColor = "yellow"
+                            break;
+
+                        default:
+                            break;
+                    }
+                    ret += (strColor + " ")
+                }
+
+            }
+            return ret
+        }
+    }
+
+    function jockerSelect(index) {
+        var button = document.getElementById("btn_jocker_" + index)
+        if (staticJocker[index] == true) {
+            staticJocker[index] = false
+            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white;")
+        } else {
+            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: gray; ")
+            staticJocker[index] = true
+        }
+    }
+
+    function buttonSelect(index, color, flag) {
+        var strColor = "red"
+        switch (color) {
+            case 1:
+                strColor = "blue"
+                break;
+            case 2:
+                strColor = "black"
+                break;
+            case 3:
+                strColor = "GoldenRod"
+                break;
+
+            default:
+                break;
+        }
+
+        var button = document.getElementById("btn_" + index + "_" + color + "_" + flag)
+        if (tables[color][index][flag] == true) {
+            tables[color][index][flag] = false
+            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white; color:" + strColor)
+        } else {
+            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: gray; color:" + strColor)
+            tables[color][index][flag] = true
+        }
+
+    }
+
+    function funcProcessing(numOfTiles, tableInfo, _numOfJocker) {
+
+        if (numOfTiles < 0) {
+            _numOfJocker = 0
+            if (staticJocker[1] == true) {
+                _numOfJocker++
+            }
+            if (staticJocker[2] == true) {
+                _numOfJocker++
+            }
+            numOfTiles = 0
+            tableInfo = new Array()
+            for (let index = 1; index <= 13; index++) {
+                tableInfo[index] = new Array()
+                for (let idx2 = RED; idx2 <= YELLOW; idx2++) {
+                    tableInfo[index][idx2] = 0
+                    if (tables[idx2][index][1] == true) {
+                        tableInfo[index][idx2]++
+                            numOfTiles++
+                    }
+                    if (tables[idx2][index][2] == true) {
+                        tableInfo[index][idx2]++
+                            numOfTiles++
+                    }
+
+                }
+            }
+        }
+
+        if (numOfTiles == 0) {
+            return true
+        }
+
+
+        var candidates = findCandidate(tableInfo, _numOfJocker)
+        for (let index = 0; index < candidates.length; index++) {
+            var usedJocker = candidates[index].removeTiles(tableInfo)
+            if (funcProcessing(numOfTiles - candidates[index].getTiles(), tableInfo, _numOfJocker - usedJocker) == true) {
+                alert(candidates[index].getString())
+                return true;
+            }
+            candidates[index].restoreTiles(tableInfo)
+        }
+        return false
+    }
+
+    function findCandidate(tableInfo, numOfJockers) {
+        var candidates = new Array()
+        var idx = 0;
+
+        // set find
+        for (let num = 1; num <= 13; num++) {
+            {
+                var color1 = RED
+                var color2 = BLUE
+                var color3 = BLACK
+                var color4 = YELLOW
+                if (tableInfo[num][color1] > 0 &&
+                    tableInfo[num][color2] > 0 &&
+                    tableInfo[num][color3] > 0 &&
+                    tableInfo[num][color4] > 0
+                ) {
+                    var _colors = new Array()
+                    _colors[color1] = true
+                    _colors[color2] = true
+                    _colors[color3] = true
+                    _colors[color4] = true
+                    var newSet = new JHSET(num, _colors)
+                    candidates[idx] = newSet
+                    idx++
+
+                }
+            } {
+                var color1 = RED
+                var color2 = BLUE
+                var color3 = BLACK
+                if (tableInfo[num][color1] > 0 &&
+                    tableInfo[num][color2] > 0 &&
+                    tableInfo[num][color3] > 0
+                ) {
+                    var _colors = new Array()
+                    _colors[color1] = true
+                    _colors[color2] = true
+                    _colors[color3] = true
+                    var newSet = new JHSET(num, _colors)
+                    candidates[idx] = newSet
+                    idx++
+
+                }
+            }
+
+            {
+                var color1 = YELLOW
+                var color2 = BLUE
+                var color3 = BLACK
+                if (tableInfo[num][color1] > 0 &&
+                    tableInfo[num][color2] > 0 &&
+                    tableInfo[num][color3] > 0
+                ) {
+                    var _colors = new Array()
+                    _colors[color1] = true
+                    _colors[color2] = true
+                    _colors[color3] = true
+                    var newSet = new JHSET(num, _colors)
+                    candidates[idx] = newSet
+                    idx++
+
+                }
+            }
+
+            {
+                var color1 = RED
+                var color2 = YELLOW
+                var color3 = BLACK
+                if (tableInfo[num][color1] > 0 &&
+                    tableInfo[num][color2] > 0 &&
+                    tableInfo[num][color3] > 0
+                ) {
+                    var _colors = new Array()
+                    _colors[color1] = true
+                    _colors[color2] = true
+                    _colors[color3] = true
+                    var newSet = new JHSET(num, _colors)
+                    candidates[idx] = newSet
+                    idx++
+
+                }
+            }
+
+            {
+                var color1 = RED
+                var color2 = BLUE
+                var color3 = YELLOW
+                if (tableInfo[num][color1] > 0 &&
+                    tableInfo[num][color2] > 0 &&
+                    tableInfo[num][color3] > 0
+                ) {
+                    var _colors = new Array()
+                    _colors[color1] = true
+                    _colors[color2] = true
+                    _colors[color3] = true
+                    var newSet = new JHSET(num, _colors)
+                    candidates[idx] = newSet
+                    idx++
+
+                }
+            }
+
+            if (numOfJockers >= 1) {
+                {
+                    var color1 = RED
+                    var color2 = BLUE
+                    if (tableInfo[num][color1] > 0 &&
+                        tableInfo[num][color2] > 0
+                    ) {
+                        var _colors = new Array()
+                        _colors[color1] = true
+                        _colors[color2] = true
+                        var newSet = new JHSET(num, _colors)
+                        newSet.jocker = 1
+                        candidates[idx] = newSet
+                        idx++
+
+                    }
+                }
+
+                {
+                    var color1 = RED
+                    var color2 = YELLOW
+                    if (tableInfo[num][color1] > 0 &&
+                        tableInfo[num][color2] > 0
+                    ) {
+                        var _colors = new Array()
+                        _colors[color1] = true
+                        _colors[color2] = true
+                        var newSet = new JHSET(num, _colors)
+                        newSet.jocker = 1
+                        candidates[idx] = newSet
+                        idx++
+
+                    }
+                }
+
+                {
+                    var color1 = RED
+                    var color2 = BLACK
+                    if (tableInfo[num][color1] > 0 &&
+                        tableInfo[num][color2] > 0
+                    ) {
+                        var _colors = new Array()
+                        _colors[color1] = true
+                        _colors[color2] = true
+                        var newSet = new JHSET(num, _colors)
+                        newSet.jocker = 1
+                        candidates[idx] = newSet
+                        idx++
+
+                    }
+                }
+
+                {
+                    var color1 = YELLOW
+                    var color2 = BLUE
+                    if (tableInfo[num][color1] > 0 &&
+                        tableInfo[num][color2] > 0
+                    ) {
+                        var _colors = new Array()
+                        _colors[color1] = true
+                        _colors[color2] = true
+                        var newSet = new JHSET(num, _colors)
+                        newSet.jocker = 1
+                        candidates[idx] = newSet
+                        idx++
+
+                    }
+                }
+
+                {
+                    var color1 = BLACK
+                    var color2 = BLUE
+                    if (tableInfo[num][color1] > 0 &&
+                        tableInfo[num][color2] > 0
+                    ) {
+                        var _colors = new Array()
+                        _colors[color1] = true
+                        _colors[color2] = true
+                        var newSet = new JHSET(num, _colors)
+                        newSet.jocker = 1
+                        candidates[idx] = newSet
+                        idx++
+
+                    }
+                }
+
+                {
+                    var color1 = YELLOW
+                    var color2 = BLACK
+                    if (tableInfo[num][color1] > 0 &&
+                        tableInfo[num][color2] > 0
+                    ) {
+                        var _colors = new Array()
+                        _colors[color1] = true
+                        _colors[color2] = true
+                        var newSet = new JHSET(num, _colors)
+                        newSet.jocker = 1
+                        candidates[idx] = newSet
+                        idx++
+
+                    }
+                }
+
+                if (numOfJockers >= 2) {
+
+                    {
+                        var color1 = YELLOW
+                        if (tableInfo[num][color1] > 0) {
+                            var _colors = new Array()
+                            _colors[color1] = true
+                            _colors[color2] = true
+                            var newSet = new JHSET(num, _colors)
+                            newSet.jocker = 2
+                            candidates[idx] = newSet
+                            idx++
+
+                        }
+                    }
+
+                    {
+                        var color1 = RED
+                        if (tableInfo[num][color1] > 0) {
+                            var _colors = new Array()
+                            _colors[color1] = true
+                            _colors[color2] = true
+                            var newSet = new JHSET(num, _colors)
+                            newSet.jocker = 2
+                            candidates[idx] = newSet
+                            idx++
+
+                        }
+                    }
+
+                    {
+                        var color1 = BLUE
+                        if (tableInfo[num][color1] > 0) {
+                            var _colors = new Array()
+                            _colors[color1] = true
+                            _colors[color2] = true
+                            var newSet = new JHSET(num, _colors)
+                            newSet.jocker = 2
+                            candidates[idx] = newSet
+                            idx++
+
+                        }
+                    }
+
+                    {
+                        var color1 = BLACK
+                        if (tableInfo[num][color1] > 0) {
+                            var _colors = new Array()
+                            _colors[color1] = true
+                            _colors[color2] = true
+                            var newSet = new JHSET(num, _colors)
+                            newSet.jocker = 2
+                            candidates[idx] = newSet
+                            idx++
+
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+
+        // find run
+        for (let color = RED; color <= YELLOW; color++) {
+            for (let startIdx = 1; startIdx <= 11; startIdx++) {
+                for (let endIdx = startIdx + 2; endIdx <= 13; endIdx++) {
+                    var firstJocker = -1
+                    var secondJocker = -1
+                    var needTiles = endIdx - startIdx + 1
+                    for (let index = startIdx; index <= endIdx; index++) {
+                        if (tableInfo[index][color] == true) {
+                            needTiles = needTiles - 1
+                        } else if (firstJocker == -1) {
+                            firstJocker = index
+                        } else {
+                            secondJocker = index
+                        }
+                    }
+                    if (needTiles <= numOfJockers) {
+                        var newRun = new JHRUN(color, startIdx, endIdx)
+                        newRun.jocker1st = firstJocker
+                        newRun.jocker2nd = secondJocker
+                        candidates[idx] = newRun
+                        idx++
+                    }
+                }
+
+            }
+
+        }
+
+        return candidates
+
+    }
+</script>
+
+</html>
