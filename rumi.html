@@ -762,8 +762,10 @@
                             needTiles = needTiles - 1
                         } else if (firstJocker == -1) {
                             firstJocker = index
-                        } else {
+                        } else if (secondJocker == -1){
                             secondJocker = index
+                        } else{
+                            break
                         }
                     }
                     if (needTiles <= numOfJockers) {
