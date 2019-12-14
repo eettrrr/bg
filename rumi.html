@@ -231,10 +231,14 @@
             return ret
         }
 
-        removeTiles(tableInfo) {
+        removeTiles(tableInfo,remainColors) {
             for (let idx = this.startNum; idx <= this.endNum; idx++) {
                 if (idx != this.firstJocker && idx != this.secondJocker) {
                     tableInfo[idx][this.color]--
+                    if (tableInfo[idx][this.color]==0)
+                    {
+                        remainColors[this.color]--
+                    }
                 }
             }
             if (this.jocker1st > 0 && this.jocker2nd > 0) {
@@ -245,10 +249,14 @@
                 return 1
             }
         }
-        restoreTiles(tableInfo) {
+        restoreTiles(tableInfo,remainColors) {
             for (let idx = this.startNum; idx <= this.endNum; idx++) {
                 if (idx != this.firstJocker && idx != this.secondJocker) {
                     tableInfo[idx][this.color]++
+                    if (tableInfo[idx][this.color]==1)
+                    {
+                        remainColors[this.color]++
+                    }
                 }
             }
         }
@@ -330,19 +338,27 @@
             return ret;
         }
 
-        removeTiles(tableInfo) {
+        removeTiles(tableInfo,remainColors) {
             for (let _col = RED; _col <= YELLOW; _col++) {
                 if (this.colors[_col] == true) {
                     tableInfo[this.num][_col]--
+                    if (tableInfo[this.num][_col]==0)
+                    {
+                        remainColors[_col]--
+                    }
                 }
             }
             return this.jocker
         }
 
-        restoreTiles(tableInfo) {
+        restoreTiles(tableInfo,remainColors) {
             for (let _col = RED; _col <= YELLOW; _col++) {
                 if (this.colors[_col] == true) {
                     tableInfo[this.num][_col]++
+                    if (tableInfo[this.num][_col]==1)
+                    {
+                        remainColors[_col]++
+                    }
                 }
             }
         }
@@ -472,12 +488,12 @@
 
         var candidates = findCandidate(tableInfo, _numOfJocker,remainColors)
         for (let index = 0; index < candidates.length; index++) {
-            var usedJocker = candidates[index].removeTiles(tableInfo)
-            if (funcProcessing(numOfTiles - candidates[index].getTiles(), tableInfo, _numOfJocker - usedJocker) == true) {
+            var usedJocker = candidates[index].removeTiles(tableInfo,remainColors)
+            if (funcProcessing(numOfTiles - candidates[index].getTiles(), tableInfo, _numOfJocker - usedJocker,remainColors) == true) {
                 candidates[index].drawTile()
                 return true;
             }
-            candidates[index].restoreTiles(tableInfo)
+            candidates[index].restoreTiles(tableInfo,remainColors)
         }
         if (startTile < 0) {
             alert("Impossible")
@@ -760,6 +776,10 @@
         for (let color = RED; color <= YELLOW; color++) {
             for (let startIdx = 1; startIdx <= 11; startIdx++) {
                 var boundEndIdx = startIdx + remainColors[color] -1 + numOfJockers
+                if (boundEndIdx>13)
+                {
+                    boundEndIdx = 13
+                }
                 for (let endIdx = startIdx + 2; endIdx <= boundEndIdx; endIdx++) {
                     var firstJocker = -1
                     var secondJocker = -1
