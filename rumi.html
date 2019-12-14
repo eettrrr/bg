@@ -82,15 +82,8 @@
             button.setAttribute("onclick", "buttonSelect(" + index + "," + color + "," + 1 + ")")
             button.setAttribute("id", "btn_" + index + "_" + color + "_" + 1)
             button.setAttribute("value", index)
-            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white; color:" + strColor)
-            if (index>=10)
-            {
-                button.setAttribute("style", "font-size:100%; padding: 10px 4px; background-color: white; color:" + strColor)
-            }
-            if (index==11)
-            {
-                button.setAttribute("style", "font-size:100%; padding: 10px 5px; background-color: white; color:" + strColor)
-            }
+            button.setAttribute("style", "font-size:100%; padding: 0px 0px; width: 35px; height: 50px; background-color: white; color:" + strColor)
+            
             document.getElementById("problem").appendChild(button)
             var ws = document.createElement("span")
             ws.innerHTML = "&nbsp&nbsp"
@@ -106,15 +99,8 @@
             button.setAttribute("onclick", "buttonSelect(" + index + "," + color + "," + 2 + ")")
             button.setAttribute("id", "btn_" + index + "_" + color + "_" + 2)
             button.setAttribute("value", index)
-            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white; color:" + strColor)
-            if (index>=10)
-            {
-                button.setAttribute("style", "font-size:100%; padding: 10px 4px; background-color: white; color:" + strColor)
-            }
-            if (index==11)
-            {
-                button.setAttribute("style", "font-size:100%; padding: 10px 5px; background-color: white; color:" + strColor)
-            }
+            button.setAttribute("style", "font-size:100%; padding: 0px 0px; width: 35px; height: 50px; background-color: white; color:" + strColor)
+
            
             document.getElementById("problem").appendChild(button)
             var ws = document.createElement("span")
@@ -199,13 +185,8 @@
                 var button = document.createElement("input")
                 button.setAttribute("type", "button")
                 button.setAttribute("value", index)
-                button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white; color:" + strColor)
-                if (index >= 10) {
-                    button.setAttribute("style", "font-size:100%; padding: 10px 4px; background-color: white; color:" + strColor)
-                }
-                if (index == 11) {
-                    button.setAttribute("style", "font-size:100%; padding: 10px 5px; background-color: white; color:" + strColor)
-                }
+
+                button.setAttribute("style", "font-size:100%; padding: 0px 0px; width: 35px; height: 50px; background-color: white; color:" + strColor)
 
                 if (index == this.jocker1st || index == this.jocker2nd)
                 {
@@ -299,7 +280,8 @@
                 var button = document.createElement("input")
                     button.setAttribute("type", "button")
                     button.setAttribute("value", "J")
-                    button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white; color:black")
+                   
+                    button.setAttribute("style", "font-size:100%; padding: 0px 0px; width: 35px; height: 50px;  background-color: white; color:black")
                     
                     document.getElementById("main").appendChild(button)
             }
@@ -327,11 +309,8 @@
                     var button = document.createElement("input")
                     button.setAttribute("type", "button")
                     button.setAttribute("value", this.num)
-                    button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white; color:" + strColor)
-                    if (this.num >= 10) {
-                        button.setAttribute("style", "font-size:100%; padding: 10px 4px; background-color: white; color:" + strColor)
-                    }
-
+                    button.setAttribute("style", "font-size:100%; padding: 0px 0px; width: 35px; height: 50px;  background-color: white; color:" + strColor)
+                
                     document.getElementById("main").appendChild(button)
                 }
                 
@@ -432,25 +411,11 @@
         var button = document.getElementById("btn_" + index + "_" + color + "_" + flag)
         if (tables[color][index][flag] == true) {
             tables[color][index][flag] = false
-            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: white; color:" + strColor)
-            if (index>=10)
-            {
-                button.setAttribute("style", "font-size:100%; padding: 10px 4px; background-color: white; color:" + strColor)
-            }
-            if (index==11)
-            {
-                button.setAttribute("style", "font-size:100%; padding: 10px 5px; background-color: white; color:" + strColor)
-            }
+            button.setAttribute("style", "font-size:100%; padding: 0px 0px; width: 35px; height: 50px;  background-color: white; color:" + strColor)
+            
         } else {
-            button.setAttribute("style", "font-size:100%; padding: 10px 10px; background-color: gray; color:" + strColor)
-            if (index>=10)
-            {
-                button.setAttribute("style", "font-size:100%; padding: 10px 4px; background-color: gray; color:" + strColor)
-            }
-            if (index==11)
-            {
-                button.setAttribute("style", "font-size:100%; padding: 10px 5px; background-color: gray; color:" + strColor)
-            }
+            button.setAttribute("style", "font-size:100%; padding: 0px 0px; width: 35px; height: 50px; background-color: gray; color:" + strColor)
+           
             tables[color][index][flag] = true
         }
 
