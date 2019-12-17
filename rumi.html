@@ -740,7 +740,7 @@
                 //     }
                 // }
                 // if (tryThis) {
-                console.log(tabShow() + candidates[index].getCharSeq() + " is start")
+                //                console.log(tabShow() + candidates[index].getCharSeq() + " is start")
                 var usedJocker = candidates[index].removeTiles(tableInfo, remainColors)
                 if (funcProcessing(numOfTiles - candidates[index].getTiles(), tableInfo, _numOfJocker - usedJocker, remainColors, curTryCandis, numOfCurTryCandis + 1) == true) {
                     candidates[index].drawTile()
@@ -748,7 +748,7 @@
                 }
                 candidates[index].restoreTiles(tableInfo, remainColors)
                 DPEntry[dpIdx] = true
-                console.log(tabShow() + candidates[index].getCharSeq() + " is end")
+                    //                console.log(tabShow() + candidates[index].getCharSeq() + " is end")
                     // for (let _idx2 = 0; _idx2 < numOfCurTryCandis; _idx2++) {
                     //     exclusiveInfor[index][curTryCandis[_idx2]] = true
                     //     exclusiveInfor[curTryCandis[_idx2]][index] = true
