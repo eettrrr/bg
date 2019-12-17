@@ -10,8 +10,7 @@
         }
     </style>
 
-    <meta charset="UTF-8" name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
     <!--모바일페이지크기조절메타태그-->
     <title>루미큐브</title>
 </head>
@@ -150,6 +149,105 @@
             this.jocker2nd = -1
         }
 
+        getCharSeq() {
+            var ret = "R"
+            switch (this.color) {
+                case RED:
+                    ret += "r"
+                    break;
+                case BLUE:
+                    ret += "b"
+                    break;
+                case BLACK:
+                    ret += "d"
+                    break;
+                case YELLOW:
+                    ret += "y"
+                    break;
+
+                default:
+                    break;
+            } {
+                var tempVal = this.startNum
+                if (tempVal == 10) {
+                    ret += 'A'
+                } else if (tempVal == 11) {
+                    ret += 'B'
+                } else if (tempVal == 12) {
+                    ret += 'C'
+                } else if (tempVal == 13) {
+                    ret += 'D'
+                } else {
+                    ret += tempVal
+                }
+            } {
+                var tempVal = this.endNum
+                if (tempVal == 10) {
+                    ret += 'A'
+                } else if (tempVal == 11) {
+                    ret += 'B'
+                } else if (tempVal == 12) {
+                    ret += 'C'
+                } else if (tempVal == 13) {
+                    ret += 'D'
+                } else {
+                    ret += tempVal
+                }
+            } {
+                var tempVal = this.jocker1st
+                if (tempVal == 10) {
+                    ret += 'A'
+                } else if (tempVal == 11) {
+                    ret += 'B'
+                } else if (tempVal == 12) {
+                    ret += 'C'
+                } else if (tempVal == 13) {
+                    ret += 'D'
+                } else if (tempVal == -1) {
+                    ret += 0
+                } else {
+                    ret += tempVal
+                }
+            } {
+                var tempVal = this.jocker2nd
+                if (tempVal == 10) {
+                    ret += 'A'
+                } else if (tempVal == 11) {
+                    ret += 'B'
+                } else if (tempVal == 12) {
+                    ret += 'C'
+                } else if (tempVal == 13) {
+                    ret += 'D'
+                } else if (tempVal == -1) {
+                    ret += 0
+                } else {
+                    ret += tempVal
+                }
+            }
+            return ret
+        }
+
+        isValid(tableInfo, numOfJocker) {
+            var numberOfJocker = 0
+            if (this.jocker1st != -1) {
+                numberOfJocker++
+            }
+            if (this.jocker2nd != -1) {
+                numberOfJocker++
+            }
+            if (numberOfJocker > numOfJocker) {
+                return false
+            }
+
+            for (let idx = this.startNum; idx <= this.endNum; idx++) {
+                if (this.jocker1st != idx && this.jocker2nd != idx && tableInfo[idx][this.color] == 0) {
+                    return false;
+                }
+            }
+            return true
+
+        }
+
         getTiles() {
             var ret = this.endNum - this.startNum + 1;
             if (this.jocker1st > 0) {
@@ -231,14 +329,13 @@
             return ret
         }
 
-        removeTiles(tableInfo,remainColors) {
+        removeTiles(tableInfo, remainColors) {
             for (let idx = this.startNum; idx <= this.endNum; idx++) {
                 if (idx != this.firstJocker && idx != this.secondJocker) {
                     tableInfo[idx][this.color]--
-                    if (tableInfo[idx][this.color]==0)
-                    {
-                        remainColors[this.color]--
-                    }
+                        if (tableInfo[idx][this.color] == 0) {
+                            remainColors[this.color]--
+                        }
                 }
             }
             if (this.jocker1st > 0 && this.jocker2nd > 0) {
@@ -249,14 +346,13 @@
                 return 1
             }
         }
-        restoreTiles(tableInfo,remainColors) {
+        restoreTiles(tableInfo, remainColors) {
             for (let idx = this.startNum; idx <= this.endNum; idx++) {
                 if (idx != this.firstJocker && idx != this.secondJocker) {
                     tableInfo[idx][this.color]++
-                    if (tableInfo[idx][this.color]==1)
-                    {
-                        remainColors[this.color]++
-                    }
+                        if (tableInfo[idx][this.color] == 1) {
+                            remainColors[this.color]++
+                        }
                 }
             }
         }
@@ -275,6 +371,47 @@
 
             }
             this.jocker = 0
+        }
+
+        getCharSeq() {
+            var ret = "S"
+            var tempVal = this.num
+            if (tempVal == 10) {
+                ret += 'A'
+            } else if (tempVal == 11) {
+                ret += 'B'
+            } else if (tempVal == 12) {
+                ret += 'C'
+            } else if (tempVal == 13) {
+                ret += 'D'
+            } else {
+                ret += tempVal
+            }
+            for (let _col = RED; _col <= YELLOW; _col++) {
+                if (this.colors[_col] == true) {
+                    switch (_col) {
+                        case RED:
+                            ret += "r"
+                            break;
+                        case BLUE:
+                            ret += "b"
+                            break;
+                        case BLACK:
+                            ret += "d"
+                            break;
+                        case YELLOW:
+                            ret += "y"
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+            }
+            ret += this.jocker
+
+            return ret
         }
 
         drawTile() {
@@ -338,27 +475,37 @@
             return ret;
         }
 
-        removeTiles(tableInfo,remainColors) {
+        isValid(tableInfo, numOfJocker) {
+            if (this.jocker > numOfJocker) {
+                return false
+            }
+            for (let _col = RED; _col <= YELLOW; _col++) {
+                if (this.colors[_col] == true && tableInfo[this.num][_col] == 0) {
+                    return false
+                }
+            }
+            return true
+        }
+
+        removeTiles(tableInfo, remainColors) {
             for (let _col = RED; _col <= YELLOW; _col++) {
                 if (this.colors[_col] == true) {
                     tableInfo[this.num][_col]--
-                    if (tableInfo[this.num][_col]==0)
-                    {
-                        remainColors[_col]--
-                    }
+                        if (tableInfo[this.num][_col] == 0) {
+                            remainColors[_col]--
+                        }
                 }
             }
             return this.jocker
         }
 
-        restoreTiles(tableInfo,remainColors) {
+        restoreTiles(tableInfo, remainColors) {
             for (let _col = RED; _col <= YELLOW; _col++) {
                 if (this.colors[_col] == true) {
                     tableInfo[this.num][_col]++
-                    if (tableInfo[this.num][_col]==1)
-                    {
-                        remainColors[_col]++
-                    }
+                        if (tableInfo[this.num][_col] == 1) {
+                            remainColors[_col]++
+                        }
                 }
             }
         }
@@ -390,6 +537,73 @@
             }
             return ret
         }
+    }
+
+    function quickPartition(arr, startIdx, endIdx) {
+        if (startIdx == endIdx) {
+            return startIdx
+        }
+        var pivotLoc
+        var midIdx = Math.floor((startIdx + endIdx) / 2)
+        if (arr[startIdx] < arr[midIdx]) {
+            if (arr[endIdx] < arr[startIdx]) {
+                pivotLoc = startIdx
+            } else {
+                if (arr[midIdx] < arr[endIdx]) {
+                    pivotLoc = midIdx
+                } else {
+                    pivotLoc = endIdx
+                }
+            }
+        } else { // arr[startIdx] >= arr[midIdx]
+            if (arr[endIdx] < arr[midIdx]) {
+                pivotLoc = midIdx
+            } else {
+                if (arr[startIdx] < arr[endIdx]) {
+                    pivotLoc = startIdx
+                } else {
+                    pivotLoc = endIdx
+                }
+            }
+        }
+
+        var temp = arr[pivotLoc]
+        arr[pivotLoc] = arr[endIdx]
+        arr[endIdx] = temp
+
+        var lastSmallIdx = startIdx - 1
+        for (let idx = startIdx; idx <= endIdx; idx++) {
+            if (arr[idx] <= arr[endIdx]) {
+                lastSmallIdx++
+                var temp = arr[lastSmallIdx]
+                arr[lastSmallIdx] = arr[idx]
+                arr[idx] = temp
+            }
+        }
+        return lastSmallIdx
+
+    }
+
+    function getDPKey(arr, arrLength) {
+        var sortedArr = new Array(arrLength)
+        for (let idx = 0; idx < arrLength; idx++) {
+            sortedArr[idx] = arr[idx]
+        }
+        quickSort(sortedArr, 0, arrLength - 1)
+        var ret = ""
+        for (let idx = 0; idx < arrLength; idx++) {
+            ret += ("_" + sortedArr[idx])
+        }
+        return ret
+    }
+
+    function quickSort(arr, startIdx, endIdx) {
+        if (startIdx >= endIdx) {
+            return
+        }
+        pivotLoc = quickPartition(arr, startIdx, endIdx)
+        quickSort(arr, startIdx, pivotLoc - 1)
+        quickSort(arr, pivotLoc + 1, endIdx)
     }
 
     function jockerSelect(index) {
@@ -433,7 +647,21 @@
 
     }
 
-    function funcProcessing(numOfTiles, tableInfo, _numOfJocker, remainColors) {
+    var tabNum = 0
+
+    function tabShow() {
+        var ret = ""
+        for (let index = 0; index < tabNum; index++) {
+            ret += " "
+        }
+        return ret
+    }
+
+    // var exclusiveInfor
+
+    var DPEntry
+
+    function funcProcessing(numOfTiles, tableInfo, _numOfJocker, remainColors, curTryCandis, numOfCurTryCandis) {
 
         var startTile = numOfTiles
         if (numOfTiles < 0) {
@@ -464,48 +692,89 @@
                 for (let idx2 = RED; idx2 <= YELLOW; idx2++) {
                     tableInfo[index][idx2] = 0
                     if (tables[idx2][index][1] == true) {
-                        remainColors[idx2] ++
-                        tableInfo[index][idx2]++
-                        numOfTiles++
+                        remainColors[idx2]++
+                            tableInfo[index][idx2]++
+                            numOfTiles++
                     }
                     if (tables[idx2][index][2] == true) {
-                        if (tables[idx2][index][1] == false)
-                        {
+                        if (tables[idx2][index][1] == false) {
                             remainColors[idx2]++
                         }
                         tableInfo[index][idx2]++
-                        numOfTiles++
+                            numOfTiles++
                     }
 
                 }
             }
+            console.clear()
+            tabNum = 0
+            findCandidate(tableInfo, _numOfJocker, remainColors)
+                // exclusiveInfor = new Array()
+                // for (let _idx = 0; _idx < candidates.length; _idx++) {
+                //     exclusiveInfor[_idx] = new Array()
+
+            // }
+            curTryCandis = new Array()
+            numOfCurTryCandis = 0
+            DPEntry = new Array()
         }
 
         if (numOfTiles == 0) {
             return true
         }
 
+        tabNum++
 
-        var candidates = findCandidate(tableInfo, _numOfJocker,remainColors)
-        for (let index = candidates.length-1; index >=0 ; index--) {
-            var usedJocker = candidates[index].removeTiles(tableInfo,remainColors)
-            if (funcProcessing(numOfTiles - candidates[index].getTiles(), tableInfo, _numOfJocker - usedJocker,remainColors) == true) {
-                candidates[index].drawTile()
-                return true;
+        for (let index = candidates.length - 1; index >= 0; index--) {
+            if (candidates[index] != null && candidates[index].isValid(tableInfo, _numOfJocker)) {
+                curTryCandis[numOfCurTryCandis] = index
+                var dpIdx = getDPKey(curTryCandis, numOfCurTryCandis + 1)
+                if (DPEntry[dpIdx] == true) {
+                    continue
+                }
+                // var tryThis = true
+                // for (let _idx2 = 0; _idx2 < numOfCurTryCandis; _idx2++) {
+                //     if (exclusiveInfor[index][curTryCandis[_idx2]] == true) {
+                //         tryThis = false
+                //         break
+                //     }
+                // }
+                // if (tryThis) {
+                console.log(tabShow() + candidates[index].getCharSeq() + " is start")
+                var usedJocker = candidates[index].removeTiles(tableInfo, remainColors)
+                if (funcProcessing(numOfTiles - candidates[index].getTiles(), tableInfo, _numOfJocker - usedJocker, remainColors, curTryCandis, numOfCurTryCandis + 1) == true) {
+                    candidates[index].drawTile()
+                    return true;
+                }
+                candidates[index].restoreTiles(tableInfo, remainColors)
+                DPEntry[dpIdx] = true
+                console.log(tabShow() + candidates[index].getCharSeq() + " is end")
+                    // for (let _idx2 = 0; _idx2 < numOfCurTryCandis; _idx2++) {
+                    //     exclusiveInfor[index][curTryCandis[_idx2]] = true
+                    //     exclusiveInfor[curTryCandis[_idx2]][index] = true
+                    // }
+                    // }
+                if (startTile < 0) {
+                    candidates[index] = null
+                }
             }
-            candidates[index].restoreTiles(tableInfo,remainColors)
         }
         if (startTile < 0) {
             alert("Impossible")
         }
 
+        tabNum--
 
         return false
     }
 
-    function findCandidate(tableInfo, numOfJockers,remainColors) {
-        var candidates = new Array()
-        var idx = 0;
+    var candidates
+    var candIdx
+
+
+    function findCandidate(tableInfo, numOfJockers, remainColors) {
+        candidates = new Array()
+        candIdx = 0;
 
         // set find
         for (let num = 1; num <= 13; num++) {
@@ -525,8 +794,8 @@
                     _colors[color3] = true
                     _colors[color4] = true
                     var newSet = new JHSET(num, _colors)
-                    candidates[idx] = newSet
-                    idx++
+                    candidates[candIdx] = newSet
+                    candIdx++
 
                 }
             } {
@@ -542,8 +811,8 @@
                     _colors[color2] = true
                     _colors[color3] = true
                     var newSet = new JHSET(num, _colors)
-                    candidates[idx] = newSet
-                    idx++
+                    candidates[candIdx] = newSet
+                    candIdx++
 
                 }
             }
@@ -561,8 +830,8 @@
                     _colors[color2] = true
                     _colors[color3] = true
                     var newSet = new JHSET(num, _colors)
-                    candidates[idx] = newSet
-                    idx++
+                    candidates[candIdx] = newSet
+                    candIdx++
 
                 }
             }
@@ -580,8 +849,8 @@
                     _colors[color2] = true
                     _colors[color3] = true
                     var newSet = new JHSET(num, _colors)
-                    candidates[idx] = newSet
-                    idx++
+                    candidates[candIdx] = newSet
+                    candIdx++
 
                 }
             }
@@ -599,8 +868,8 @@
                     _colors[color2] = true
                     _colors[color3] = true
                     var newSet = new JHSET(num, _colors)
-                    candidates[idx] = newSet
-                    idx++
+                    candidates[candIdx] = newSet
+                    candIdx++
 
                 }
             }
@@ -617,8 +886,8 @@
                         _colors[color2] = true
                         var newSet = new JHSET(num, _colors)
                         newSet.jocker = 1
-                        candidates[idx] = newSet
-                        idx++
+                        candidates[candIdx] = newSet
+                        candIdx++
 
                     }
                 }
@@ -634,8 +903,8 @@
                         _colors[color2] = true
                         var newSet = new JHSET(num, _colors)
                         newSet.jocker = 1
-                        candidates[idx] = newSet
-                        idx++
+                        candidates[candIdx] = newSet
+                        candIdx++
 
                     }
                 }
@@ -651,8 +920,8 @@
                         _colors[color2] = true
                         var newSet = new JHSET(num, _colors)
                         newSet.jocker = 1
-                        candidates[idx] = newSet
-                        idx++
+                        candidates[candIdx] = newSet
+                        candIdx++
 
                     }
                 }
@@ -668,8 +937,8 @@
                         _colors[color2] = true
                         var newSet = new JHSET(num, _colors)
                         newSet.jocker = 1
-                        candidates[idx] = newSet
-                        idx++
+                        candidates[candIdx] = newSet
+                        candIdx++
 
                     }
                 }
@@ -685,8 +954,8 @@
                         _colors[color2] = true
                         var newSet = new JHSET(num, _colors)
                         newSet.jocker = 1
-                        candidates[idx] = newSet
-                        idx++
+                        candidates[candIdx] = newSet
+                        candIdx++
 
                     }
                 }
@@ -702,8 +971,8 @@
                         _colors[color2] = true
                         var newSet = new JHSET(num, _colors)
                         newSet.jocker = 1
-                        candidates[idx] = newSet
-                        idx++
+                        candidates[candIdx] = newSet
+                        candIdx++
 
                     }
                 }
@@ -718,8 +987,8 @@
                             _colors[color2] = true
                             var newSet = new JHSET(num, _colors)
                             newSet.jocker = 2
-                            candidates[idx] = newSet
-                            idx++
+                            candidates[candIdx] = newSet
+                            candIdx++
 
                         }
                     }
@@ -732,8 +1001,8 @@
                             _colors[color2] = true
                             var newSet = new JHSET(num, _colors)
                             newSet.jocker = 2
-                            candidates[idx] = newSet
-                            idx++
+                            candidates[candIdx] = newSet
+                            candIdx++
 
                         }
                     }
@@ -746,8 +1015,8 @@
                             _colors[color2] = true
                             var newSet = new JHSET(num, _colors)
                             newSet.jocker = 2
-                            candidates[idx] = newSet
-                            idx++
+                            candidates[candIdx] = newSet
+                            candIdx++
 
                         }
                     }
@@ -760,8 +1029,8 @@
                             _colors[color2] = true
                             var newSet = new JHSET(num, _colors)
                             newSet.jocker = 2
-                            candidates[idx] = newSet
-                            idx++
+                            candidates[candIdx] = newSet
+                            candIdx++
 
                         }
                     }
@@ -775,12 +1044,9 @@
         // find run
         for (let color = RED; color <= YELLOW; color++) {
             for (let startIdx = 1; startIdx <= 11; startIdx++) {
-                var boundEndIdx = startIdx + remainColors[color] -1 + numOfJockers
-                if (boundEndIdx>13)
-                {
-                    boundEndIdx = 13
-                }
-                for (let endIdx = startIdx + 2; endIdx <= boundEndIdx; endIdx++) {
+                var boundEndIdx = startIdx + Math.min(4, remainColors[color] - 1 + numOfJockers)
+
+                for (let endIdx = startIdx + 2; endIdx <= Math.min(13, boundEndIdx); endIdx++) {
                     var firstJocker = -1
                     var secondJocker = -1
                     var needTiles = endIdx - startIdx + 1
@@ -799,8 +1065,8 @@
                         var newRun = new JHRUN(color, startIdx, endIdx)
                         newRun.jocker1st = firstJocker
                         newRun.jocker2nd = secondJocker
-                        candidates[idx] = newRun
-                        idx++
+                        candidates[candIdx] = newRun
+                        candIdx++
                     }
                 }
 
