@@ -300,34 +300,6 @@
 
 
         }
-        getString() {
-            var ret = "RUN:"
-            switch (this.color) {
-                case 0:
-                    ret += "red"
-                    break;
-                case 1:
-                    ret += "blue"
-                    break;
-                case 2:
-                    ret += "black"
-                    break;
-                case 3:
-                    ret += "yellow"
-                    break;
-
-                default:
-                    break;
-            }
-            ret += (" tiles:" + this.getTiles() + " " + this.startNum + "~" + this.endNum)
-            if (this.jocker1st > 0) {
-                ret += " jocker1st:" + this.jocker1st
-            }
-            if (this.jocker2nd > 0) {
-                ret += " jocker2nd:" + this.jocker2nd
-            }
-            return ret
-        }
 
         removeTiles(tableInfo, remainColors) {
             for (let idx = this.startNum; idx <= this.endNum; idx++) {
@@ -510,33 +482,6 @@
             }
         }
 
-        getString() {
-            var ret = "SET:" + this.num + " tiles:" + this.getTiles() + " jocker:" + this.jocker + " "
-            for (let color = RED; color <= YELLOW; color++) {
-                if (this.colors[color] == true) {
-                    switch (color) {
-                        case 0:
-                            strColor = "red"
-                            break;
-                        case 1:
-                            strColor = "blue"
-                            break;
-                        case 2:
-                            strColor = "black"
-                            break;
-                        case 3:
-                            strColor = "yellow"
-                            break;
-
-                        default:
-                            break;
-                    }
-                    ret += (strColor + " ")
-                }
-
-            }
-            return ret
-        }
     }
 
     function quickPartition(arr, startIdx, endIdx) {
@@ -584,18 +529,6 @@
 
     }
 
-    function getDPKey(arr, arrLength) {
-        var sortedArr = new Array(arrLength)
-        for (let idx = 0; idx < arrLength; idx++) {
-            sortedArr[idx] = arr[idx]
-        }
-        quickSort(sortedArr, 0, arrLength - 1)
-        var ret = ""
-        for (let idx = 0; idx < arrLength; idx++) {
-            ret += ("_" + sortedArr[idx])
-        }
-        return ret
-    }
 
     function quickSort(arr, startIdx, endIdx) {
         if (startIdx >= endIdx) {
@@ -649,22 +582,98 @@
 
     var tabNum = 0
 
-    function tabShow() {
-        var ret = ""
-        for (let index = 0; index < tabNum; index++) {
-            ret += " "
+    var DPEntry
+
+    var skipDP
+
+    var numOfFailure
+
+    function countColor(tableInfo, _num) {
+        var ret = 0
+        for (let _col = 0; _col <= YELLOW; _col++) {
+            if (tableInfo[_num][_col] > 0) {
+                ret++
+            }
         }
         return ret
     }
 
-    // var exclusiveInfor
+    function quickTerminate(tableInfo, _numOfJockers) {
+        if (_numOfJockers == 2) {
+            return false
+        }
+        var setExist = new Array()
+        for (let _num = 1; _num <= 13; _num++) {
+            setExist[_num] = false
+        }
+        for (let _col = RED; _col <= YELLOW; _col++) {
+            for (let _num = 1; _num <= 13; _num++) {
+                var needToBeSet = true;
+                if (tableInfo[_num][_col] == 0) {
+                    continue
+                }
+                for (let idx = _num - 1 - _numOfJockers; idx <= _num + 1 + _numOfJockers; idx++) {
+                    if (idx < 1 || idx > 13 || idx == _num) {
+                        continue
+                    }
+                    if (tableInfo[idx][_col] > 0) {
+                        needToBeSet = false
+                        break
+                    }
+                }
+                if (needToBeSet && setExist[_num] == false) {
+                    var _countColor = countColor(tableInfo, _num)
+                    if (_countColor + _numOfJockers < 3) {
+                        return true
+                    } else {
+                        setExist[_num] = true
+                        if (_countColor == 2) {
+                            _numOfJockers--
+                        }
 
-    var DPEntry
+                    }
+                }
+            }
+        }
 
-    function funcProcessing(numOfTiles, tableInfo, _numOfJocker, remainColors, curTryCandis, numOfCurTryCandis) {
+        if (_numOfJockers > 0) {
+            return false
+        }
+        for (let _col = RED; _col <= YELLOW; _col++) {
+            for (let _num = 1; _num <= 12; _num++) {
+                if (tableInfo[_num][_col] == 0 || tableInfo[_num + 1][_col] == 0) {
+                    continue
+                }
+                var needToBeSet = true
+                if (_num - 1 >= 1 && tableInfo[_num - 1][_col] > 0) {
+                    needToBeSet = false
+                }
+                if (_num + 2 <= 13 && tableInfo[_num + 2][_col] > 0) {
+                    needToBeSet = false
+                }
+
+                if (needToBeSet) {
+                    if (countColor(tableInfo, _num) < 3) {
+                        return true
+                    }
+                    if (countColor(tableInfo, _num + 1) < 3) {
+                        return true
+                    }
+                }
+
+            }
+        }
+        return false
+    }
+
+    function funcProcessing(numOfTiles, tableInfo, _numOfJocker, remainColors, curTryCandIdx) {
 
         var startTile = numOfTiles
         if (numOfTiles < 0) {
+
+            skipDP = 0
+
+            numOfFailure = 0
 
             remainColors = new Array()
             remainColors[RED] = 0
@@ -709,61 +718,60 @@
             console.clear()
             tabNum = 0
             findCandidate(tableInfo, _numOfJocker, remainColors)
-                // exclusiveInfor = new Array()
-                // for (let _idx = 0; _idx < candidates.length; _idx++) {
-                //     exclusiveInfor[_idx] = new Array()
+                
+            console.log("candidates are " + candidates.length)
+            curTryCandIdx = candidates.length - 1
 
-            // }
-            curTryCandis = new Array()
-            numOfCurTryCandis = 0
-            DPEntry = new Array()
         }
 
         if (numOfTiles == 0) {
             return true
         }
-
         tabNum++
 
-        for (let index = candidates.length - 1; index >= 0; index--) {
+        if (quickTerminate(tableInfo, _numOfJocker)) {
+            if (startTile < 0) {
+                console.log("failuer:" + numOfFailure)
+                alert("Impossible")
+                    // console.log(skipDP)
+            }
+
+
+            tabNum--
+            numOfFailure++
+            return false
+        }
+
+        for (let index = curTryCandIdx; index >= 0; index--) {
+            if (startTile < 0 && index % 10 == 0) {
+                console.log(index)
+            }
             if (candidates[index] != null && candidates[index].isValid(tableInfo, _numOfJocker)) {
-                curTryCandis[numOfCurTryCandis] = index
-                var dpIdx = getDPKey(curTryCandis, numOfCurTryCandis + 1)
-                if (DPEntry[dpIdx] == true) {
-                    continue
-                }
-                // var tryThis = true
-                // for (let _idx2 = 0; _idx2 < numOfCurTryCandis; _idx2++) {
-                //     if (exclusiveInfor[index][curTryCandis[_idx2]] == true) {
-                //         tryThis = false
-                //         break
-                //     }
-                // }
-                // if (tryThis) {
-                //                console.log(tabShow() + candidates[index].getCharSeq() + " is start")
+        
                 var usedJocker = candidates[index].removeTiles(tableInfo, remainColors)
-                if (funcProcessing(numOfTiles - candidates[index].getTiles(), tableInfo, _numOfJocker - usedJocker, remainColors, curTryCandis, numOfCurTryCandis + 1) == true) {
+                if (funcProcessing(numOfTiles - candidates[index].getTiles(), tableInfo, _numOfJocker - usedJocker, remainColors, index) == true) {
                     candidates[index].drawTile()
+                    if (startTile < 0) {
+                        alert("Find a solution")
+                    }
                     return true;
                 }
                 candidates[index].restoreTiles(tableInfo, remainColors)
-                DPEntry[dpIdx] = true
-                    //                console.log(tabShow() + candidates[index].getCharSeq() + " is end")
-                    // for (let _idx2 = 0; _idx2 < numOfCurTryCandis; _idx2++) {
-                    //     exclusiveInfor[index][curTryCandis[_idx2]] = true
-                    //     exclusiveInfor[curTryCandis[_idx2]][index] = true
-                    // }
-                    // }
+                   
                 if (startTile < 0) {
                     candidates[index] = null
                 }
             }
         }
         if (startTile < 0) {
+            console.log("failuer:" + numOfFailure)
             alert("Impossible")
+                // console.log(skipDP)
         }
 
         tabNum--
+
+        numOfFailure++
 
         return false
     }
