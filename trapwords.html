@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 22px;
+        }
+    </style>
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=yes" />
+    <!--모바일페이지크기조절메타태그-->
+    <title>Trap Words</title>
+    <script>
+    </script>
+</head>
+
+<body>
+
+    <h2>방 번호&nbsp;&nbsp;
+        <input type='range' id='rangeStage' min='2' max='10' value='5' onchange='func_update()'>&nbsp;&nbsp;<span id='textStage'>5</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp; 정답 단어&nbsp;&nbsp;&nbsp;<input type='text' id="textAnswer">
+        <span id='spanAnswer'></span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value=" 확인 " id="butConfirm" style="font-size:100%; 
+        background-color: #000; 
+        border: none;
+        font-family: 'Nanum Pen Script', cursive;
+        color:#fff;
+        padding: 5px 0;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px;
+        cursor: pointer;" onClick="func_confirm()" />
+    </h2>
+    <div id="main"></div>
+
+    <script>
+        var bConfirm = false
+        var numOfTrapWords = 0;
+
+        function func_update() {
+            var _rangeStage = document.getElementById("rangeStage")
+            var _textStage = document.getElementById("textStage")
+            _textStage.innerHTML = _rangeStage.value
+        }
+
+        function func_confirm() {
+            var _spanAnswer = document.getElementById("spanAnswer")
+            var _inputText = document.getElementById("textAnswer")
+            var _rangeStage = document.getElementById("rangeStage")
+            var _butConfirm = document.getElementById("butConfirm")
+
+            if (bConfirm == false) {
+                if (_inputText.value == "") {
+                    return
+                }
+                _inputText.style.display = "none"
+                _rangeStage.style.display = "none"
+                _spanAnswer.innerHTML = _inputText.value
+                _spanAnswer.style.display = "inline"
+                _butConfirm.value = " 새 게임 "
+
+                var _input = document.createElement("input")
+                _input.id = "textTrapWord"
+                document.getElementById("main").appendChild(_input)
+                bConfirm = true
+                var _textTemp = document.createElement("span")
+                _textTemp.innerHTML = "&nbsp;&nbsp;&nbsp;"
+                document.getElementById("main").appendChild(_textTemp)
+
+                var _but = document.createElement("input")
+                _but.type = "button"
+                _but.id = "addTrapWord"
+                _but.onclick = function() {
+                    funcAddTrapWord()
+                }
+                _but.style.fontFamily = "Nanum Pen Script, cursive"
+                _but.style.fontSize = "100%"
+                _but.style.background = "#000"
+                _but.style.border = "none"
+                _but.style.color = "#fff"
+                _but.style.padding = "5px 5px"
+                _but.style.borderRadius = "8px"
+                _but.style.margin = "20px 4px"
+                _but.value = " 0/" + document.getElementById("textStage").innerHTML + " 함정 단어 추가 "
+
+
+
+                document.getElementById("main").appendChild(_but)
+
+
+            } else {
+
+                numOfTrapWords = 0
+                _inputText.style.display = "inline"
+                _rangeStage.style.display = "inline"
+                _spanAnswer.style.display = "none"
+                _butConfirm.value = " 확인 "
+                var mainBody = document.getElementById("main")
+
+                while (mainBody.children.length > 0) {
+                    mainBody.removeChild(mainBody.children[0])
+                }
+
+                bConfirm = false
+            }
+
+        }
+
+        function funcAddTrapWord() {
+            var _textStage = document.getElementById("textStage")
+            var _trapWord = document.getElementById("textTrapWord")
+
+            var curNum = Number(_textStage.innerHTML)
+
+            var _but = document.getElementById("addTrapWord")
+
+
+            if (curNum == numOfTrapWords) {
+                return
+            }
+            if (_trapWord.value == "") {
+                return
+            }
+            numOfTrapWords++
+            _but.value = " " + numOfTrapWords + "/" + document.getElementById("textStage").innerHTML + " 함정 단어 추가 "
+
+
+            var newTrapWord = document.createElement("h2")
+            newTrapWord.innerHTML = numOfTrapWords + ": " + _trapWord.value
+
+
+            var mainBody = document.getElementById("main")
+            mainBody.appendChild(newTrapWord)
+
+            _trapWord.value = ""
+
+        }
+    </script>
+
+
+</body>
+
+</html
