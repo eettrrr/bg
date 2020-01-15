@@ -100,7 +100,7 @@
                 var newWord = newRow.insertCell()
                 newWord.style.backgroundColor = "black"
                 newWord.innerHTML = words[index]
-                newWord.style.fontSize = pageHeight * 0.05 + "px"
+                newWord.style.fontSize = pageHeight * 0.055 + "px"
                 newWord.id = "newWord" + index
                 newWord.width = pageWidth * 0.75 + "px"
                 newWord.onclick = function() {
@@ -110,7 +110,7 @@
 
             {
                 var newWord = newRow.insertCell()
-                newWord.style.fontSize = pageHeight * 0.05 + "px"
+                newWord.style.fontSize = pageHeight * 0.055 + "px"
                 newWord.id = "newCount" + index
                 newWord.onclick = function() {
                     funcCountDec(index)
