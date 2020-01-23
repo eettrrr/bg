@@ -25,17 +25,45 @@
     <title>영리한 여우</title>
 </head>
 
-<body>
+<body id="body">
     <div id="main" class="bgdiv">
-        <input type="button" style="position: absolute; left:50%; width: 100px;"
+        <input type="button" id="btnRound1" style="position: absolute; left:19.9%; top:2%; width: 22px; background-color: Transparent; ;" value="X">
+        <input type="button" id="btnRound2" style="position: absolute; left:33.6%; top:2%; width: 22px; background-color: Transparent;  ;" value="X">
+        <input type="button" id="btnRound3" style="position: absolute; left:47.5%; top:2%; width: 22px; background-color: Transparent;  ;" value="X">
+        <input type="button" id="btnRound4" style="position: absolute; left:61.4%; top:2%; width: 22px; background-color: Transparent;  ;" value="X">
+        <input type="button" id="btnRound5" style="position: absolute; left:75.3%; top:2%; width: 22px; background-color: Transparent; ;" value="X">
+        <input type="button" id="btnRound6" style="position: absolute; left:89.2%; top:2%; width: 22px; background-color: Transparent;  ;" value="X">
+        
     </div>
 </body>
 
 <script>
     var pageHeight = document.documentElement.clientHeight
+    var modWidth = pageHeight/600*420
     var pageWidth = document.documentElement.clientWidth
 
     var maindiv = document.getElementById("main")
+    var mainbody = document.getElementById("body")
+    if (modWidth<pageWidth)
+    {
+        pageWidth = modWidth
+    }
+    else{
+        pageHeight = pageWidth/420*600
+    }
+
     maindiv.style.height=pageHeight+"px"
     maindiv.style.width=pageWidth+"px"
+    mainbody.style.height=pageHeight+"px"
+    mainbody.style.width=pageWidth+"px"
+    
+    var ratio = 0.197
+    for (let index = 1; index <=6; index++) {
+        var btnID = "btnRound"+index
+        var button = document.getElementById(btnID)
+        button.style.left = pageWidth * ratio + "px"
+        ratio += 0.138
+    }
+    
+    
 </script>
