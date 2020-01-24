@@ -469,6 +469,7 @@
         var button = document.getElementById("btnReroll" + a)
 
         if (arrReroll[a] == false) {
+            alert("획득한 아이템을 사용해 주세요.")
             return
         }
         else if (arrUseReroll[a] == false) {
@@ -478,14 +479,14 @@
             }
             button = document.getElementById("btnReroll" + a)
             arrUseReroll[a] = true
-            button.value = "u"
+            button.value = "x"
         }
         else {
             while (a + 1 < numOfReroll && arrUseReroll[a + 1] == true) {
                 a += 1
             }
             button = document.getElementById("btnReroll" + a)
-            button.value = "x"
+            button.value = ""
             --numOfUsedReroll
             arrUseReroll[a] = false
         }
@@ -495,6 +496,8 @@
         var button = document.getElementById("btnPlus" + a)
 
         if (arrPlus[a] == false) {
+            alert("획득한 아이템을 사용해 주세요.")
+
             return
         }
         else if (arrUsePlus[a] == false) {
@@ -504,14 +507,14 @@
             }
             button = document.getElementById("btnPlus" + a)
             arrUsePlus[a] = true
-            button.value = "u"
+            button.value = "x"
         }
         else {
             while (a + 1 < numOfPlus && arrUsePlus[a + 1] == true) {
                 a += 1
             }
             button = document.getElementById("btnPlus" + a)
-            button.value = "x"
+            button.value = ""
             --numOfUsedPlus
             arrUsePlus[a] = false
         }
@@ -523,8 +526,9 @@
         }
         arrReroll[numOfReroll] = true
         var button = document.getElementById("btnReroll" + numOfReroll)
-        button.value = "x"
         ++numOfReroll
+        button.style.border = "5px solid black"
+
     }
 
 
@@ -534,8 +538,10 @@
         }
         arrPlus[numOfPlus] = true
         var button = document.getElementById("btnPlus" + numOfPlus)
-        button.value = "x"
         ++numOfPlus
+        button.style.border = "5px solid black"
+        
+
     }
 
     function canBeLooseReroll() {
@@ -555,7 +561,7 @@
         --numOfReroll
         var button = document.getElementById("btnReroll" + numOfReroll)
         arrReroll[numOfReroll] = false
-        button.value = ""
+        button.style.border = "0px solid black"
 
     }
 
@@ -563,7 +569,7 @@
         --numOfPlus
         var button = document.getElementById("btnPlus" + numOfPlus)
         arrPlus[numOfPlus] = false
-        button.value = ""
+        button.style.border = "0px solid black"
 
     }
 
@@ -989,6 +995,7 @@
         }
         ratio += 272 / 3600
         button.value = ""
+        button.style.borderColor = "Transparent"
     }
 
 
@@ -1001,6 +1008,8 @@
         button.style.top = pageWidth * 411 / 360 + "px"
         button.style.fontSize = pageWidth * 15 / 360 + "px"
         button.value = ""
+        button.style.border = "0px"
+
         button.onclick = function () {
             funcOrange(index)
         }
@@ -1015,6 +1024,8 @@
         button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
         button.style.top = pageWidth * 360 / 360 + "px"
         button.style.fontSize = pageWidth * 15 / 360 + "px"
+        button.style.border = "0px"
+
         button.onclick = function () {
             funcGreen(index)
         }
@@ -1030,6 +1041,8 @@
         button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
         button.style.top = pageWidth * 13 / 360 + "px"
         button.style.fontSize = pageWidth * 15 / 360 + "px"
+        button.style.border = "0px"
+
         button.onclick =function(){
             funcRound(index)
         }
@@ -1045,6 +1058,8 @@
         button.style.width = button.style.height = pageWidth * 25 / 375 + "px"
         button.style.top = pageWidth * 80 / 375 + "px"
         button.style.fontSize = pageWidth * 15 / 375 + "px"
+        button.style.border = "0px"
+
         button.onclick = function () {
             funcReroll(index)
         }
@@ -1060,6 +1075,8 @@
         button.style.width = button.style.height = pageWidth * 25 / 375 + "px"
         button.style.top = pageWidth * 138 / 375 + "px"
         button.style.fontSize = pageWidth * 15 / 375 + "px"
+        button.style.border = "0px"
+
         button.onclick = function () {
             funcPlus(index)
         }
@@ -1080,6 +1097,8 @@
             button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
             button.style.top = pageWidth * topratio + "px"
             button.style.fontSize = pageWidth * 15 / 360 + "px"
+            button.style.border = "0px"
+
             button.onclick = function () {
                 funcYellow(_x, _y)
             }
@@ -1103,6 +1122,8 @@
             button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
             button.style.top = pageWidth * topratio + "px"
             button.style.fontSize = pageWidth * 15 / 360 + "px"
+            button.style.border = "0px"
+
             button.value = ""
             button.onclick = function () {
                 funcBlue(_x, _y)
