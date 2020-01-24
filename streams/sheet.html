@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-size: 22px;
+            font-family: 'Bangers', cursive;
+            border: 0px;
+            margin: 0px;
+        }
+
+        input{
+            font-family: 'Bangers', cursive;
+        }
+        .bgdiv {
+            background-image: url('streams.png');
+            background-repeat: no-repeat;
+            background-size: 100%;
+            border: 0px;
+            margin: 0px;
+        }
+    </style>
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <!--모바일페이지크기조절메타태그-->
+    <title>스트림스</title>
+</head>
+
+<body id="body">
+    <div id="main" class="bgdiv">
+       <select id="select0" style="background-color: transparent; position: absolute; left:18px; top:23px; width:85px; height:68px; text-align-last: center; -webkit-appearance: none; font-size: 40px;"></select>
+       <select id="select1" style="background-color: transparent; position: absolute; left:107px; top:23px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select2" style="background-color: transparent; position: absolute; left:196px; top:23px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select3" style="background-color: transparent; position: absolute; left:285px; top:23px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select4" style="background-color: transparent; position: absolute; left:374px; top:23px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       
+       <select id="select5" style="background-color: transparent; position: absolute; left:463px; top:23px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select6" style="background-color: transparent; position: absolute; left:463px; top:89px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select7" style="background-color: transparent; position: absolute; left:463px; top:155px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select8" style="background-color: transparent; position: absolute; left:463px; top:221px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select9" style="background-color: transparent; position: absolute; left:463px; top:287px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select10" style="background-color: transparent; position: absolute; left:463px; top:353px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select11" style="background-color: transparent; position: absolute; left:463px; top:419px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select12" style="background-color: transparent; position: absolute; left:463px; top:485px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select13" style="background-color: transparent; position: absolute; left:463px; top:551px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       
+       <select id="select14" style="background-color: transparent; position: absolute; left:463px; top:621px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select15" style="background-color: transparent; position: absolute; left:552px; top:621px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select16" style="background-color: transparent; position: absolute; left:641px; top:621px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select17" style="background-color: transparent; position: absolute; left:730px; top:621px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select18" style="background-color: transparent; position: absolute; left:819px; top:621px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       <select id="select19" style="background-color: transparent; position: absolute; left:908px; top:621px; width:85px; height:68px; text-align-last: center;  -webkit-appearance: none;font-size: 40px;"></select>
+       
+       
+    </div>
+</body>
+
+<script>
+
+    var pageHeight = document.documentElement.clientHeight
+    var pageWidth = document.documentElement.clientWidth
+
+    var maindiv = document.getElementById("main")
+    var mainbody = document.getElementById("body")
+  
+    maindiv.style.height = pageHeight + "px"
+    maindiv.style.width = pageWidth + "px"
+    mainbody.style.height = pageHeight + "px"
+    mainbody.style.width = pageWidth + "px"
+
+    var topStart= 23
+    var leftStart = 18
+    var leftTic = 90
+    var topTic = 67
+    var fontScale = 40
+    var widthScale = 85
+    var heightScale = 68
+    for (let idx = 0; idx <= 19; idx++) {
+        if (idx == 5)
+        {
+            leftStart-=1
+        }
+        else if (idx==6)
+        {
+            topStart+=1
+        }
+        else if (idx==15)
+        {
+            leftStart+=10
+           
+        }
+        else if (idx==14)
+        {
+            topStart-=5
+        }
+        var slt = document.getElementById("select"+idx)
+        slt.style.border="none"
+        slt.style.fontSize = fontScale/1024*pageWidth+"px"
+        slt.style.height = heightScale/1024*pageWidth+"px"
+        slt.style.width = widthScale/1024*pageWidth+"px"
+        
+        slt.style.left = leftStart/1024*pageWidth +"px"
+        slt.style.top = topStart/1024*pageWidth +"px"
+        for (let idx2 = 0; idx2 <= 30; idx2++) {
+            var opt = document.createElement("option")
+            opt.innerHTML = idx2
+            if (idx2==0)
+            {
+                opt.innerHTML = ""
+            }
+            slt.appendChild(opt)
+                
+        }
+        if (idx<5)
+        {
+            leftStart+=leftTic
+        }
+        else if (idx <14)
+        {
+            topStart+=topTic
+        }
+        else{
+            leftStart+=(leftTic-1)
+        }
+    }
+
+  
+</script>
