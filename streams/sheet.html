@@ -74,7 +74,15 @@
     }
 
     var pageHeight = document.documentElement.clientHeight
+    var modWidth = pageHeight/745*1021
     var pageWidth = document.documentElement.clientWidth
+    if (pageWidth > modWidth)
+    {
+        pageWidth = modWidth
+    }
+    else{
+        pageHeight = pageWidth/1021*745
+    }
 
 
         {
