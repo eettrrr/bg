@@ -834,14 +834,14 @@
 
         }
         var button = document.getElementById("btnPurple_" + a)
-        if (a > 0 && arrPurple[a] == 0) {
-            arrPurple[a] = arrPurple[a - 1]
-            if (arrPurple[a] == 6) {
-                arrPurple[a] = 0
+        arrPurple[a] += 1
+        if (a>0 && arrPurple[a-1]!=6)
+        {
+            while (arrPurple[a]<=arrPurple[a-1])
+            {
+                arrPurple[a]+=1
             }
         }
-
-        arrPurple[a] += 1
         var gainThisTime = true
 
         if (arrPurple[a] == 7) {
@@ -850,16 +850,24 @@
                     alert("아이템을 사용하였으므로 취소할 수 없습니다.")
                     gainThisTime = false
                     arrPurple[a] = arrPurple[a - 1] + 1
+                    if (arrPurple[a]==7)
+                    {
+                        arrPurple[a]=1
+                    }
                 }
                 else{
                     arrPurple[a] = 0
                 }
             }
-            else  if (a == 2 || a == 7) {
+            else if (a == 2 || a == 7) {
                 if (canBeLooseReroll() == false) {
                     alert("아이템을 사용하였으므로 취소할 수 없습니다.")
                     gainThisTime = false
                     arrPurple[a] = arrPurple[a - 1] + 1
+                    if (arrPurple[a]==7)
+                    {
+                        arrPurple[a]=1
+                    }
                 }
                 else{
                     arrPurple[a] = 0
@@ -884,10 +892,10 @@
             button.value = ""
         }
         else {
-            if (gainThisTime && arrPurple[a] == arrPurple[a - 1] + 1 || arrPurple[a-1]==6) {
+            if (gainThisTime && (arrPurple[a] == arrPurple[a - 1] + 1 || arrPurple[a]==1)) {
                 if (a == 4 || a == 10)
                 {
-                gainPlus()
+                    gainPlus()
                 }
                 else if (a == 2 || a == 7)
 
