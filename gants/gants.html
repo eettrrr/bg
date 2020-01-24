@@ -2,16 +2,20 @@
 <html lang="ko">
 
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
     <style>
         body {
-         
-            font-family: 'Stylish', sans-serif;
             font-size: 22px;
+            font-family: 'Bangers', cursive;
             border: 0px;
             margin: 0px;
         }
-        .bgdiv{
+
+        input{
+            font-family: 'Bangers', cursive;
+        }
+        .bgdiv {
             background-image: url('gants.png');
             background-repeat: no-repeat;
             background-size: 100%;
@@ -27,43 +31,1088 @@
 
 <body id="body">
     <div id="main" class="bgdiv">
-        <input type="button" id="btnRound1" style="position: absolute; left:19.9%; top:2%; width: 22px; background-color: Transparent; ;" value="X">
-        <input type="button" id="btnRound2" style="position: absolute; left:33.6%; top:2%; width: 22px; background-color: Transparent;  ;" value="X">
-        <input type="button" id="btnRound3" style="position: absolute; left:47.5%; top:2%; width: 22px; background-color: Transparent;  ;" value="X">
-        <input type="button" id="btnRound4" style="position: absolute; left:61.4%; top:2%; width: 22px; background-color: Transparent;  ;" value="X">
-        <input type="button" id="btnRound5" style="position: absolute; left:75.3%; top:2%; width: 22px; background-color: Transparent; ;" value="X">
-        <input type="button" id="btnRound6" style="position: absolute; left:89.2%; top:2%; width: 22px; background-color: Transparent;  ;" value="X">
-        
+        <input type="button" id="btnRound0"
+            style="position: absolute; left:71px; top:13px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnRound1"
+            style="position: absolute; left:121px; top:13px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnRound2"
+            style="position: absolute; left:171px; top:13px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnRound3"
+            style="position: absolute; left:221px; top:13px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnRound4"
+            style="position: absolute; left:271px; top:13px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnRound5"
+            style="position: absolute; left:321px; top:13px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+        <input type="button" id="btnReroll0"
+            style="position: absolute; left:115px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnReroll1"
+            style="position: absolute; left:151px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnReroll2"
+            style="position: absolute; left:186px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnReroll3"
+            style="position: absolute; left:222px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnReroll4"
+            style="position: absolute; left:258px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnReroll5"
+            style="position: absolute; left:294px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnReroll6"
+            style="position: absolute; left:330px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+
+        <input type="button" id="btnPlus0"
+            style="position: absolute; left:115px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnPlus1"
+            style="position: absolute; left:151px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnPlus2"
+            style="position: absolute; left:186px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnPlus3"
+            style="position: absolute; left:222px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnPlus4"
+            style="position: absolute; left:258px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnPlus5"
+            style="position: absolute; left:294px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+        <input type="button" id="btnPlus6"
+            style="position: absolute; left:330px; top:80px; width: 25px; height: 25px; background-color: Transparent;border-radius: 100%  ;"
+            value="X">
+
+        <input type="button" id="btnYellow_0_0"
+            style="position: absolute; left:19px; top:183px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_0_1"
+            style="position: absolute; left:50px; top:183px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_0_2"
+            style="position: absolute; left:81px; top:183px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_0_3"
+            style="position: absolute; left:112px; top:183px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+        <input type="button" id="btnYellow_1_0"
+            style="position: absolute; left:19px; top:213px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_1_1"
+            style="position: absolute; left:50px; top:213px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_1_2"
+            style="position: absolute; left:81px; top:213px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_1_3"
+            style="position: absolute; left:112px; top:213px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+        <input type="button" id="btnYellow_2_0"
+            style="position: absolute; left:19px; top:243px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_2_1"
+            style="position: absolute; left:50px; top:243px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_2_2"
+            style="position: absolute; left:81px; top:243px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_2_3"
+            style="position: absolute; left:112px; top:243px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+
+        <input type="button" id="btnYellow_3_0"
+            style="position: absolute; left:19px; top:271px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_3_1"
+            style="position: absolute; left:50px; top:271px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_3_2"
+            style="position: absolute; left:81px; top:271px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnYellow_3_3"
+            style="position: absolute; left:112px; top:271px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+
+        <input type="button" id="btnBlue_0_0"
+            style="position: absolute; left:194px; top:216px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnBlue_0_1"
+            style="position: absolute; left:225px; top:216px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnBlue_0_2"
+            style="position: absolute; left:256px; top:216px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnBlue_0_3"
+            style="position: absolute; left:287px; top:216px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+        <input type="button" id="btnBlue_1_0"
+            style="position: absolute; left:194px; top:245px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnBlue_1_1"
+            style="position: absolute; left:225px; top:245px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnBlue_1_2"
+            style="position: absolute; left:256px; top:245px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnBlue_1_3"
+            style="position: absolute; left:287px; top:245px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+        <input type="button" id="btnBlue_2_0"
+            style="position: absolute; left:194px; top:275px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnBlue_2_1"
+            style="position: absolute; left:225px; top:275px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnBlue_2_2"
+            style="position: absolute; left:256px; top:275px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnBlue_2_3"
+            style="position: absolute; left:287px; top:275px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+
+        <input type="button" id="btnGreen_0"
+            style="position: absolute; left:46px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_1"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_2"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_3"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_4"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_5"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_6"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_7"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_8"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_9"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnGreen_10"
+            style="position: absolute; left:73px; top:360px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+        <input type="button" id="btnOrange_0"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_1"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_2"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_3"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_4"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_5"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_6"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_7"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_8"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_9"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnOrange_10"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+
+        <input type="button" id="btnPurple_0"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_1"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_2"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_3"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_4"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_5"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_6"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_7"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_8"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_9"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <input type="button" id="btnPurple_10"
+            style="position: absolute; left:46px; top:411px; width: 25px; height: 25px; background-color: Transparent;  border-radius: 35%;"
+            value="X">
+        <button id="btnCalculate" onclick="funcCal()" 
+            style="position: absolute; left:10px; top:530px; background-color: black;  border-radius: 5%;  color: white; border:0px; font-size: large; padding:10px;
+            font-family: 'Stylish', sans-serif;">
+            <span id = "spanY" style="color:yellow"></span>
+            <span id = "spanB" style="color:blue"></span>
+            <span id = "spanG" style="color:green"></span>
+            <span id = "spanO" style="color:orange"></span>
+            <span id = "spanP" style="color:purple"></span>
+            <span id = "spanPlain">계산</span>
+            </button>
     </div>
 </body>
 
 <script>
+
+
+    
+    var arrYellow = new Array()
+    for (let index = 0; index <= 3; index++) {
+        arrYellow[index] = new Array()
+        for (let idx2 = 0; idx2 <= 3; idx2++) {
+            arrYellow[index][idx2] = false
+        }
+    }
+
+    arrYellow[0][3]=arrYellow[1][2]=arrYellow[2][1]=arrYellow[3][0]=true
+
+    var arrBlue = new Array()
+    for (let index = 0; index <= 2; index++) {
+        arrBlue[index] = new Array()
+        for (let idx2 = 0; idx2 <= 3; idx2++) {
+            arrBlue[index][idx2] = false
+        }
+    }
+
+    arrBlue[0][0]=true
+
+    var arrGreen = new Array()
+    var arrOrange = new Array()
+    var arrPurple = new Array()
+
+    for (let index = 0; index <= 10; index++) {
+        arrGreen[index] = false
+        arrOrange[index] = arrPurple[index] = 0
+    }
+
+    var numOfReroll = 0
+    var numOfUsedReroll = 0
+    var numOfPlus = 0
+    var numOfUsedPlus = 0
+
+    var numOfFox = 0
+
+    var arrReroll = new Array()
+    var arrPlus = new Array()
+    var arrUseReroll = new Array()
+    var arrUsePlus = new Array()
+
+    var arrRound = new Array()
+    for (let idx = 0; idx < 6; idx++) {
+        arrRound[idx]=false
+    }
+
+    for (let index = 0; index < 7; index++) {
+        arrReroll[index] = arrPlus[index] = arrUsePlus[index] = arrUseReroll[index] = false
+    }
+
+    function funcCal()
+    {
+        var scoreY = 0
+        var scoreB = 0
+        var scoreO = 0
+        var scoreP = 0
+        var scoreG = 0
+
+        for (let idx = 0; idx <= 3; idx++) {
+            var inc = 0
+            switch (idx) {
+                case 0:
+                    inc = 10
+                    break;
+                case 1:
+                    inc = 14
+                    break;
+                case 2:
+                    inc = 16
+                    break;
+                case 3:
+                    inc = 20
+                    break;
+            
+                default:
+                    break;
+            }
+            for (let idx2 = 0; idx2 <= 3; idx2++) {
+                if (arrYellow[idx2][idx]==false)
+                {
+                    inc = 0
+                }
+            }
+            scoreY += inc
+        }
+
+        var numOfBlue = 0
+        for (let idx = 0; idx <= 2; idx++) {
+            for (let idx2 = 0; idx2 <= 3; idx2++) {
+                if (arrBlue[idx][idx2]==true)
+                {
+                    ++numOfBlue
+                }
+            }
+        }
+        --numOfBlue
+        
+        if (numOfBlue > 0) {
+            scoreB = 1
+        }
+        for (let idx = 0; idx < numOfBlue; idx++) {
+            scoreB+=idx
+        }
+
+        var numOfGreen = 0
+        for (let idx = 0; idx < 11; idx++) {
+            if (arrGreen[idx]==true)
+            {
+                ++numOfGreen
+            }
+        }
+        for (let idx = 1; idx <= numOfGreen; idx++) {
+            scoreG+=idx
+        }
+
+        for (let idx = 0; idx < 11; idx++) {
+            scoreO += arrOrange[idx]
+            if (idx == 3 || idx == 6 || idx ==8)
+            {
+                scoreO += arrOrange[idx]
+            }
+            else if (idx == 10)
+            {
+                scoreO +=2*arrOrange[idx]
+            }
+        }
+
+        for (let idx = 0; idx < 11; idx++) {
+            scoreP += arrPurple[idx]
+        }
+
+        console.log(""+scoreY+","+scoreB+","+scoreG+","+scoreO+","+scoreP+","+numOfFox)
+        document.getElementById("spanY").innerHTML=scoreY
+        document.getElementById("spanB").innerHTML="+"+scoreB
+        document.getElementById("spanG").innerHTML="+"+scoreG
+        document.getElementById("spanO").innerHTML="+"+scoreO
+        document.getElementById("spanP").innerHTML="+"+scoreP
+
+        var minScore = scoreY
+        if (minScore>scoreB)
+        {
+            minScore = scoreB
+        }
+        if (minScore>scoreG)
+        {
+            minScore = scoreG
+        }
+        if (minScore>scoreO)
+        {
+            minScore = scoreO
+        }
+        if (minScore>scoreP)
+        {
+            minScore = scoreP
+        }
+        document.getElementById("spanPlain").innerHTML="+"+numOfFox+" x "+minScore +" = "+Number(scoreY+scoreB+scoreG+scoreO+scoreP+minScore*numOfFox)
+
+    }
+
+    function funcReroll(a) {
+        var button = document.getElementById("btnReroll" + a)
+
+        if (arrReroll[a] == false) {
+            return
+        }
+        else if (arrUseReroll[a] == false) {
+            ++numOfUsedReroll
+            while (a - 1 >= 0 && arrUseReroll[a - 1] == false) {
+                a -= 1
+            }
+            button = document.getElementById("btnReroll" + a)
+            arrUseReroll[a] = true
+            button.value = "u"
+        }
+        else {
+            while (a + 1 < numOfReroll && arrUseReroll[a + 1] == true) {
+                a += 1
+            }
+            button = document.getElementById("btnReroll" + a)
+            button.value = "x"
+            --numOfUsedReroll
+            arrUseReroll[a] = false
+        }
+    }
+
+    function funcPlus(a) {
+        var button = document.getElementById("btnPlus" + a)
+
+        if (arrPlus[a] == false) {
+            return
+        }
+        else if (arrUsePlus[a] == false) {
+            ++numOfUsedPlus
+            while (a - 1 >= 0 && arrUsePlus[a - 1] == false) {
+                a -= 1
+            }
+            button = document.getElementById("btnPlus" + a)
+            arrUsePlus[a] = true
+            button.value = "u"
+        }
+        else {
+            while (a + 1 < numOfPlus && arrUsePlus[a + 1] == true) {
+                a += 1
+            }
+            button = document.getElementById("btnPlus" + a)
+            button.value = "x"
+            --numOfUsedPlus
+            arrUsePlus[a] = false
+        }
+    }
+
+    function gainReroll() {
+        if (numOfReroll == 7) {
+            return
+        }
+        arrReroll[numOfReroll] = true
+        var button = document.getElementById("btnReroll" + numOfReroll)
+        button.value = "x"
+        ++numOfReroll
+    }
+
+
+    function gainPlus() {
+        if (numOfPlus == 7) {
+            return
+        }
+        arrPlus[numOfPlus] = true
+        var button = document.getElementById("btnPlus" + numOfPlus)
+        button.value = "x"
+        ++numOfPlus
+    }
+
+    function canBeLooseReroll() {
+        if (numOfReroll == numOfUsedReroll) {
+            return false
+        }
+        return true
+    }
+
+    function canBeLoosePlus() {
+        if (numOfPlus == numOfUsedPlus) {
+            return false
+        }
+        return true
+    }
+    function looseReroll() {
+        --numOfReroll
+        var button = document.getElementById("btnReroll" + numOfReroll)
+        arrReroll[numOfReroll] = false
+        button.value = ""
+
+    }
+
+    function loosePlus() {
+        --numOfPlus
+        var button = document.getElementById("btnPlus" + numOfPlus)
+        arrPlus[numOfPlus] = false
+        button.value = ""
+
+    }
+
+
+
+
+    function funcYellow(a, b) {
+        if (a == 0 && b == 3) {
+            return
+        }
+        if (a == 1 && b == 2) {
+            return
+        }
+        if (a == 2 && b == 1) {
+            return
+        }
+        if (a == 3 && b == 0) {
+            return
+        }
+        var button = document.getElementById("btnYellow_" + a + "_" + b)
+        if (arrYellow[a][b] == false) {
+            button.value = "x"
+            arrYellow[a][b] = true
+            if (a==3 && arrYellow[3][1]==true && arrYellow[3][2]== true && arrYellow[3][3]==true)
+            {
+                ++numOfFox
+            }
+            if (a==b)
+            {
+                if (arrYellow[0][0]==true && arrYellow[1][1]==true && arrYellow[2][2]==true && arrYellow[3][3]==true)
+                {
+                    gainPlus()
+                }
+            }
+        }
+        else {
+
+            if (a==b)
+            {
+                if (arrYellow[0][0]==true && arrYellow[1][1]==true && arrYellow[2][2]==true && arrYellow[3][3]==true)
+                {
+                    if (canBeLoosePlus() == false) {
+                        alert("아이템을 사용하였으므로 수정할 수 없습니다.")
+                        return
+                    }
+                    loosePlus()
+
+                }
+            }
+
+            if (a==3 && arrYellow[3][1]==true && arrYellow[3][2]== true && arrYellow[3][3]==true)
+            {
+                --numOfFox
+            } 
+            button.value = ""
+            arrYellow[a][b] = false
+        }
+
+    }
+
+    function funcBlue(a, b) {
+        if (a == 0 && b == 0) {
+            return;
+        }
+        var button = document.getElementById("btnBlue_" + a + "_" + b)
+        if (arrBlue[a][b] == false) {
+            button.value = "x"
+            arrBlue[a][b] = true
+
+            if (a==2 && arrBlue[a][0] == true&& arrBlue[a][1] == true&& arrBlue[a][2] == true&& arrBlue[a][3] == true)
+            {
+                ++numOfFox
+            }
+
+            if (b == 0) {
+                if (arrBlue[2][0] == true && arrBlue[1][0] == true) {
+                    gainReroll()
+                }
+
+            }
+            else if (b == 3) {
+                if (arrBlue[2][3] == true && arrBlue[1][3] == true && arrBlue[0][3] == true) {
+                    gainPlus()
+                }
+
+            }
+
+        }
+        else {
+
+            if (b == 0) {
+                if (arrBlue[2][0] == true && arrBlue[1][0] == true) {
+                    if (canBeLooseReroll() == false) {
+                        alert("아이템을 사용하였으므로 수정할 수 없습니다.")
+                        return
+                    }
+                    looseReroll()
+                }
+            } else if (b == 3) {
+                if (arrBlue[2][3] == true && arrBlue[1][3] == true && arrBlue[0][3] == true) {
+                    if (canBeLoosePlus() == false) {
+                        alert("아이템을 사용하였으므로 수정할 수 없습니다.")
+                        return
+                    }
+                    loosePlus()
+
+                }
+            }
+            if (a==2 && arrBlue[a][0] == true&& arrBlue[a][1] == true&& arrBlue[a][2] == true&& arrBlue[a][3] == true)
+            {
+                --numOfFox
+            }
+
+            button.value = ""
+            arrBlue[a][b] = false
+
+        }
+    }
+
+    function funcGreen(a) {
+        var button = document.getElementById("btnGreen_" + a)
+        if (arrGreen[a] == false) {
+            for (let index = 0; index < a; index++) {
+                if (arrGreen[index] == false) {
+                    alert("왼쪽칸부터 채워주십시오.")
+                    return;
+                }
+            }
+
+            if (a==6)
+            {
+                ++numOfFox
+            }
+            if (a == 3) {
+                gainPlus()
+            }
+            if (a==9)
+            {
+                gainReroll()
+            }
+            button.value = "x"
+            arrGreen[a] = true
+        }
+        else {
+            for (let index = a + 1; index <= 10; index++) {
+                if (arrGreen[index] == true) {
+                    alert("오른쪽칸부터 수정해주십시오.")
+                    return
+                }
+
+            }
+
+            if (a == 3) {
+                if (canBeLoosePlus() == false) {
+                    alert("아이템을 사용하였으므로 수정할 수 없습니다.")
+                    return
+                }
+                loosePlus()
+            }
+
+            if (a == 9) {
+                if (canBeLooseReroll() == false) {
+                    alert("아이템을 사용하였으므로 수정할 수 없습니다.")
+                    return
+                }
+                looseReroll()
+            }
+            if (a==6)
+            {
+                --numOfFox
+            }
+            button.value = ""
+            arrGreen[a] = false
+        }
+
+    }
+
+    function funcOrange(a) {
+        for (let index = 0; index < a; index++) {
+            if (arrOrange[index] == 0) {
+                alert("왼쪽칸부터 채워주십시오.")
+
+                return;
+            }
+        }
+        for (let index = a + 1; index <= 10; index++) {
+            if (arrOrange[index] != 0) {
+                alert("오른쪽칸부터 수정해주십시오.")
+
+                return
+            }
+
+        }
+        var button = document.getElementById("btnOrange_" + a)
+        arrOrange[a] += 1
+        var gainThisTime = true
+        if (arrOrange[a] == 7) {
+            arrOrange[a] = 0
+            if (a == 5) {
+                if (canBeLoosePlus() == false) {
+                    alert("아이템을 사용하였으므로 취소할 수 없습니다.")
+                    gainThisTime = false
+                    arrOrange[a] = 1
+                }
+            }
+
+            if (a == 2) {
+                if (canBeLooseReroll() == false) {
+                    alert("아이템을 사용하였으므로 취소할 수 없습니다.")
+                    gainThisTime = false
+                    arrOrange[a] = 1
+                }
+            }
+
+        }
+        if (arrOrange[a] == 0) {
+            button.value = ""
+            if (a == 5) {
+                loosePlus()
+            }
+            if (a == 2) {
+                looseReroll()
+            }
+            if (a==7)
+            {
+                --numOfFox
+            }
+        }
+        else {
+            if (arrOrange[a] == 1 && gainThisTime == true) {
+
+                if (a == 5) {
+                    gainPlus()
+                }
+                if (a == 2) {
+                    gainReroll()
+                }
+                if (a==7)
+                {
+                    ++numOfFox
+                }
+            }
+
+            button.value = arrOrange[a]
+        }
+    }
+
+    function funcPurple(a) {
+        for (let index = 0; index < a; index++) {
+            if (arrPurple[index] == 0) {
+                alert("왼쪽칸부터 채워주십시오.")
+
+                return;
+            }
+        }
+        for (let index = a + 1; index <= 10; index++) {
+            if (arrPurple[index] != 0) {
+                alert("오른쪽칸부터 수정해주십시오.")
+
+                return
+            }
+
+        }
+        var button = document.getElementById("btnPurple_" + a)
+        if (a > 0 && arrPurple[a] == 0) {
+            arrPurple[a] = arrPurple[a - 1]
+            if (arrPurple[a] == 6) {
+                arrPurple[a] = 0
+            }
+        }
+
+        arrPurple[a] += 1
+        var gainThisTime = true
+
+        if (arrPurple[a] == 7) {
+            if (a == 4 || a == 10) {
+                if (canBeLoosePlus() == false) {
+                    alert("아이템을 사용하였으므로 취소할 수 없습니다.")
+                    gainThisTime = false
+                    arrPurple[a] = arrPurple[a - 1] + 1
+                }
+                else{
+                    arrPurple[a] = 0
+                }
+            }
+            else  if (a == 2 || a == 7) {
+                if (canBeLooseReroll() == false) {
+                    alert("아이템을 사용하였으므로 취소할 수 없습니다.")
+                    gainThisTime = false
+                    arrPurple[a] = arrPurple[a - 1] + 1
+                }
+                else{
+                    arrPurple[a] = 0
+                }
+            }
+            else{
+                arrPurple[a] = 0
+            }
+            
+        }
+        if (arrPurple[a] == 0) {
+            if (a == 4 || a == 10) {
+                loosePlus()
+            }
+            if (a == 2 || a == 7) {
+                looseReroll()
+            }
+            if (a==6)
+            {
+                --numOfFox
+            }
+            button.value = ""
+        }
+        else {
+            if (gainThisTime && arrPurple[a] == arrPurple[a - 1] + 1 || arrPurple[a-1]==6) {
+                if (a == 4 || a == 10)
+                {
+                gainPlus()
+                }
+                else if (a == 2 || a == 7)
+
+                {
+                    gainReroll()
+                }
+                else if (a==6)
+                {
+                    ++numOfFox
+                }
+            }
+            button.value = arrPurple[a]
+        }
+    }
+
+    function funcRound(a)
+    {
+        var button  = document.getElementById("btnRound"+a)
+        if (arrRound[a]==false)
+        {
+            for (let idx = 0; idx < a; idx++) {
+                if (arrRound[idx]==false)
+                {
+                    alert(""+(idx+1)+" 라운드부터 시작해 주십시오.")
+                    return
+                }
+                
+            }
+            arrRound[a]=true
+            button.value = "x"
+            if (a==0 || a==2)
+            {
+                gainReroll()
+            }
+            if (a==1)
+            {
+                gainPlus()
+            }
+        }
+        else{
+
+            for (let idx = 5; idx >a ; idx--) {
+                if (arrRound[idx]==true)
+                {
+                    alert(""+(idx+1)+" 라운드부터 취소해 주십시오.")
+                    return
+                }
+            }
+            if (a == 0 || a == 2) {
+                if (canBeLooseReroll() == false) {
+                    alert("아이템을 사용했으므로 수정할 수 없습니다.")
+                    return
+                }
+                looseReroll()
+            }
+            if (a==1)
+            {
+                if (canBeLoosePlus() == false) {
+                    alert("아이템을 사용했으므로 수정할 수 없습니다.")
+                    return
+                }
+                loosePlus()
+            }
+            arrRound[a] = false
+            button.value = ""
+            
+        }
+    }
     var pageHeight = document.documentElement.clientHeight
-    var modWidth = pageHeight/600*420
+    var modWidth = pageHeight / 600 * 420
     var pageWidth = document.documentElement.clientWidth
 
     var maindiv = document.getElementById("main")
     var mainbody = document.getElementById("body")
-    if (modWidth<pageWidth)
-    {
+    if (modWidth < pageWidth) {
         pageWidth = modWidth
     }
-    else{
-        pageHeight = pageWidth/420*600
+    else {
+        pageHeight = pageWidth / 420 * 600
     }
 
-    maindiv.style.height=pageHeight+"px"
-    maindiv.style.width=pageWidth+"px"
-    mainbody.style.height=pageHeight+"px"
-    mainbody.style.width=pageWidth+"px"
-    
-    var ratio = 0.197
-    for (let index = 1; index <=6; index++) {
-        var btnID = "btnRound"+index
+    maindiv.style.height = pageHeight + "px"
+    maindiv.style.width = pageWidth + "px"
+    mainbody.style.height = pageHeight + "px"
+    mainbody.style.width = pageWidth + "px"
+
+
+    var btnCal = document.getElementById("btnCalculate")
+    btnCal.style.left = pageWidth * 5/360 + "px"
+    btnCal.style.top = pageWidth * 520 / 360 + "px"
+    btnCal.style.fontSize = pageWidth * 20 / 360 + "px"
+    btnCal.style.padding = pageWidth * 8 / 360 + "px"
+
+
+    var ratio = 46 / 360
+    for (let index = 0; index <= 10; index++) {
+        var btnID = "btnPurple_" + index
         var button = document.getElementById(btnID)
         button.style.left = pageWidth * ratio + "px"
-        ratio += 0.138
+        button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
+        button.style.top = pageWidth * 462 / 360 + "px"
+        button.style.fontSize = pageWidth * 15 / 360 + "px"
+        button.onclick = function () {
+            funcPurple(index)
+        }
+        ratio += 272 / 3600
+        button.value = ""
     }
-    
-    
+
+
+    var ratio = 46 / 360
+    for (let index = 0; index <= 10; index++) {
+        var btnID = "btnOrange_" + index
+        var button = document.getElementById(btnID)
+        button.style.left = pageWidth * ratio + "px"
+        button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
+        button.style.top = pageWidth * 411 / 360 + "px"
+        button.style.fontSize = pageWidth * 15 / 360 + "px"
+        button.value = ""
+        button.onclick = function () {
+            funcOrange(index)
+        }
+        ratio += 272 / 3600
+    }
+
+    var ratio = 46 / 360
+    for (let index = 0; index <= 10; index++) {
+        var btnID = "btnGreen_" + index
+        var button = document.getElementById(btnID)
+        button.style.left = pageWidth * ratio + "px"
+        button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
+        button.style.top = pageWidth * 360 / 360 + "px"
+        button.style.fontSize = pageWidth * 15 / 360 + "px"
+        button.onclick = function () {
+            funcGreen(index)
+        }
+        ratio += 272 / 3600
+        button.value = ""
+    }
+
+    var ratio = 71 / 360
+    for (let index = 0; index <= 5; index++) {
+        var btnID = "btnRound" + index
+        var button = document.getElementById(btnID)
+        button.style.left = pageWidth * ratio + "px"
+        button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
+        button.style.top = pageWidth * 13 / 360 + "px"
+        button.style.fontSize = pageWidth * 15 / 360 + "px"
+        button.onclick =function(){
+            funcRound(index)
+        }
+        ratio += 50 / 360
+        button.value = ""
+    }
+
+    ratio = 115 / 375
+    for (let index = 0; index <= 6; index++) {
+        var btnID = "btnReroll" + index
+        var button = document.getElementById(btnID)
+        button.style.left = pageWidth * ratio + "px"
+        button.style.width = button.style.height = pageWidth * 25 / 375 + "px"
+        button.style.top = pageWidth * 80 / 375 + "px"
+        button.style.fontSize = pageWidth * 15 / 375 + "px"
+        button.onclick = function () {
+            funcReroll(index)
+        }
+        ratio += 355 / 3750
+        button.value = ""
+    }
+
+    ratio = 115 / 375
+    for (let index = 0; index <= 6; index++) {
+        var btnID = "btnPlus" + index
+        var button = document.getElementById(btnID)
+        button.style.left = pageWidth * ratio + "px"
+        button.style.width = button.style.height = pageWidth * 25 / 375 + "px"
+        button.style.top = pageWidth * 138 / 375 + "px"
+        button.style.fontSize = pageWidth * 15 / 375 + "px"
+        button.onclick = function () {
+            funcPlus(index)
+        }
+
+        ratio += 355 / 3750
+        button.value = ""
+    }
+
+
+    var topratio = 183 / 360
+    for (let _x = 0; _x <= 3; _x++) {
+
+        var leftratio = 19 / 360
+        for (let _y = 0; _y <= 3; _y++) {
+            var btnID = "btnYellow_" + _x + "_" + _y
+            var button = document.getElementById(btnID)
+            button.style.left = pageWidth * leftratio + "px"
+            button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
+            button.style.top = pageWidth * topratio + "px"
+            button.style.fontSize = pageWidth * 15 / 360 + "px"
+            button.onclick = function () {
+                funcYellow(_x, _y)
+            }
+            leftratio += 31 / 360
+            button.value = ""
+
+        }
+        topratio += 295 / 3600
+
+
+    }
+
+    topratio = 216 / 360
+    for (let _x = 0; _x <= 2; _x++) {
+
+        var leftratio = 194 / 360
+        for (let _y = 0; _y <= 3; _y++) {
+            var btnID = "btnBlue_" + _x + "_" + _y
+            var button = document.getElementById(btnID)
+            button.style.left = pageWidth * leftratio + "px"
+            button.style.width = button.style.height = pageWidth * 25 / 360 + "px"
+            button.style.top = pageWidth * topratio + "px"
+            button.style.fontSize = pageWidth * 15 / 360 + "px"
+            button.value = ""
+            button.onclick = function () {
+                funcBlue(_x, _y)
+            }
+            leftratio += 31 / 360
+
+        }
+        topratio += 295 / 3600
+
+
+    }
+
 </script>
