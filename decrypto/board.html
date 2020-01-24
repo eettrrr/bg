@@ -52,7 +52,7 @@
 
 var word_list = new Array();
     var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", "http://eettrrr.github.io/dc/wordlist.txt", false);
+    rawFile.open("GET", "wordlist.txt", false);
     rawFile.setRequestHeader('Content-Type', 'text/html;charset=utf-8')
     rawFile.onreadystatechange = function () {
         if (rawFile.readyState === 4) {
