@@ -50,6 +50,8 @@
 
 <script>
 
+    alert("변경하고 싶은 단어를 클릭하세요.\n(전체 단어를 바꾸고 싶은 경우: 새로고침)")
+
 var word_list = new Array();
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", "wordlist.txt", false);
@@ -134,6 +136,11 @@ var word_list = new Array();
 
 
     function word_change(idx) {
+        var change = confirm("변경하시겠습니까?")
+        if (change!=true)
+        {
+            return
+        }
         var new_number = Math.floor(Math.random() * (word_list.length));
         for (let index = 0; index < numbers.length; index++) {
             while (numbers[index] == new_number) {
