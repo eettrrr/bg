@@ -211,12 +211,15 @@
         {
             var slt = document.getElementById("select"+startIdx)
             slt.style.color = colors[colorIdx]
-            if (startIdx == 19)
-            {
-                if (curSize>1)
+            if (arrChange[startIdx] == 2) {
+                slt.style.color = colors[7]
+            }
+            if (startIdx == 19) {
+                if (curSize > 1)
                 {
                     var newSpan = document.createElement("span")
                     newSpan.style.color = colors[colorIdx]
+                   
                     newSpan.innerHTML = " + "+scores[curSize]
                     finalScore+=scores[curSize]
                     pCal.appendChild(newSpan)
@@ -258,12 +261,13 @@
         selectedNumbers[idx]=slt.selectedIndex
         slt.style.fontStyle="italic"
 
-        if (arrChange[idx]==1)
+        if (arrChange[idx]==1 || arrChange[idx]==2)
         {
             arrChange[idx]=2
-            slt.style.fontStyle="italic"
+            slt.style.fontWeight="bold"
             slt.style.color=colors[7]
         }
+        
 
         if (idx == starLoc && slt.selectedIndex == 0)
         {
