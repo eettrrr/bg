@@ -166,11 +166,11 @@
             var btn = document.createElement("button")
             btn.id = "btnWord" + idx
             btn.style.backgroundImage = "url('img/codename.png')"
-            btn.style.backgroundSize = pageWidth * widthScale + "px " + pageHeight * heightScale + "px"
+            btn.style.backgroundSize = pageWidth * widthScale + "px " + heightScale * 100 + "vh"
             mainDiv.appendChild(btn)
             btn.style.position = "absolute"
             btn.style.left = leftIter * pageWidth + "px"
-            btn.style.top = topIter * pageHeight + "px"
+            btn.style.top = topIter * 100 + "vh"
             btn.style.height = heightScale *100 + "vh"
             btn.style.width = pageWidth * widthScale + "px"
             btn.style.fontSize = fontScale * pageWidth + "px"
@@ -210,8 +210,8 @@
            
             btn.style.position = "absolute"
             btn.style.left = leftIter * pageWidth + "px"
-            btn.style.top = topIter * pageHeight + "px"
-            btn.style.height = pageHeight * heightScale + "px"
+            btn.style.top = topIter * 100 + "vh"
+            btn.style.height = 100 * heightScale + "vh"
             btn.style.width = pageWidth * widthScale + "px"
             btn.style.backgroundColor="transparent"
             btn.style.fontSize = fontScale * pageWidth + "px"
@@ -390,7 +390,7 @@
 
 
     if (pageWidth < pageHeight) {
-        alert("가로 모드로 실행해 주세요!")
+        alert("가로 모드로 실행해 주세요.")
         var main = document.getElementById("main")
         main.innerHTML = "가로 모드로 변경 후 새로고침 해주세요."
         main.style.margin = 0.1 * pageWidth + "px"
