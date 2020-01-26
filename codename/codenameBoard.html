@@ -144,10 +144,9 @@
         var maindiv = document.getElementById("main")
         var mainbody = document.getElementById("body")
 
-        maindiv.style.backgroundSize = pageWidth + "px " + pageHeight + "px"
-        maindiv.style.height = pageHeight + "px"
+        maindiv.style.height = "100vh"
         maindiv.style.width = pageWidth + "px"
-        mainbody.style.height = pageHeight + "px"
+        mainbody.style.height = "100vh"
         mainbody.style.width = pageWidth + "px"
 
         var mainDiv = document.getElementById("main")
@@ -172,7 +171,7 @@
             btn.style.position = "absolute"
             btn.style.left = leftIter * pageWidth + "px"
             btn.style.top = topIter * pageHeight + "px"
-            btn.style.height = pageHeight * heightScale + "px"
+            btn.style.height = heightScale *100 + "vh"
             btn.style.width = pageWidth * widthScale + "px"
             btn.style.fontSize = fontScale * pageWidth + "px"
             btn.style.borderRadius = "5%"
@@ -391,7 +390,7 @@
 
 
     if (pageWidth < pageHeight) {
-        alert("가로 모드로 실행해 주세요.")
+        alert("가로 모드로 실행해 주세요!")
         var main = document.getElementById("main")
         main.innerHTML = "가로 모드로 변경 후 새로고침 해주세요."
         main.style.margin = 0.1 * pageWidth + "px"
