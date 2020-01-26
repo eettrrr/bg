@@ -10,6 +10,7 @@
             font-family: 'Stylish', sans-serif;
             border: 0px;
             margin: 0px;
+            
         }
     </style>
 
@@ -377,6 +378,17 @@
     var pageHeight = document.documentElement.clientHeight
     var pageWidth = document.documentElement.clientWidth
 
+    var maindiv = document.getElementById("main")
+        var mainbody = document.getElementById("body")
+
+        maindiv.style.backgroundSize = pageWidth + "px " + pageHeight + "px"
+        maindiv.style.height = pageHeight + "px"
+        maindiv.style.width = pageWidth + "px"
+        maindiv.style.backgroundColor="white"
+        mainbody.style.height = pageHeight + "px"
+        mainbody.style.width = pageWidth + "px"
+        mainbody.style.backgroundColor="white"
+
 
     if (pageWidth < pageHeight) {
         alert("가로 모드로 실행해 주세요.")
@@ -409,7 +421,8 @@
             seed = Math.floor(Math.random()*10000)
         }
         alert("시드 번호: "+seed)
-        document.body.requestFullscreen()
+        var main = document.getElementById("main")
+        main.requestFullscreen()
 
         var main = document.getElementById("main")
         main.removeChild(main.children[0])
