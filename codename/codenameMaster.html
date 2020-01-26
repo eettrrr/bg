@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-size: 22px;
+            font-family: 'Stylish', sans-serif;
+        }
+    </style>
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <!--모바일페이지크기조절메타태그-->
+    <title>코드네임</title>
+</head>
+
+<body id="body">
+    <div id="main" class="bgdiv">
+
+    </div>
+</body>
+
+<script>
+
+    var seed = null;
+
+    var word_list = new Array();
+    var numbers = new Array();
+    var words = new Array();
+
+    var reds = new Array();
+    var blues = new Array();
+    var checkDone = new Array()
+    
+    for (let idx = 0; idx < 25; idx++) {
+        checkDone[idx]=reds[idx]=blues[idx]=false
+    }
+    var assassin = 0
+
+    function getRandom(bound)
+    {
+        var x = Math.sin(seed++) * 100000;
+        return Math.floor((x - Math.floor(x)) * bound)
+    }
+    
+  
+    function openWords() {
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", "wordlist.txt", false);
+        rawFile.setRequestHeader('Content-Type', 'text/html;charset=utf-8')
+        rawFile.onreadystatechange = function () {
+            if (rawFile.readyState === 4) {
+                if (rawFile.status === 200 || rawFile.status == 0) {
+                    var allText = rawFile.responseText;
+                    word_list = allText.split('\n');
+                }
+            }
+        }
+        rawFile.send(null);
+
+
+        for (let index = 0; index < 25; index++) {
+            numbers[index] = getRandom(word_list.length);
+            for (let index2 = 0; index2 < index; index2++) {
+                while (numbers[index] == numbers[index2]) {
+                    numbers[index]++
+                    if (numbers[index] == word_list.length) {
+                        numbers[index] = 0;
+                    }
+                }
+            }
+
+
+            words[index]=""
+            words[index] = word_list[numbers[index]].substring(0,word_list[numbers[index]].length-1)
+
+            console.log(words[index])
+        }
+        for (let idx = 0; idx < 9; idx++) {
+            var redLoc = getRandom(25)
+            while (reds[redLoc] == true)
+            {
+                redLoc = getRandom(25)
+            }
+            reds[redLoc]=true
+        }
+
+        for (let idx = 0; idx < 8; idx++) {
+            var redLoc = getRandom(25)
+            while (reds[redLoc]==true || blues[redLoc] == true)
+            {
+                redLoc = getRandom(25)
+            }
+            blues[redLoc]=true
+        }
+        assassin=getRandom(25)
+        while (reds[assassin]==true || blues[assassin] == true)
+        {
+            assassin=getRandom(25)
+        }
+    }
+
+    
+   
+    var pageHeight = document.documentElement.clientHeight
+    var pageWidth = document.documentElement.clientWidth
+
+    if (pageWidth>pageHeight)
+    {
+        alert("세로 모드로 실행해 주세요.")
+        var main = document.getElementById("main")
+        main.innerHTML = "세로 모드로 변경 후 새로고침 해주세요."
+        main.style.margin = 0.1 * pageHeight + "px"
+        main.style.fontSize = 0.2 * pageHeight + "px"
+    }
+    else {
+        var btn = document.createElement("button")
+        btn.id = "btnSeed"
+        btn.style.backgroundColor="black"
+        btn.style.color ="white"
+        btn.style.border = "0px"
+        btn.style.padding = 0.02*pageHeight+"px"
+        btn.style.fontSize = 0.05*pageHeight+"px"
+        btn.style.borderRadius="5%"
+        btn.onclick=inputSeed
+        btn.innerHTML="시드 입력"
+        var main = document.getElementById("main")
+        main.appendChild(btn)
+        
+    }
+
+    function inputSeed()
+    {
+        var main = document.getElementById("main")
+        if (main.childElementCount>1)
+        {
+            main.removeChild(main.children[1])
+        }
+        seed = prompt("시드 번호를 입력해 주세요.")
+        if (seed == null)
+        {
+            return;
+        }
+        while (seed.length==0)
+        {
+            seed = prompt("시드 번호를 입력해 주세요.")
+        }
+        var btn = document.getElementById("btnSeed")
+        btn.innerHTML = "시드: "+seed
+        openWords()
+
+        drawTable()
+    }
+
+    function funcCountInc(idx,team)
+    {
+        if (idx==0)
+        {
+            return
+        }
+        var color = "gray"
+        if (team == "blues") {
+            color = "blue"
+        }
+        else if (team == "reds") {
+            color = "red"
+        }
+        var td = document.getElementById(team + idx)
+        if (td.style.color =="white")
+        {
+            if (color == "gray")
+            {
+                color= "black"
+            }
+            td.style.color = color
+
+            td.style.backgroundColor="white"
+            return
+        }
+        var newWord = prompt("'"+td.innerHTML+ "' 바꾸겠습니까?")
+        if (newWord == null || newWord.length == 0)
+        {
+            if (idx==1 && team=="inos")
+            {
+                return
+            }
+            if (confirm("'"+td.innerHTML+ "' 체크합니다"))
+            {
+                td.style.color="white"
+                   td.style.backgroundColor=color
+                
+            }
+        }
+        else{
+            td.innerHTML=newWord
+        }
+    }
+    function drawTable()
+    {
+        var mainDiv = document.getElementById("main")
+        var newTable = document.createElement("table")
+        newTable.style.width = 0.9*pageWidth+"px"
+        newTable.style.height = 0.85*pageHeight+"px"
+        newTable.style.textAlignLast="center"
+        document.getElementById("main").appendChild(newTable)
+        var fontScale = 0.05
+        
+        for (let index = 0; index < 10; index++) {
+            var newRow = newTable.insertRow()
+            {
+                var newWord = newRow.insertCell()
+                newWord.style.fontSize = fontScale*pageHeight+"px"
+
+                if (index == 0)
+                {
+                    newWord.innerHTML="레드팀"    
+                    newWord.style.fontWeight = "bold"
+                    newWord.style.fontSize = 1.5*fontScale*pageHeight+"px"                }
+                
+                newWord.style.color= "red"
+                newWord.id = "reds" + index
+                newWord.onclick = function() {
+                    funcCountInc(index,"reds")
+                }
+            }
+            {
+                var newWord = newRow.insertCell()
+                newWord.id = "blues" + index
+                newWord.style.color= "blue"
+                newWord.style.fontSize = fontScale*pageHeight+"px"
+
+                if (index == 0)
+                {
+                    newWord.innerHTML="블루팀"        
+                    newWord.style.fontWeight = "bold"
+                    newWord.style.fontSize = 1.5*fontScale*pageHeight+"px"
+                }
+                newWord.onclick = function() {
+                    funcCountInc(index,"blues")
+                }
+            }
+            {
+                var newWord = newRow.insertCell()
+                newWord.id = "inos" + index
+                newWord.style.fontSize = fontScale*pageHeight+"px"
+
+                if (index == 0)
+                {
+                    newWord.innerHTML="민간인" 
+                    newWord.style.fontWeight = "bold"   
+                    newWord.style.fontSize = 1.5*fontScale*pageHeight+"px"
+
+                }
+                newWord.onclick = function() {
+                    funcCountInc(index,"inos")
+                }
+            }
+        }
+
+
+        var numRed=1
+        var numBlue=1
+        var numIno = 2
+        for (let idx = 0; idx < 25; idx++) {
+            if (reds[idx] == true) {
+                var btn = document.getElementById("reds"+numRed)
+                btn.innerHTML = words[idx]
+                btn.style.color = "red"
+                numRed++
+            }
+            else if (blues[idx]==true)
+            {
+                var btn = document.getElementById("blues"+numBlue)
+                btn.innerHTML = words[idx]
+                btn.style.color = "blue"
+                numBlue++
+            }
+            else if (assassin==idx)
+            {
+                var btn = document.getElementById("inos1")
+                btn.innerHTML = words[idx]
+                btn.style.color = "#EAECEE"
+                btn.style.backgroundColor="black"
+            }
+            else{
+                var btn = document.getElementById("inos"+numIno)
+                btn.innerHTML = words[idx]
+                numIno++
+            }
+        }
+    }
+</script>
