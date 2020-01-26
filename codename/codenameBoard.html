@@ -20,62 +20,125 @@
 
 <body id="body">
     <div id="main" class="bgdiv">
-      
+
     </div>
 </body>
 
 <script>
-    
-   
 
-    function openWords() {
-            var rawFile = new XMLHttpRequest();
-            rawFile.open("GET", "wordlist.txt", false);
-            rawFile.setRequestHeader('Content-Type', 'text/html;charset=utf-8')
-            rawFile.onreadystatechange = function () {
-                if (rawFile.readyState === 4) {
-                    if (rawFile.status === 200 || rawFile.status == 0) {
-                        var allText = rawFile.responseText;
-                        word_list = allText.split('\n');
-                    }
-                }
-            }
-            rawFile.send(null);
-
-
-            var numbers = new Array()
-            for (let index = 0; index < 25; index++) {
-                numbers[index] = Math.floor(Math.random() * (word_list.length));
-                for (let index2 = 0; index2 < index; index2++) {
-                    while (numbers[index] == numbers[index2]) {
-                        numbers[index]++
-                        if (numbers[index] == word_list.length) {
-                            numbers[index] = 0;
-                        }
-                    }
-                }
-
-                console.log(word_list[numbers[index]])
-            }
-        }
+    var seed = Math.floor(Math.random()*100000);
 
     var word_list = new Array();
     var numbers = new Array();
-    // openWords()
+    var words = new Array();
 
-    var pageHeight = document.documentElement.clientHeight
-    var modWidth = pageHeight / 655 * 1755
-    var pageWidth = document.documentElement.clientWidth
-
-
-    if (pageWidth < pageHeight) {
-        alert("가로 모드로 실행해 주세요.")
-        var main = document.getElementById("main")
-        main.innerHTML = "가로 모드로 변경 후 새로고침 해주세요."
-        main.style.margin = 0.1*pageWidth+"px"
-        main.style.fontSize = 0.2*pageWidth+"px"
+    var reds = new Array();
+    var blues = new Array();
+    var checkDone = new Array()
+    
+    for (let idx = 0; idx < 25; idx++) {
+        checkDone[idx]=reds[idx]=blues[idx]=false
     }
-    else {
+    var assassin = 0
+
+    function getRandom(bound)
+    {
+        var x = Math.sin(seed++) * 100000;
+        return Math.floor((x - Math.floor(x)) * bound)
+    }
+    
+    // var domain = 1000
+    // var tryJH = 100000
+
+
+    // var textRand = new Array()
+    // var textRandApi = new Array()
+    
+    // for (let index = 0; index < domain; index++) {
+    //     textRand[index]=0
+    //     textRandApi[index]=0
+    // }
+
+    // for (let index = 0; index < tryJH; index++) {
+    //     x = getRandom(domain)
+    //     y= Math.floor(Math.random()*domain)
+    //     textRand[x]++
+    //     textRandApi[y]++
+    // }
+
+    // var avemy = 0
+    // var aveapi = 0
+    // for (let index = 0; index < domain; index++) {
+    //     avemy+=(textRand[index]*textRand[index])
+    //     aveapi+=(textRandApi[index]*textRandApi[index])
+    // }
+    // avemy /= domain
+    // aveapi /= domain
+    // var ave = tryJH/domain
+    // console.log(""+(avemy-(ave*ave))+","+(aveapi-(ave*ave)))
+
+
+
+
+    function openWords() {
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", "wordlist.txt", false);
+        rawFile.setRequestHeader('Content-Type', 'text/html;charset=utf-8')
+        rawFile.onreadystatechange = function () {
+            if (rawFile.readyState === 4) {
+                if (rawFile.status === 200 || rawFile.status == 0) {
+                    var allText = rawFile.responseText;
+                    word_list = allText.split('\n');
+                }
+            }
+        }
+        rawFile.send(null);
+
+
+        for (let index = 0; index < 25; index++) {
+            numbers[index] = getRandom(word_list.length);
+            for (let index2 = 0; index2 < index; index2++) {
+                while (numbers[index] == numbers[index2]) {
+                    numbers[index]++
+                    if (numbers[index] == word_list.length) {
+                        numbers[index] = 0;
+                    }
+                }
+            }
+
+
+            words[index]=""
+            words[index] = word_list[numbers[index]].substring(0,word_list[numbers[index]].length-1)
+
+            console.log(words[index])
+        }
+        for (let idx = 0; idx < 9; idx++) {
+            var redLoc = getRandom(25)
+            while (reds[redLoc] == true)
+            {
+                redLoc = getRandom(25)
+            }
+            reds[redLoc]=true
+        }
+
+        for (let idx = 0; idx < 8; idx++) {
+            var redLoc = getRandom(25)
+            while (reds[redLoc]==true || blues[redLoc] == true)
+            {
+                redLoc = getRandom(25)
+            }
+            blues[redLoc]=true
+        }
+        assassin=getRandom(25)
+        while (reds[assassin]==true || blues[assassin] == true)
+        {
+            assassin=getRandom(25)
+        }
+    }
+
+    function drawTile() {
+        var pageHeight = document.documentElement.clientHeight
+        var pageWidth = document.documentElement.clientWidth
 
         var maindiv = document.getElementById("main")
         var mainbody = document.getElementById("body")
@@ -86,45 +149,274 @@
         mainbody.style.height = pageHeight + "px"
         mainbody.style.width = pageWidth + "px"
 
-        var leftStart = 80
-        var leftTic = 227
-        var topStart = 50
+        var mainDiv = document.getElementById("main")
 
-        //var topStart =65
 
-        var widthScale = 185
-        var heightScale = 128
-        var fontScale = 50
-        var mainDiv =document.getElementById("main")
+        var leftStart = 0.01
+        var leftTic = 0.198
+        var topStart = 0.01
+        var topTic = 0.198
+        var widthScale = 0.188
+        var heightScale = 0.188
+        var fontScale = 0.01
+
+        var leftIter = leftStart
+        var topIter = topStart
         for (let idx = 0; idx < 25; idx++) {
             var btn = document.createElement("button")
-            btn.style.backgroundImage="url('img/codename.png')"
-            btn.style.backgroundSize= pageWidth*0.2 + "px "+pageHeight*0.2 + "px" 
+            btn.id = "btnWord" + idx
+            btn.style.backgroundImage = "url('img/codename.png')"
+            btn.style.backgroundSize = pageWidth * widthScale + "px " + pageHeight * heightScale + "px"
             mainDiv.appendChild(btn)
-            btn.style.left = leftStart * pageWidth + "px"
-            btn.style.top = topStart  * pageHeight + "px"
-            btn.style.height = pageHeight*0.2 + "px"
-            btn.style.width = pageWidth*0.2 + "px"
-            btn.style.fontSize = fontScale / 1024 * pageWidth + "px"
-            btn.style.borderRadius="5%"
-            btn.style.margin="0px"
-            
+            btn.style.position = "absolute"
+            btn.style.left = leftIter * pageWidth + "px"
+            btn.style.top = topIter * pageHeight + "px"
+            btn.style.height = pageHeight * heightScale + "px"
+            btn.style.width = pageWidth * widthScale + "px"
+            btn.style.fontSize = fontScale * pageWidth + "px"
+            btn.style.borderRadius = "5%"
+            btn.style.margin = "0px"
+
             btn.style.color = "#E6B0AA"
             btn.style.backgroundColor = "transparent"
-            btn.style.border="0px"
+            btn.style.border = "0px"
 
             btn.onclick = function () {
-                word_change(idx)
+                check_answer(idx)
             }
 
-            leftStart += leftTic
+            leftIter += leftTic
+            if (idx % 5 == 4) {
+                topIter += topTic
+                leftIter = leftStart
+            }
 
         }
 
-        
+        var leftStart = 0.0130
+        var leftTic = 0.198
+        var topStart = 0.059
+        var topTic = 0.198
+        var widthScale = 0.185
+        var heightScale = 0.10
+        var fontScale = 0.055
 
-       
+        var leftIter = leftStart
+        var topIter = topStart
+        for (let idx = 0; idx < 25; idx++) {
+            var btn = document.createElement("button")
+            btn.id = "btnText" + idx
+            mainDiv.appendChild(btn)
+           
+            btn.style.position = "absolute"
+            btn.style.left = leftIter * pageWidth + "px"
+            btn.style.top = topIter * pageHeight + "px"
+            btn.style.height = pageHeight * heightScale + "px"
+            btn.style.width = pageWidth * widthScale + "px"
+            btn.style.backgroundColor="transparent"
+            btn.style.fontSize = fontScale * pageWidth + "px"
+            btn.style.margin = "0px"
+            btn.style.textAlignLast="middle"
+            btn.innerHTML=words[idx]
+            if (words[idx].length==4)
+            {
+                btn.style.fontSize = 0.90 * fontScale * pageWidth + "px"
+            }
+            else if (words[idx].length>=5)
+            {
+                
+                var splitWord = ""
+                for (let idx2 = 0; idx2 < words[idx].length; idx2++) {
+                    splitWord+=words[idx][idx2]
+                    if (idx2==2)
+                    {
+                        splitWord+="<br>"
+                    }
+                }
+                btn.innerHTML=splitWord
+                btn.style.marginTop="-2%"
+                btn.style.lineHeight="90%"
+            }
+           
+            
+            btn.style.color = "#424949"
+            btn.style.fontFamily="'Stylish', sans-serif"
+            btn.style.border = "0px"
+
+            // if (reds[idx]==true)
+            // {
+            //     btn.style.color = "red"
+            // }
+            // else if (blues[idx]==true)
+            // {
+            //     btn.style.color = "blue"
+            // }
+            // else if (assassin==idx)
+            // {
+            //     btn.style.color = "green"
+            // }
+
+
+            btn.onclick = function () {
+                word_change(idx,fontScale,pageWidth)
+            }
+
+            leftIter += leftTic
+            if (idx % 5 == 4) {
+                topIter += topTic
+                leftIter = leftStart
+            }
+
+        }
+    }
+
+    function check_answer(idx)
+    {
+        var btnText = document.getElementById("btnText"+idx)
+
+        if (checkDone[idx]==true)
+        {
+            btnText.style.color = "white"
+
+            if (btnText.innerHTML=="")
+            {
+                btnText.innerHTML=words[idx]
+            }
+            else{
+                btnText.innerHTML=""
+            }
+        }
+        else {
+            checkDone[idx]=true
+            var isCheck = confirm("'" + words[idx] + "' 확인합니다.")
+            if (isCheck == true) {
+                var btn = document.getElementById("btnWord" + idx)
+                if (reds[idx] == true) {
+                    btn.style.backgroundImage = "url('img/red" + getRandom(7) + ".jpg')"
+                }
+                else if (blues[idx] == true) {
+                    btn.style.backgroundImage = "url('img/blue" + getRandom(7) + ".jpg')"
+                }
+                else if (idx == assassin) {
+                    btn.style.backgroundImage = "url('img/assa.jpg')"
+                }
+                else {
+                    btn.style.backgroundImage = "url('img/ino" + getRandom(4) + ".jpg')"
+                }
+                btnText.innerHTML = ""
+            }
+        }
+    }
+
+    function word_change(idx,fontScale,pageWidth)
+    {
+        var btn = document.getElementById("btnText" + idx)
+
+        if (checkDone[idx]==true)
+        {
+            btn.style.color = "white"
+            if (btn.innerHTML=="")
+            {
+                btn.innerHTML=words[idx]
+            }
+            else{
+                btn.innerHTML=""
+            }
+            return
+        }
+        var newWord = prompt("단어를 바꾸시겠습니까?\n(빈칸을 입력하면 임의로 단어를 바꿉니다.)")
+        if (newWord == null)
+        {
+            check_answer(idx)
+            return;
+        }
+
+        if (newWord.length==0)
+        {
+            var new_number = getRandom(word_list.length);
+            for (let index = 0; index < numbers.length; index++) {
+                while (numbers[index] == new_number) {
+                    new_number++
+                    if (new_number == word_list.length) {
+                        new_number = 0;
+                    }
+                }
+
+            }
+            newWord = word_list[new_number].substring(0,word_list[new_number].length-1)
+            
+        } 
+        
+        words[idx]=newWord
+        btn.style.marginTop="0%"
+        btn.style.lineHeight=""
+        btn.style.fontSize = fontScale * pageWidth + "px"
+
+        if (newWord.length == 4) {
+            btn.style.fontSize = 0.90 * fontScale * pageWidth + "px"
+            
+        }
+        else if (newWord.length >= 5) {
+
+            var splitWord = ""
+            for (let idx2 = 0; idx2 < newWord.length; idx2++) {
+                splitWord += newWord[idx2]
+                if (idx2 == 2) {
+                    splitWord += "<br>"
+                }
+            }
+            newWord = splitWord
+            btn.style.marginTop = "-2%"
+            btn.style.lineHeight = "90%"
+        }
+        btn.innerHTML = newWord
 
     }
+
+
+    var pageHeight = document.documentElement.clientHeight
+    var pageWidth = document.documentElement.clientWidth
+
+
+    if (pageWidth < pageHeight) {
+        alert("가로 모드로 실행해 주세요.")
+        var main = document.getElementById("main")
+        main.innerHTML = "가로 모드로 변경 후 새로고침 해주세요."
+        main.style.margin = 0.1 * pageWidth + "px"
+        main.style.fontSize = 0.2 * pageWidth + "px"
+    }
+    else {
+        var main = document.getElementById("main")
+        var btn = document.createElement("button")
+        btn.innerHTML="시드 입력"
+        btn.style.color = "white"
+        btn.style.backgroundColor="black"
+        btn.style.position="absolute"
+        btn.style.padding="1%"
+        btn.style.border = "0px"
+        btn.style.borderRadius = "5%"
+        btn.style.fontSize = 0.05*pageWidth+"px"
+        btn.style.left = 0.38 * pageWidth+"px"
+        btn.style.top = 0.40 * pageHeight+"px"
+        btn.onclick=funcSeedGen
+        main.appendChild(btn)
+    }
+    function funcSeedGen()
+    {
+        seed = prompt("시드 번호를 입력해주세요.")
+        if (seed==NaN || seed == null || seed.length == 0)
+        {
+            seed = Math.floor(Math.random()*10000)
+        }
+        alert("시드 번호: "+seed)
+        document.body.requestFullscreen()
+
+        var main = document.getElementById("main")
+        main.removeChild(main.children[0])
+        
+        openWords()
+        drawTile()
+    }
+
 
 </script>
