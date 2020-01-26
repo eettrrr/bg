@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-size: 22px;
+            font-family: 'Stylish', sans-serif;
+            border: 0px;
+            margin: 0px;
+        }
+    </style>
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <!--모바일페이지크기조절메타태그-->
+    <title>코드네임</title>
+</head>
+
+<body id="body">
+    <div id="main" class="bgdiv">
+      
+    </div>
+</body>
+
+<script>
+    
+   
+
+    function openWords() {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", "wordlist.txt", false);
+            rawFile.setRequestHeader('Content-Type', 'text/html;charset=utf-8')
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
+                        var allText = rawFile.responseText;
+                        word_list = allText.split('\n');
+                    }
+                }
+            }
+            rawFile.send(null);
+
+
+            var numbers = new Array()
+            for (let index = 0; index < 25; index++) {
+                numbers[index] = Math.floor(Math.random() * (word_list.length));
+                for (let index2 = 0; index2 < index; index2++) {
+                    while (numbers[index] == numbers[index2]) {
+                        numbers[index]++
+                        if (numbers[index] == word_list.length) {
+                            numbers[index] = 0;
+                        }
+                    }
+                }
+
+                console.log(word_list[numbers[index]])
+            }
+        }
+
+    var word_list = new Array();
+    var numbers = new Array();
+    // openWords()
+
+    var pageHeight = document.documentElement.clientHeight
+    var modWidth = pageHeight / 655 * 1755
+    var pageWidth = document.documentElement.clientWidth
+
+
+    if (pageWidth < pageHeight) {
+        alert("가로 모드로 실행해 주세요.")
+        var main = document.getElementById("main")
+        main.innerHTML = "가로 모드로 변경 후 새로고침 해주세요."
+        main.style.margin = 0.1*pageWidth+"px"
+        main.style.fontSize = 0.2*pageWidth+"px"
+    }
+    else {
+
+        var maindiv = document.getElementById("main")
+        var mainbody = document.getElementById("body")
+
+        maindiv.style.backgroundSize = pageWidth + "px " + pageHeight + "px"
+        maindiv.style.height = pageHeight + "px"
+        maindiv.style.width = pageWidth + "px"
+        mainbody.style.height = pageHeight + "px"
+        mainbody.style.width = pageWidth + "px"
+
+        var leftStart = 80
+        var leftTic = 227
+        var topStart = 50
+
+        //var topStart =65
+
+        var widthScale = 185
+        var heightScale = 128
+        var fontScale = 50
+        var mainDiv =document.getElementById("main")
+        for (let idx = 0; idx < 25; idx++) {
+            var btn = document.createElement("button")
+            btn.style.backgroundImage="url('img/codename.png')"
+            btn.style.backgroundSize= pageWidth*0.2 + "px "+pageHeight*0.2 + "px" 
+            mainDiv.appendChild(btn)
+            btn.style.left = leftStart * pageWidth + "px"
+            btn.style.top = topStart  * pageHeight + "px"
+            btn.style.height = pageHeight*0.2 + "px"
+            btn.style.width = pageWidth*0.2 + "px"
+            btn.style.fontSize = fontScale / 1024 * pageWidth + "px"
+            btn.style.borderRadius="5%"
+            btn.style.margin="0px"
+            
+            btn.style.color = "#E6B0AA"
+            btn.style.backgroundColor = "transparent"
+            btn.style.border="0px"
+
+            btn.onclick = function () {
+                word_change(idx)
+            }
+
+            leftStart += leftTic
+
+        }
+
+        
+
+       
+
+    }
+
+</script>
