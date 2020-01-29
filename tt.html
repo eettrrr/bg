@@ -1,0 +1,612 @@
+extern  void query(char sector[][4]);
+
+#define null nullptr
+#define NUMBER_OF_CH ('O'-'A'+1)
+#define INITIAL_HASH_TABLE_SIZE 383
+
+
+
+#include <time.h>
+#include <cstdlib>
+#include <iostream>
+
+
+using namespace std;
+
+class IntPair
+{
+public:
+	int a;
+	int b;
+	int getHash()
+	{
+		return a * 3513 + b;
+	}
+	void set(int _a, int _b)
+	{
+		a = _a;
+		b = _b;
+	}
+	IntPair(int _a=-1, int _b=-1)
+	{
+		set(_a, _b);
+	}
+	IntPair(const IntPair& other)
+	{
+		a = other.a;
+		b = other.b;
+	}
+	IntPair& operator=(const IntPair& other)
+	{
+		a = other.a;
+		b = other.b;
+		return *this;
+	}
+
+	bool operator==(const IntPair& other)
+	{
+		return a == other.a && b == other.b;
+	}
+	void getChar(int type=0)
+	{
+		return;
+		if (type == 0)
+		{
+			int temp = this->a;
+			int getT = temp % 10;
+			temp /= 10;
+			char get4 = temp % 100 + 'A';
+			temp /= 100;
+			char get3 = temp % 100 + 'A';
+			temp /= 100;
+			char get2 = temp % 100 + 'A';
+			temp /= 100;
+			char get1 = temp + 'A';
+			cout << get1 << get2 << get3 << get4 << endl;
+		}
+		else
+		{
+			int temp = this->b;
+			char get4 = temp % 100 + 'A';
+			temp /= 100;
+			char get3 = temp % 100 + 'A';
+			temp /= 100;
+			char get2 = temp % 100 + 'A';
+			temp /= 100;
+			char get1 = temp + 'A';
+			cout << get1 << get2 << get3 << get4 << endl;
+		}
+	}
+
+};
+
+
+template <class T>
+class HashNode
+{
+public:
+	IntPair key; 
+	T val = 0;
+	HashNode* next = null;
+	HashNode* prev = null;
+
+	HashNode(IntPair _key, T _val = 0)
+	{
+		key = _key;
+		val = _val;
+	}
+	void setNext(HashNode* newNode)
+	{
+		newNode->next = this->next;
+		newNode->prev = this;
+		
+		this->next = newNode;
+		if (newNode->next != null)
+		{
+			newNode->next->prev = newNode;
+		}
+	}
+
+	void removeThis(HashNode** arr, int idx)
+	{
+		if (this->prev != null)
+		{
+			this->prev->next = this->next;
+		}
+		else
+		{
+			arr[idx] = this->next;
+		}
+		if (this->next != null)
+		{
+			this->next->prev = this->prev;
+		}
+	}
+};
+
+#define domain 10000
+
+
+template <class T>
+class Hash
+{
+public:
+	int numOfObj = 0;
+	HashNode<T>** gc= new HashNode<T>*[domain];
+	int curSize = 0;
+	int capacity = INITIAL_HASH_TABLE_SIZE;
+	HashNode<T>** arr = new HashNode<T>*[capacity];
+
+	~Hash()
+	{
+		clear();
+		delete[] arr;
+	}
+	Hash()
+	{
+		for (int i = 0; i < capacity; i++)
+		{
+			arr[i] = null;
+		}
+	}
+	int getIdx(int _key)
+	{
+		int idx = _key % capacity;
+		return idx < 0 ? idx + capacity : idx;
+	}
+
+	void insert(IntPair _key, T _val)
+	{
+		HashNode<T>* getVal = search(_key);
+		if (getVal != null)
+		{
+			return;
+		}
+
+		if (curSize > 0.75*capacity)
+		{
+			capacity *= 2;
+			HashNode<T>** newArr = new HashNode<T>*[capacity];
+
+			for (int i = 0; i < capacity; i++)
+			{
+				newArr[i] = null;
+			}
+
+			for (int i = 0; i < capacity/2; i++)
+			{
+				HashNode<T>* iter = arr[i];
+				while (iter != null)
+				{
+					HashNode<T>* nextIter = iter->next;
+					int newIdx = getIdx(iter->key.getHash());
+					if (i != newIdx)
+					{
+						iter->removeThis(arr, i);
+						if (newArr[newIdx] == null)
+						{
+							newArr[newIdx] = iter;
+							iter->prev = iter->next = null;
+							curSize++;
+						}
+						else
+						{
+							newArr[newIdx]->setNext(iter);
+						}
+					}
+					
+					iter = nextIter;
+
+				}
+
+				newArr[i] = arr[i];
+				
+			}
+			delete[] arr;
+			arr = newArr;
+
+		}
+
+		int idx = getIdx(_key.getHash());
+		HashNode<T>* newNode = new HashNode<T>(_key, _val);
+		gc[numOfObj] = newNode;
+		++numOfObj;
+
+		if (arr[idx] == null)
+		{
+			arr[idx] = newNode;
+			++curSize;
+		}
+		else
+		{
+			arr[idx]->setNext(newNode);
+		}
+	}
+
+	void clear()
+	{
+		for (int i = 0; i < capacity; i++)
+		{
+			arr[i] = null;
+		}
+		for (int i = 0; i < numOfObj; i++)
+		{
+			delete gc[i];
+		}
+		numOfObj = 0;
+	}
+	HashNode<T>* search(IntPair _key)
+	{
+		int idx = getIdx(_key.getHash());
+		HashNode<T>* iter = arr[idx];
+		while (iter != null)
+		{
+			if (iter->key == _key)
+			{
+				return iter;
+			}
+			iter = iter->next;
+		}
+		return null;
+	}
+};
+
+class Sector
+{
+public:
+	int x;
+	int y;
+	void copy(int _x, int _y)
+	{
+		x = _x;
+		y = _y;
+	}
+};
+
+char (* board)[65];
+
+IntPair getIdx(int type, int x, int y)
+{
+	int x1 = 0;
+	int y1 = 0;
+	int x2 = 2;
+	int y2 = 2;
+	switch (type)
+	{
+	case 0:
+		x1 = 0;
+		y1 = 0;
+		x2 = 2;
+		y2 = 0;
+		break;
+	case 1:
+		x1 = 0;
+		y1 = 0;
+		x2 = 0;
+		y2 = 2;
+		break;
+	case 2:
+		x1 = 0;
+		y1 = 0;
+		x2 = 2;
+		y2 = 2;
+		break;
+	case 3:
+		x1 = 2;
+		y1 = 0;
+		x2 = 0;
+		y2 = 2;
+		break;
+	case 4:
+		x1 = 2;
+		y1 = 0;
+		x2 = 2;
+		y2 = 2;
+		break;
+	case 5:
+		x1 = 0;
+		y1 = 2;
+		x2 = 2;
+		y2 = 2;
+		break;
+	default:
+		break;
+	}
+
+
+	int key1 = 0;
+	int key2 = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			if (board[x+x1 + i][y+y1 + j] == '*' || board[x+x2 + i][y+y2 + j] == '*')
+			{
+				return IntPair(-1, -1);
+			}
+			key1 *= 100;
+			key1 += (board[x+x1 + i][y+y1 + j] - 'A');
+
+			key2 *= 100;
+			key2 += (board[x+x2 + i][y+y2 + j] - 'A');
+		}
+	}
+	key1 *= 10;
+	if (type == 5)
+	{
+		type = 0;
+	}
+	else if (type == 4)
+	{
+		type = 1;
+	}
+	key1 += type;
+	return IntPair(key1, key2);
+
+}
+
+IntPair getIdx(int type, char qu[][4])
+{
+	int x1 = 0;
+	int y1 = 0;
+	int x2 = 2;
+	int y2 = 2;
+	switch (type)
+	{
+	case 0:
+		x1 = 0;
+		y1 = 0;
+		x2 = 2;
+		y2 = 0;
+		break;
+	case 1:
+		x1 = 0;
+		y1 = 0;
+		x2 = 0;
+		y2 = 2;
+		break;
+	case 2:
+		x1 = 0;
+		y1 = 0;
+		x2 = 2;
+		y2 = 2;
+		break;
+	case 3:
+		x1 = 2;
+		y1 = 0;
+		x2 = 0;
+		y2 = 2;
+		break;
+	case 4:
+		x1 = 2;
+		y1 = 0;
+		x2 = 2;
+		y2 = 2;
+		break;
+	case 5:
+		x1 = 0;
+		y1 = 2;
+		x2 = 2;
+		y2 = 2;
+		break;
+	default:
+		break;
+	}
+
+
+	int key1 = 0;
+	int key2 = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			key1 *= 100;
+			key1 += (qu[x1 + i][y1 + j] - 'A');
+
+			key2 *= 100;
+			key2 += (qu[x2 + i][y2 + j] - 'A');
+		}
+	}
+	key1 *= 10;
+	if (type == 5)
+	{
+		type = 0;
+	}
+	else if (type == 4)
+	{
+		type = 1;
+	}
+	key1 += type;
+	return IntPair(key1, key2);
+
+}
+
+
+Hash<Sector*> myHash;
+
+
+void show(int size, char board[][4])
+{
+	return;
+	for (size_t i = 0; i < size; i++)
+	{
+		for (size_t j = 0; j < size; j++)
+		{
+			cout << board[i][j];
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+void show(int size, char board[][65])
+{
+	return;
+	for (size_t i = 0; i < size; i++)
+	{
+		for (size_t j = 0; j < size; j++)
+		{
+			cout << board[i][j];
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
+void update(char qu[][4], int x, int y)
+{
+	for (size_t i = 0; i < 4; i++)
+	{
+		for (size_t j = 0; j < 4; j++)
+		{
+			board[x + i][y + j] = qu[i][j];
+		}
+	}
+}
+
+void repair(int size, int queryThres, char _board[][65]) // size x size
+{
+	
+
+	board = _board;
+	show(8, board);
+	char qu[4][4];
+	
+	myHash.clear();
+	int x = 0;
+	int y = 0;
+	do
+	{
+		if (x + 4 <= size && y + 4 <= size)
+		{
+			Sector* newSector = new Sector();
+			newSector->copy(x, y);
+			for (int i = 0; i < 6; i++)
+			{
+				IntPair newKey = getIdx(i, x,y);
+				newKey.getChar();
+				newKey.getChar(1);
+				if (newKey.a != -1)
+				{
+					myHash.insert(newKey, newSector);
+				}
+			}
+
+
+			x += 2;
+		}
+		else if (x + 4 > size)
+		{
+			x = 0;
+			y += 2;
+		}
+		else
+		{
+			break;
+		}
+	} while (true);
+
+	for (size_t i = 0; i < queryThres; i++)
+	{
+		query(qu);
+		show(8, board);
+		show(4, qu);
+		for (size_t i = 0; i < 6; i++)
+		{
+			IntPair getKey = getIdx(i, qu);
+			getKey.getChar();
+			getKey.getChar(1);
+			HashNode<Sector*>* getVal = myHash.search(getKey);
+			if (getVal != null)
+			{
+				//cout << "here" << endl;
+				int updateX = getVal->val->x;
+				int updateY= getVal->val->y;
+				if (i == 0)
+				{
+					IntPair newKey = getIdx(0, updateX, updateY);
+					if (!(newKey == getKey))
+					{
+						updateY = updateY + 2;
+					}
+				}
+				else if (i == 5)
+				{
+					IntPair newKey = getIdx(5, updateX, updateY);
+					if (!(newKey == getKey))
+					{
+						updateY = updateY - 2;
+					}
+				}
+				else if (i == 1)
+				{
+					IntPair newKey = getIdx(4, updateX, updateY);
+					if (!(newKey == getKey))
+					{
+						updateX = updateX + 2;
+					}
+				}
+				else if (i == 4)
+				{
+					IntPair newKey = getIdx(1, updateX, updateY);
+					if (!(newKey == getKey))
+					{
+						updateX = updateX - 2;
+					}
+				}
+				update( qu, updateX, updateY);
+
+				for (int j = 0; j < 6; j++)
+				{
+					IntPair newKey = getIdx(j, updateX, updateY);
+					newKey.getChar();
+					newKey.getChar(1);
+
+					myHash.insert(newKey, getVal->val);
+				}
+				break;
+
+			}
+		}
+	}
+	//srand(time(null));
+	//int ret[domain];
+	//while (true)
+	//{
+	//	for (int i = 0; i < domain; i++)
+	//	{
+	//		ret[i] = -1;
+	//	}
+
+	//	int seed = rand();
+
+	//	cout << "seed:" << seed << endl;
+	//	Hash<int> hash;
+	//	for (int i = 0; i < domain; i++)
+	//	{
+	//		int key = rand() % domain;
+	//		int val = rand() % domain;
+	//		if (ret[key] == -1)
+	//		{
+	//			ret[key] = val;
+	//			hash.insert(key, val);
+	//		}
+	//	}
+	//	for (int i = 0; i < domain; i++)
+	//	{
+	//		int key = rand() % domain;
+	//		HashNode<int>* retNode = hash.search(key);
+	//		if (retNode == null && ret[key] == -1)
+	//		{
+	//			continue;
+	//		}
+	//		if (retNode != null && (retNode->val == ret[key]))
+	//		{
+	//			continue;
+	//		}
+	//		cerr << "error" << endl;
+	//		
+	//	}
+	//	
+	//}
+
+}
