@@ -1,0 +1,32 @@
+body {
+    font-size: 22px;
+    font-family: 'Stylish', sans-serif;
+    border: 0px;
+    margin: 0px;
+}
+
+input {
+    font-family: 'Stylish', sans-serif;
+}
+
+.bgdiv {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border: 0px;
+    margin: 0px;
+}
+
+.txtHints {
+    position: absolute;
+    background-color: red;
+    border: 0px;
+    text-align-last: center;
+}
+
+.sltGuess {
+    position: absolute;
+    background-color: gray;
+    text-align-last: center;
+    border: 0px;
+    -webkit-appearance: none;
+}
