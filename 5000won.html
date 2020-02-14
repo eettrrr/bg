@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <!--모바일페이지크기조절메타태그-->
+    <title>5000원</title>
+</head>
+
+<body id="body">
+    <div id="userInput" class="bgdiv">
+        <input type="text" id="txtBoxInput"></input><br>
+        <input type="checkbox" id="chckBoxzero">=0붙이기</input>
+        <input type="checkbox" id="chckBoxsign">부호변경</input>
+        <button onclick="funcProcess();">확인</button>
+    </div>
+    <div id="resultOutput">
+    </div>
+
+    <script>
+        function getNextPermu(arr) {
+            digit = arr.length
+            arr[digit - 1]++
+                for (let idx = digit - 1; idx > 0; idx--) {
+                    if (arr[idx] == digit) {
+                        arr[idx - 1]++
+                            arr[idx] = 0
+                    } else {
+                        break
+                    }
+                }
+            var count = new Array(digit)
+            for (let idx = 0; idx < arr.length; idx++) {
+                if (count[arr[idx]] == true) {
+                    return getNextPermu(arr)
+                } else {
+                    count[arr[idx]] = true
+                }
+
+            }
+            console.log(arr)
+        }
+
+        function getFact(val) {
+            if (val == 1) {
+                return 1
+            }
+            return val * getFact(val - 1)
+        }
+
+        function funcProcess() {
+            var isZero = document.getElementById("chckBoxzero").checked
+            var isSign = document.getElementById("chckBoxsign").checked
+            var strInput = document.getElementById("txtBoxInput").value
+            if (strInput == null || strInput.length == 0 || strInput == "") {
+                //alert("입력을 확인해 주세요.")
+                //return
+            }
+            var variables = strInput.split(",")
+            var arr = new Array(variables.length)
+            for (let idx = 0; idx < arr.length; idx++) {
+                arr[idx] = idx
+
+            }
+            console.log(variables.length)
+            for (let idx = 0; idx < variables.length; idx++) {
+                console.log(variables[idx])
+            }
+            console.log(arr)
+            console.log(getFact(arr.length))
+            var result = ""
+            for (let idx = 0; idx < getFact(arr.length); idx++) {
+                result += "<br>"
+                for (let idx2 = 0; idx2 < variables.length; idx2++) {
+                    if (idx2 > 0) {
+                        if (variables[arr[idx2]][0] != '+' && variables[arr[idx2]][0] != '-') {
+                            result += '+'
+                        }
+                        result += (variables[arr[idx2]])
+                    } else {
+                        if (variables[arr[idx2]][0] == '+') {
+                            result += variables[arr[idx2]].substring(1)
+                        } else {
+                            result += (variables[arr[idx2]])
+                        }
+                    }
+
+                }
+                if (isZero) {
+                    result += "=0"
+                }
+                getNextPermu(arr)
+            }
+
+            if (isSign) {
+                for (let idx = 0; idx < arr.length; idx++) {
+                    arr[idx] = idx
+                }
+
+                for (let idx = 0; idx < variables.length; idx++) {
+                    if (variables[arr[idx]][0] == '-') {
+                        variables[arr[idx]][0] = '+'
+                    } else if (variables[arr[idx]][0] == '+') {
+                        variables[arr[idx]][0] = '-'
+                    } else {
+                        variables[arr[idx]] = "-" + variables[arr[idx]]
+                    }
+
+
+                }
+
+                for (let idx = 0; idx < getFact(arr.length); idx++) {
+                    result += "<br>"
+                    for (let idx2 = 0; idx2 < variables.length; idx2++) {
+                        if (idx2 > 0) {
+                            if (variables[arr[idx2]][0] != '+' && variables[arr[idx2]][0] != '-') {
+                                result += '+'
+                            }
+                        }
+                        result += (variables[arr[idx2]])
+                    }
+                    if (isZero) {
+                        result += "=0"
+                    }
+                    getNextPermu(arr)
+                }
+
+            }
+            console.log(result)
+
+            document.getElementById("resultOutput").innerHTML = result
+
+        }
+    </script>
+
+</body>
