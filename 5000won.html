@@ -13,7 +13,7 @@
 
 <body id="body">
     <div id="userInput" class="bgdiv">
-        <input type="text" id="txtBoxInput"></input><br>
+        <input type="text" id="txtBoxInput"></input><br><br>
         <input type="checkbox" id="chckBoxzero">=0붙이기</input>
         <input type="checkbox" id="chckBoxsign">부호변경</input>
         <button onclick="funcProcess();">확인</button>
@@ -22,6 +22,8 @@
     </div>
 
     <script>
+        document.getElementById("txtBoxInput").style.width = 0.8 * document.documentElement.clientWidth + "px"
+
         function getNextPermu(arr) {
             digit = arr.length
             arr[digit - 1]++
@@ -52,6 +54,27 @@
             return val * getFact(val - 1)
         }
 
+        var result = ""
+
+        function printFormula(variables, arr) {
+            result += "<br>"
+            for (let idx2 = 0; idx2 < variables.length; idx2++) {
+                if (idx2 > 0) {
+                    if (variables[arr[idx2]][0] != '+' && variables[arr[idx2]][0] != '-') {
+                        result += '+'
+                    }
+                    result += (variables[arr[idx2]])
+                } else {
+                    if (variables[arr[idx2]][0] == '+') {
+                        result += variables[arr[idx2]].substring(1)
+                    } else {
+                        result += (variables[arr[idx2]])
+                    }
+                }
+
+            }
+        }
+
         function funcProcess() {
             var isZero = document.getElementById("chckBoxzero").checked
             var isSign = document.getElementById("chckBoxsign").checked
@@ -72,24 +95,11 @@
             }
             console.log(arr)
             console.log(getFact(arr.length))
-            var result = ""
-            for (let idx = 0; idx < getFact(arr.length); idx++) {
-                result += "<br>"
-                for (let idx2 = 0; idx2 < variables.length; idx2++) {
-                    if (idx2 > 0) {
-                        if (variables[arr[idx2]][0] != '+' && variables[arr[idx2]][0] != '-') {
-                            result += '+'
-                        }
-                        result += (variables[arr[idx2]])
-                    } else {
-                        if (variables[arr[idx2]][0] == '+') {
-                            result += variables[arr[idx2]].substring(1)
-                        } else {
-                            result += (variables[arr[idx2]])
-                        }
-                    }
 
-                }
+            result = ""
+
+            for (let idx = 0; idx < getFact(arr.length); idx++) {
+                printFormula(variables, arr)
                 if (isZero) {
                     result += "=0"
                 }
@@ -114,22 +124,7 @@
                 }
 
                 for (let idx = 0; idx < getFact(arr.length); idx++) {
-                    result += "<br>"
-                    for (let idx2 = 0; idx2 < variables.length; idx2++) {
-                        if (idx2 > 0) {
-                            if (variables[arr[idx2]][0] != '+' && variables[arr[idx2]][0] != '-') {
-                                result += '+'
-                            }
-                            result += (variables[arr[idx2]])
-                        } else {
-                            if (variables[arr[idx2]][0] == '+') {
-                                result += variables[arr[idx2]].substring(1)
-                            } else {
-                                result += (variables[arr[idx2]])
-                            }
-                        }
-
-                    }
+                    printFormula(variables, arr)
                     if (isZero) {
                         result += "=0"
                     }
