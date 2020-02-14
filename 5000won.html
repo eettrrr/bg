@@ -102,12 +102,12 @@
                 }
 
                 for (let idx = 0; idx < variables.length; idx++) {
-                    if (variables[arr[idx]][0] == '-') {
-                        variables[arr[idx]][0] = '+'
-                    } else if (variables[arr[idx]][0] == '+') {
-                        variables[arr[idx]][0] = '-'
+                    if (variables[idx][0] == '-') {
+                        variables[idx] = '+' + variables[idx].substring(1)
+                    } else if (variables[idx][0] == '+') {
+                        variables[idx] = '-' + variables[idx].substring(1)
                     } else {
-                        variables[arr[idx]] = "-" + variables[arr[idx]]
+                        variables[idx] = "-" + variables[idx]
                     }
 
 
@@ -120,8 +120,15 @@
                             if (variables[arr[idx2]][0] != '+' && variables[arr[idx2]][0] != '-') {
                                 result += '+'
                             }
+                            result += (variables[arr[idx2]])
+                        } else {
+                            if (variables[arr[idx2]][0] == '+') {
+                                result += variables[arr[idx2]].substring(1)
+                            } else {
+                                result += (variables[arr[idx2]])
+                            }
                         }
-                        result += (variables[arr[idx2]])
+
                     }
                     if (isZero) {
                         result += "=0"
