@@ -1,0 +1,18 @@
+<body id="body" style="height:100vw; width:100vw; background-color:green; border:0px; padding:0px; margin:0px">
+    <div id="div1" style="height:100vw; width:50vw; background-color:blue;  border:0px; padding:0px; margin:0px">
+        <button style="height:10vh; width:10vw;" onclick="funcFull()">클릭</button>
+    </div>
+    <div id="div2">
+
+    </div>
+</body>
+
+<script>
+    var pageHeight = document.documentElement.clientHeight
+    var pageWidth = document.documentElement.clientWidth
+    document.getElementById("div1").style.height = 99 / pageWidth * pageHeight + "vw"
+
+    function funcFull() {
+        document.body.requestFullscreen()
+    }
+</script>
