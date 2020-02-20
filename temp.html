@@ -14,7 +14,7 @@
     var pageWidth = document.documentElement.clientWidth
     document.getElementById("div1").style.height = 99 / pageWidth * pageHeight + "vw"
 
-    document.getElementById("btnLOAD").innerHTML = "a"+document.documentElement.clientHeight
+    document.getElementById("btnLOAD").innerHTML = "a"+document.documentElement.clientHeight +","+document.documentElement.clientWidth
 
     function funcFull() {
         document.body.requestFullscreen()
@@ -22,7 +22,7 @@
     }
 
     window.addEventListener("resize", function() {
-        document.getElementById("btnLOAD").innerHTML = document.documentElement.clientHeight
+        document.getElementById("btnLOAD").innerHTML = document.documentElement.clientHeight+","+document.documentElement.clientWidth
             //document.body.requestFullscreen()
     })
 </script>
