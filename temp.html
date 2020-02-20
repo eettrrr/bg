@@ -18,11 +18,11 @@
 
     function funcFull() {
         document.body.requestFullscreen()
-        document.getElementById("btnLOAD").innerHTML = document.documentElement.clientHeight
+        
     }
 
     window.addEventListener("resize", function() {
-        alert("resized")
+        document.getElementById("btnLOAD").innerHTML = document.documentElement.clientHeight
             //document.body.requestFullscreen()
     })
 </script>
