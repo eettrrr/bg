@@ -2,14 +2,15 @@
 <html lang="ko">
 
 <body id="body" style="height:100vw; width:100vw; background-color:green; border:0px; padding:0px; margin:0px">
-    <button id="btnLOAD" style="height:10vh; width:10vw;" onclick="funcFull()">클aa릭</button>
+    <button id="btnLOAD" style="position: absolute;  height:10vh; width:10vw; left:0vw; top:0vh" onclick="funcFull()">클aa릭</button>
+    <button id="btnLOAD" style="position: absolute; height:10vh; width:10vw; right:0vw; bottom:0vh" onclick="funcFull()">클aa릭</button>
 </body>
 
 <script>
     var pageHeight = document.documentElement.clientHeight
     var pageWidth = document.documentElement.clientWidth
 
-    document.getElementById("btnLOAD").innerHTML = "b" + document.documentElement.clientHeight + "," + document.documentElement.clientWidth
+    document.getElementById("btnLOAD").innerHTML = "c" + document.documentElement.clientHeight + "," + document.documentElement.clientWidth
 
     function funcFull() {
         document.body.requestFullscreen()
