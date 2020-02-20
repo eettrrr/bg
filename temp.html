@@ -11,9 +11,17 @@
     var pageWidth = document.documentElement.clientWidth
 
     document.getElementById("btnLOAD").innerHTML = "c" + document.documentElement.clientHeight + "," + document.documentElement.clientWidth
+    var full = false
 
     function funcFull() {
-        document.body.requestFullscreen()
+        if (full == false) {
+            document.body.requestFullscreen()
+            full = true
+        } else {
+            full = false
+            document.exitFullscreen()
+        }
+
 
     }
 
