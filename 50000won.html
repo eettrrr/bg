@@ -31,16 +31,20 @@
 
 <body id="body">
     <div id="userInput" class="bgdiv">
-        <input type="text" id="txtBoxInput" value="3a,2b,c"></input><br><br>
+        <input type="text" id="txtBoxInput" value="3a,frac{5}{2}b,frac{3}{5}c"></input><br><br>
         <input type="checkbox" id="chckBoxzero">=0붙이기</input>
         <input type="checkbox" id="chckBoxsign">부호변경</input>
         <input type="checkbox" id="chckBoxOr">5만원짜리알바</input>
+        <input type="checkbox" id="chckBoxFrac">분수</input>
         <button onclick="funcProcess();">확인</button>
     </div>
     <div id="resultOutput">
     </div>
 
     <script>
+
+        let numOfEq=0
+        let arrEqs=new Array()
         document.getElementById("txtBoxInput").style.width = 0.8 * document.documentElement.clientWidth + "px"
 
         function getNextPermu(arr) {
@@ -76,27 +80,35 @@
         var result = ""
 
         function printFormula(variables, arr) {
+            arrEqs[numOfEq]=new Array()
+            let arrIdx = 0
             for (let idx2 = 0; idx2 < variables.length; idx2++) {
                 if (idx2 > 0) {
                     if (variables[arr[idx2]][0] != '+' && variables[arr[idx2]][0] != '-') {
-                        result += '+'
+                        arrEqs[numOfEq][arrIdx++]= '+'
                     }
-                    result += (variables[arr[idx2]])
+                    arrEqs[numOfEq][arrIdx++] = (variables[arr[idx2]])
                 } else {
                     if (variables[arr[idx2]][0] == '+') {
-                        result += variables[arr[idx2]].substring(1)
+                        arrEqs[numOfEq][arrIdx++]=variables[arr[idx2]].substring(1)
                     } else {
-                        result += (variables[arr[idx2]])
+                        arrEqs[numOfEq][arrIdx++] = (variables[arr[idx2]])
                     }
                 }
 
             }
+            numOfEq++
         }
 
         function funcProcess() {
             var isZero = document.getElementById("chckBoxzero").checked
             var isSign = document.getElementById("chckBoxsign").checked
             var isOr = document.getElementById("chckBoxOr").checked
+            var isFrac = document.getElementById("chckBoxFrac").checked
+
+            //isFrac=true
+            numOfEq=0
+            //isSign=true
 
             var strInput = document.getElementById("txtBoxInput").value
             if (strInput == null || strInput.length == 0 || strInput == "") {
@@ -117,35 +129,11 @@
             console.log(getFact(arr.length))
 
             result = ""
+            arrEqs=new Array()
 
             for (let idx = 0; idx < getFact(arr.length); idx++) {
-                result += "<br>"
-                if (isOr == true) {
-                    if (idx == 1) {
-                        result += "("
-                    }
-                    if (idx >= 1) {
-                        result += "또는 "
-                    }
-                }
 
                 printFormula(variables, arr)
-                if (isZero) {
-                    result += "=0"
-                }
-                if (isOr == true) {
-                    if (idx == getFact(arr.length) - 1) {
-                        if (isSign == false) {
-                            result += ")"
-                        } else {
-                            result += ","
-                        }
-                    } else if (idx >= 1) {
-                        result += ","
-                    }
-
-
-                }
                 getNextPermu(arr)
             }
 
@@ -162,34 +150,118 @@
                     } else {
                         variables[idx] = "-" + variables[idx]
                     }
-
-
                 }
 
                 for (let idx = 0; idx < getFact(arr.length); idx++) {
-                    result += "<br>"
-                    if (isOr == true) {
-                        result += "또는 "
-                    }
                     printFormula(variables, arr)
-                    if (isZero) {
-                        result += "=0"
-                    }
-                    if (isOr == true) {
-                        if (idx == getFact(arr.length) - 1) {
-                            result += ")"
-
-                        } else if (idx >= 1) {
-                            result += ","
-                        }
-
-
-                    }
                     getNextPermu(arr)
                 }
 
             }
-            console.log(result)
+
+            let arrFracDone = new Array()
+
+            if (isFrac) {
+                for (let idx = 0; idx < arrEqs.length; idx++) {
+                    for (let idx2 = 0; idx2 < arrEqs[idx].length; idx2++) {
+                        if (
+                         (arrEqs[idx][idx2].search("frac") == 0 ||
+                            (arrEqs[idx][idx2].search("frac") == 1 && arrEqs[idx][idx2][0] == "-") ||
+                            (arrEqs[idx][idx2].search("frac") == 1 && arrEqs[idx][idx2][0] == "+"))
+                        ) {
+                            let strEq = arrEqs[idx][idx2]
+
+                            let numerator = Number(strEq.substr(strEq.indexOf('{') + 1, strEq.indexOf('}') - strEq.indexOf('{') - 1))
+                            let denominator = Number(Number(strEq.substr(strEq.lastIndexOf('{') + 1, strEq.lastIndexOf('}') - strEq.lastIndexOf('{') - 1)))
+
+                            let insertedLoc = arrEqs.length
+                            arrEqs[insertedLoc] = new Array()
+                            arrFracDone[insertedLoc] = idx
+                            for (let idx3 = 0; idx3 < arrEqs[idx].length; idx3++) {
+                                if (idx2 != idx3) {
+                                    arrEqs[insertedLoc][idx3] = arrEqs[idx][idx3]
+                                }
+                                else {
+                                    arrEqs[insertedLoc][idx3] = ""
+                                    if (arrEqs[idx][idx2][0] == "-") {
+                                        arrEqs[insertedLoc][idx3] = "-"
+                                    }
+                                    let tempVal = numerator / denominator
+                                    arrEqs[insertedLoc][idx3] += ((Math.round(tempVal * 10000) / 10000) +strEq.substr(strEq.lastIndexOf("}")+1))
+                                }
+                            }
+                            if (numerator >= denominator) {
+                                insertedLoc = arrEqs.length
+                                arrFracDone[insertedLoc] = idx
+                                arrEqs[insertedLoc] = new Array()
+                                for (let idx3 = 0; idx3 < arrEqs[idx].length; idx3++) {
+                                    if (idx2 != idx3) {
+                                        arrEqs[insertedLoc][idx3] = arrEqs[idx][idx3]
+                                    }
+                                    else {
+                                        arrEqs[insertedLoc][idx3] = ""
+                                        if (arrEqs[idx][idx2][0] == "-") {
+                                            arrEqs[insertedLoc][idx3] = "-"
+                                        }
+                                        let tempVal = Math.floor(numerator / denominator)
+                                        arrEqs[insertedLoc][idx3] += (tempVal + "frac{" + (numerator % denominator) + "}{" + denominator + "}"+strEq.substr(strEq.lastIndexOf("}")+1))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            let arrLast = new Array()
+            for (let idx = 0; idx < arrEqs.length; idx++) {
+                arrLast[idx]=""
+                for (let idx2 = 0; idx2 < arrEqs[idx].length; idx2++) {
+                    arrLast[idx]+=arrEqs[idx][idx2]                    
+                }
+                let redundant=false
+                for (let idx2 = 0; idx2 < idx; idx2++) {
+                    if (arrLast[idx]==arrLast[idx2])
+                    {
+                        redundant=true
+                        break
+                        
+                    }
+                }
+                if (redundant==true)
+                {
+                    continue
+                }
+                result += arrLast[idx]
+                
+                if (isZero==true)
+                {
+                    result+="=0"
+                }
+                
+                if (idx<arrEqs.length-1)
+                {
+                    if (isOr==true)
+                    {
+                        result+=","
+                    }
+                    result+="<br>"
+                }
+                if (isOr==true)
+                {
+                    if (idx==0)
+                    {
+                        result+='('
+                    }
+                    if (idx<arrEqs.length-1){
+                        result+="또는 "
+                    }
+                }
+            }
+            if (isOr==true)
+            {
+                result+=')'
+            }
+
 
             document.getElementById("resultOutput").innerHTML = result
 
