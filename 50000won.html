@@ -42,9 +42,8 @@
     </div>
 
     <script>
-
-        let numOfEq=0
-        let arrEqs=new Array()
+        let numOfEq = 0
+        let arrEqs = new Array()
         document.getElementById("txtBoxInput").style.width = 0.8 * document.documentElement.clientWidth + "px"
 
         function getNextPermu(arr) {
@@ -80,17 +79,17 @@
         var result = ""
 
         function printFormula(variables, arr) {
-            arrEqs[numOfEq]=new Array()
+            arrEqs[numOfEq] = new Array()
             let arrIdx = 0
             for (let idx2 = 0; idx2 < variables.length; idx2++) {
                 if (idx2 > 0) {
                     if (variables[arr[idx2]][0] != '+' && variables[arr[idx2]][0] != '-') {
-                        arrEqs[numOfEq][arrIdx++]= '+'
+                        arrEqs[numOfEq][arrIdx++] = '+'
                     }
                     arrEqs[numOfEq][arrIdx++] = (variables[arr[idx2]])
                 } else {
                     if (variables[arr[idx2]][0] == '+') {
-                        arrEqs[numOfEq][arrIdx++]=variables[arr[idx2]].substring(1)
+                        arrEqs[numOfEq][arrIdx++] = variables[arr[idx2]].substring(1)
                     } else {
                         arrEqs[numOfEq][arrIdx++] = (variables[arr[idx2]])
                     }
@@ -107,8 +106,8 @@
             var isFrac = document.getElementById("chckBoxFrac").checked
 
             //isFrac=true
-            numOfEq=0
-            //isSign=true
+            numOfEq = 0
+                //isSign=true
 
             var strInput = document.getElementById("txtBoxInput").value
             if (strInput == null || strInput.length == 0 || strInput == "") {
@@ -129,7 +128,7 @@
             console.log(getFact(arr.length))
 
             result = ""
-            arrEqs=new Array()
+            arrEqs = new Array()
 
             for (let idx = 0; idx < getFact(arr.length); idx++) {
 
@@ -165,31 +164,37 @@
                 for (let idx = 0; idx < arrEqs.length; idx++) {
                     for (let idx2 = 0; idx2 < arrEqs[idx].length; idx2++) {
                         if (
-                         (arrEqs[idx][idx2].search("frac") == 0 ||
-                            (arrEqs[idx][idx2].search("frac") == 1 && arrEqs[idx][idx2][0] == "-") ||
-                            (arrEqs[idx][idx2].search("frac") == 1 && arrEqs[idx][idx2][0] == "+"))
+                            (arrEqs[idx][idx2].search("frac") == 0 ||
+                                (arrEqs[idx][idx2].search("frac") == 1 && arrEqs[idx][idx2][0] == "-") ||
+                                (arrEqs[idx][idx2].search("frac") == 1 && arrEqs[idx][idx2][0] == "+"))
                         ) {
                             let strEq = arrEqs[idx][idx2]
 
                             let numerator = Number(strEq.substr(strEq.indexOf('{') + 1, strEq.indexOf('}') - strEq.indexOf('{') - 1))
                             let denominator = Number(Number(strEq.substr(strEq.lastIndexOf('{') + 1, strEq.lastIndexOf('}') - strEq.lastIndexOf('{') - 1)))
 
-                            let insertedLoc = arrEqs.length
-                            arrEqs[insertedLoc] = new Array()
-                            arrFracDone[insertedLoc] = idx
-                            for (let idx3 = 0; idx3 < arrEqs[idx].length; idx3++) {
-                                if (idx2 != idx3) {
-                                    arrEqs[insertedLoc][idx3] = arrEqs[idx][idx3]
-                                }
-                                else {
-                                    arrEqs[insertedLoc][idx3] = ""
-                                    if (arrEqs[idx][idx2][0] == "-") {
-                                        arrEqs[insertedLoc][idx3] = "-"
+                            if (Math.floor(1000000 * numerator / denominator) == 1000000 * numerator / denominator) {
+                                let insertedLoc = arrEqs.length
+                                arrEqs[insertedLoc] = new Array()
+                                arrFracDone[insertedLoc] = idx
+                                for (let idx3 = 0; idx3 < arrEqs[idx].length; idx3++) {
+                                    if (idx2 != idx3) {
+                                        arrEqs[insertedLoc][idx3] = arrEqs[idx][idx3]
+                                    } else {
+                                        arrEqs[insertedLoc][idx3] = ""
+                                        if (arrEqs[idx][idx2][0] == "-") {
+                                            arrEqs[insertedLoc][idx3] = "-"
+                                        }
+                                        let tempVal = numerator / denominator
+                                        arrEqs[insertedLoc][idx3] += (tempVal + strEq.substr(strEq.lastIndexOf("}") + 1))
+                                            //arrEqs[insertedLoc][idx3] += ((Math.round(tempVal * 10000) / 10000) + strEq.substr(strEq.lastIndexOf("}") + 1))
+
                                     }
-                                    let tempVal = numerator / denominator
-                                    arrEqs[insertedLoc][idx3] += ((Math.round(tempVal * 10000) / 10000) +strEq.substr(strEq.lastIndexOf("}")+1))
                                 }
+
+
                             }
+
                             if (numerator >= denominator) {
                                 insertedLoc = arrEqs.length
                                 arrFracDone[insertedLoc] = idx
@@ -197,14 +202,13 @@
                                 for (let idx3 = 0; idx3 < arrEqs[idx].length; idx3++) {
                                     if (idx2 != idx3) {
                                         arrEqs[insertedLoc][idx3] = arrEqs[idx][idx3]
-                                    }
-                                    else {
+                                    } else {
                                         arrEqs[insertedLoc][idx3] = ""
                                         if (arrEqs[idx][idx2][0] == "-") {
                                             arrEqs[insertedLoc][idx3] = "-"
                                         }
                                         let tempVal = Math.floor(numerator / denominator)
-                                        arrEqs[insertedLoc][idx3] += (tempVal + "frac{" + (numerator % denominator) + "}{" + denominator + "}"+strEq.substr(strEq.lastIndexOf("}")+1))
+                                        arrEqs[insertedLoc][idx3] += (tempVal + "frac{" + (numerator % denominator) + "}{" + denominator + "}" + strEq.substr(strEq.lastIndexOf("}") + 1))
                                     }
                                 }
                             }
@@ -214,52 +218,44 @@
             }
             let arrLast = new Array()
             for (let idx = 0; idx < arrEqs.length; idx++) {
-                arrLast[idx]=""
+                arrLast[idx] = ""
                 for (let idx2 = 0; idx2 < arrEqs[idx].length; idx2++) {
-                    arrLast[idx]+=arrEqs[idx][idx2]                    
+                    arrLast[idx] += arrEqs[idx][idx2]
                 }
-                let redundant=false
+                let redundant = false
                 for (let idx2 = 0; idx2 < idx; idx2++) {
-                    if (arrLast[idx]==arrLast[idx2])
-                    {
-                        redundant=true
+                    if (arrLast[idx] == arrLast[idx2]) {
+                        redundant = true
                         break
-                        
+
                     }
                 }
-                if (redundant==true)
-                {
+                if (redundant == true) {
                     continue
                 }
                 result += arrLast[idx]
-                
-                if (isZero==true)
-                {
-                    result+="=0"
+
+                if (isZero == true) {
+                    result += "=0"
                 }
-                
-                if (idx<arrEqs.length-1)
-                {
-                    if (isOr==true)
-                    {
-                        result+=","
+
+                if (idx < arrEqs.length - 1) {
+                    if (isOr == true) {
+                        result += ","
                     }
-                    result+="<br>"
+                    result += "<br>"
                 }
-                if (isOr==true)
-                {
-                    if (idx==0)
-                    {
-                        result+='('
+                if (isOr == true) {
+                    if (idx == 0) {
+                        result += '('
                     }
-                    if (idx<arrEqs.length-1){
-                        result+="또는 "
+                    if (idx < arrEqs.length - 1) {
+                        result += "또는 "
                     }
                 }
             }
-            if (isOr==true)
-            {
-                result+=')'
+            if (isOr == true) {
+                result += ')'
             }
 
 
